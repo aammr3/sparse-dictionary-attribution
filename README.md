@@ -71,6 +71,11 @@ Each `expN/` contains a `*_source.py`, a generated `*_kaggle.ipynb`, and the
 notebook generator. The notebooks are self-contained: they download the model
 and datasets, train, evaluate, and print their own verdict.
 
+`exp0/exp0_source.py` and its notebook carry Arabic comments; every later
+experiment is in English. This is deliberate and left as-is: that file is the
+version that actually produced `logs.txt`, and translating it now would break
+the correspondence between the published source and the log it generated.
+
 ---
 
 ## Reproducing
