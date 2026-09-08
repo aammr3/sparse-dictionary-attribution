@@ -62,7 +62,7 @@ exp5c/   dual-alignment LM-head baselines + confound gate
 exp9/    four-arm control taxonomy
 
 logs*.txt  29 raw Kaggle run logs, unedited (at repository root)
-paper/   paper sources (markdown), references, built PDF
+paper/   paper sources (markdown), references (prose + BibTeX), built PDF
 research-log.ar.md   full research log — 79 numbered events, in Arabic (the original)
 research-log.en.md   English translation of the research log
 ```

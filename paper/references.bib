@@ -1,0 +1,235 @@
+% References for "Attributing Steering Effects to Specific Dictionary Slots"
+% Amr Elsaeed. https://github.com/aammr3/sparse-dictionary-attribution
+%
+% Keys are numbered to match the bracketed numbers used in the paper text and
+% in 10-references.md: ref01 = [1], ref02 = [2], and so on.
+%
+% Venues were checked against the arXiv abstract page, the ACL Anthology and
+% PMLR on 8 September 2026. Entries marked "Preprint" had no venue recorded at
+% that date and should be re-checked before submission.
+%
+% Page ranges are given only where they were verified against the publisher's
+% own record. Where a venue does not paginate (ICLR/OpenReview) or the page
+% range was not confirmed, the field is omitted rather than guessed.
+
+% ---------------------------------------------------------------- preprints
+
+@misc{ref01,
+  author        = {Korznikov, Anton and Galichin, Andrey and Dontsov, Alexey and
+                   Rogov, Oleg and Oseledets, Ivan and Tutubalina, Elena},
+  title         = {Sanity Checks for Sparse Autoencoders: Do {SAEs} Beat Random
+                   Baselines?},
+  year          = {2026},
+  eprint        = {2602.14111},
+  archivePrefix = {arXiv},
+  note          = {Preprint, 15 February 2026},
+}
+
+@misc{ref02,
+  author        = {Chanin, David},
+  title         = {Are Sparse Autoencoder Benchmarks Reliable?},
+  year          = {2026},
+  eprint        = {2605.18229},
+  archivePrefix = {arXiv},
+  note          = {Preprint, 18 May 2026},
+}
+
+@misc{ref03,
+  author        = {Heap, Thomas and Lawson, Tim and Farnik, Lucy and
+                   Aitchison, Laurence},
+  title         = {Automated Interpretability Metrics Do Not Distinguish Trained
+                   and Random Transformers},
+  year          = {2025},
+  eprint        = {2501.17727},
+  archivePrefix = {arXiv},
+  note          = {Preprint, 29 January 2025; v2, 27 January 2026},
+}
+
+@misc{ref08,
+  author        = {Bal, Mohamed Abdessalem},
+  title         = {From Geometric Recovery to Causal Validation: A Reproducible
+                   Audit of Sparse Autoencoder Features, from Superposition
+                   Geometry to Causal Inertness},
+  year          = {2026},
+  eprint        = {2607.12166},
+  archivePrefix = {arXiv},
+  note          = {Preprint, 13 July 2026},
+}
+
+@misc{ref09,
+  author        = {Riegler, Michael A. and Torpmann-Hagen, Birk Sebastian Frostelid},
+  title         = {Steering Grids for Sparse-Autoencoder Features: When a
+                   Top-Context Label Names an Activation Regime Rather Than a
+                   Causal Axis},
+  year          = {2026},
+  eprint        = {2605.03160},
+  archivePrefix = {arXiv},
+  note          = {Preprint, 4 May 2026; v2, 25 July 2026. Circulated in v1 as
+                   ``Pairwise Matrices for Sparse Autoencoders: Single-Feature
+                   Inspection Mislabels Causal Axes''},
+}
+
+@misc{ref10,
+  author        = {Luo, Daming and Liang, Christy and Xuan, Junyu},
+  title         = {{SteerCheck}: Attribution Specificity and Alignment Leakage in
+                   Activation-Steering Audits},
+  year          = {2026},
+  eprint        = {2608.24335},
+  archivePrefix = {arXiv},
+  note          = {Preprint, 25 August 2026},
+}
+
+@misc{ref13,
+  author        = {Birardi, Giuseppe and Paulo, Gon{\c c}alo},
+  title         = {Automated Attribution Graph Interpretation via Probe Prompting},
+  year          = {2025},
+  eprint        = {2511.07002},
+  archivePrefix = {arXiv},
+  note          = {Preprint, 10 November 2025; v2, 5 June 2026},
+}
+
+% ---------------------------------------------------------------- published
+
+@inproceedings{ref04,
+  author        = {Ferrando, Javier and Obeso, Oscar and
+                   Rajamanoharan, Senthooran and Nanda, Neel},
+  title         = {Do {I} Know This Entity? Knowledge Awareness and
+                   Hallucinations in Language Models},
+  booktitle     = {The Thirteenth International Conference on Learning
+                   Representations (ICLR)},
+  year          = {2025},
+  eprint        = {2411.14257},
+  archivePrefix = {arXiv},
+}
+
+@inproceedings{ref05,
+  author        = {Li, Kenneth and Patel, Oam and Vi{\'e}gas, Fernanda and
+                   Pfister, Hanspeter and Wattenberg, Martin},
+  title         = {Inference-Time Intervention: Eliciting Truthful Answers from a
+                   Language Model},
+  booktitle     = {Advances in Neural Information Processing Systems},
+  volume        = {36},
+  publisher     = {Curran Associates, Inc.},
+  year          = {2023},
+  doi           = {10.52202/075280-1797},
+  eprint        = {2306.03341},
+  archivePrefix = {arXiv},
+  note          = {NeurIPS 2023, spotlight},
+}
+
+@inproceedings{ref06,
+  author        = {Huang, Jing and Wu, Zhengxuan and Potts, Christopher and
+                   Geva, Mor and Geiger, Atticus},
+  title         = {{RAVEL}: Evaluating Interpretability Methods on Disentangling
+                   Language Model Representations},
+  booktitle     = {Proceedings of the 62nd Annual Meeting of the Association for
+                   Computational Linguistics (Volume 1: Long Papers)},
+  pages         = {8669--8687},
+  address       = {Bangkok, Thailand},
+  publisher     = {Association for Computational Linguistics},
+  year          = {2024},
+  url           = {https://aclanthology.org/2024.acl-long.470/},
+  eprint        = {2402.17700},
+  archivePrefix = {arXiv},
+}
+
+@inproceedings{ref07,
+  author        = {Karvonen, Adam and Rager, Can and Lin, Johnny and
+                   Tigges, Curt and Bloom, Joseph Isaac and Chanin, David and
+                   Lau, Yeu-Tong and Farrell, Eoin and
+                   McDougall, Callum Stuart and Ayonrinde, Kola and
+                   Till, Demian and Wearden, Matthew and Conmy, Arthur and
+                   Marks, Samuel and Nanda, Neel},
+  title         = {{SAEBench}: A Comprehensive Benchmark for Sparse Autoencoders
+                   in Language Model Interpretability},
+  booktitle     = {Proceedings of the 42nd International Conference on Machine
+                   Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {267},
+  pages         = {29223--29264},
+  publisher     = {PMLR},
+  year          = {2025},
+  url           = {https://proceedings.mlr.press/v267/karvonen25a.html},
+  eprint        = {2503.09532},
+  archivePrefix = {arXiv},
+}
+
+@inproceedings{ref11,
+  author        = {Arad, Dana and Mueller, Aaron and Belinkov, Yonatan},
+  title         = {{SAEs} Are Good for Steering --- If You Select the Right
+                   Features},
+  booktitle     = {Proceedings of the 2025 Conference on Empirical Methods in
+                   Natural Language Processing},
+  pages         = {10241--10259},
+  address       = {Suzhou, China},
+  publisher     = {Association for Computational Linguistics},
+  month         = nov,
+  year          = {2025},
+  doi           = {10.18653/v1/2025.emnlp-main.519},
+  url           = {https://aclanthology.org/2025.emnlp-main.519/},
+  eprint        = {2505.20063},
+  archivePrefix = {arXiv},
+}
+
+@inproceedings{ref12,
+  author        = {Goyal, Navita and Daum{\'e} III, Hal},
+  title         = {Steering Safely or Off a Cliff? Rethinking Specificity and
+                   Robustness in Inference-Time Interventions},
+  booktitle     = {Proceedings of the 19th Conference of the European Chapter of
+                   the Association for Computational Linguistics (Volume 1: Long
+                   Papers)},
+  pages         = {5723--5738},
+  address       = {Rabat, Morocco},
+  publisher     = {Association for Computational Linguistics},
+  month         = mar,
+  year          = {2026},
+  doi           = {10.18653/v1/2026.eacl-long.268},
+  url           = {https://aclanthology.org/2026.eacl-long.268/},
+  eprint        = {2602.06256},
+  archivePrefix = {arXiv},
+}
+
+@inproceedings{ref14,
+  author        = {Biderman, Stella and Schoelkopf, Hailey and
+                   Anthony, Quentin Gregory and Bradley, Herbie and
+                   O'Brien, Kyle and Hallahan, Eric and Khan, Mohammad Aflah and
+                   Purohit, Shivanshu and Prashanth, USVSN Sai and Raff, Edward
+                   and Skowron, Aviya and Sutawika, Lintang and
+                   van der Wal, Oskar},
+  title         = {Pythia: A Suite for Analyzing Large Language Models Across
+                   Training and Scaling},
+  booktitle     = {Proceedings of the 40th International Conference on Machine
+                   Learning},
+  series        = {Proceedings of Machine Learning Research},
+  volume        = {202},
+  pages         = {2397--2430},
+  publisher     = {PMLR},
+  year          = {2023},
+  url           = {https://proceedings.mlr.press/v202/biderman23a.html},
+  eprint        = {2304.01373},
+  archivePrefix = {arXiv},
+}
+
+% ---------------------------------------------------------------- datasets
+
+@misc{data-pubmedqa,
+  title  = {{PubMedQA}},
+  note   = {HuggingFace dataset \texttt{qiaojin/PubMedQA}, configuration
+            \texttt{pqa\_artificial}},
+}
+
+@misc{data-billsum,
+  title  = {{BillSum}},
+  note   = {HuggingFace dataset \texttt{FiscalNote/billsum}},
+}
+
+@misc{data-codeparrot,
+  title  = {{CodeParrot}},
+  note   = {HuggingFace dataset \texttt{codeparrot/codeparrot-clean-valid}},
+}
+
+@misc{data-gutenberg,
+  title  = {Project Gutenberg},
+  note   = {HuggingFace dataset \texttt{manu/project\_gutenberg}, split
+            \texttt{en}},
+}

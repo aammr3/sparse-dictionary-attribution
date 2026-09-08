@@ -18,7 +18,7 @@ arXiv:2501.17727, 29 January 2025.
 
 **[4]** Ferrando, J., Obeso, O., Rajamanoharan, S., and Nanda, N. *Do I Know
 This Entity? Knowledge Awareness and Hallucinations in Language Models.*
-arXiv:2411.14257, 21 November 2024.
+arXiv:2411.14257, 21 November 2024. ICLR 2025.
 
 **[5]** Li, K., Patel, O., Viégas, F., Pfister, H., and Wattenberg, M.
 *Inference-Time Intervention: Eliciting Truthful Answers from a Language Model.*
