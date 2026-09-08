@@ -21,7 +21,7 @@ The experiment is designed to run in a single session (expected time: **15 to 25
    - From the sidebar or the home page, click **`+ Create`** then choose **`New Notebook`**.
 2. **Upload the experiment code:**
    - From the notebook's top menu choose **`File`** -> **`Import Notebook`** (or `Upload Notebook`).
-   - Upload the [`exp3_kaggle.ipynb`]() file directly (or paste the [`exp3_source.py`]() code into the notebook's cells).
+   - Upload the [`exp3_kaggle.ipynb`](exp3_kaggle.ipynb) file directly (or paste the [`exp3_source.py`](exp3_source.py) code into the notebook's cells).
 3. **Configure the settings (Settings panel in the right sidebar):**
    - **Accelerator:** choose **`GPU T4 x2`** exclusively ⚠️ *(important: the `sm_60` (P100) architecture is unsupported in the PyTorch version used at the time these experiments were run — August 2026; use T4 x2)*.
    - **Internet:** set it to **`On`** ⚡ *(mandatory for downloading the `EleutherAI/pythia-160m` weights and the four datasets from HuggingFace, and for installing the libraries)*.

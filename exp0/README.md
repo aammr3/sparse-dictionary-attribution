@@ -20,7 +20,7 @@ The experiment is designed to run in a single session (expected time: **50 to 80
    - From the sidebar or the home page, click **`+ Create`** then choose **`New Notebook`**.
 2. **Upload the experiment code:**
    - From the notebook's top menu choose **`File`** -> **`Import Notebook`** (or `Upload Notebook`).
-   - Upload the [`exp0_kaggle.ipynb`]() file directly (or paste the [`exp0_source.py`]() code into the notebook's cells).
+   - Upload the [`exp0_kaggle.ipynb`](exp0_kaggle.ipynb) file directly (or paste the [`exp0_source.py`](exp0_source.py) code into the notebook's cells).
 3. **Configure the settings (Settings panel in the right sidebar):**
    - **Accelerator:** choose **`GPU T4 x2`** **exclusively** (do not use `GPU P100`: the `sm_60` architecture is unsupported in the PyTorch version used at the time these experiments were run — August 2026).
    - **Internet:** set it to **`On`** ⚡ *(mandatory for downloading the dataset from HuggingFace and training the tokenizer)*.
