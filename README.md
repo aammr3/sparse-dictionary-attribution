@@ -146,7 +146,8 @@ looked like in practice.
   title  = {Attributing Steering Effects to Specific Dictionary Slots},
   author = {Elsaeed, Amr},
   year   = {2026},
-  note   = {Preprint}
+  note   = {Preprint},
+  url    = {https://github.com/aammr3/sparse-dictionary-attribution}
 }
 ```
 
