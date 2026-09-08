@@ -2,7 +2,7 @@
 
 # Internal AI-executor transcripts and task prompts.
 # Excluded: they name specific commercial models and contain raw tool
-# invocations. The methodology they document is in التقرير.md instead.
+# invocations. The methodology they document is in research-log.ar.md instead.
 .review/
 
 # Local tool configuration.

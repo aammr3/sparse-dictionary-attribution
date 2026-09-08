@@ -1,79 +1,79 @@
-# دليل تشغيل تجربة صفر (Exp0) على Kaggle 🚀
+# Running Experiment Zero (Exp0) on Kaggle 🚀
 
-دليل عملي وسريع لتشغيل تجربة التحقق الأساسية لفهرس المفاهيم المدمج (Concept Registry) على منصة Kaggle مجانًا خطوة بخطوة.
-
----
-
-## 1. الهدف من التجربة (في سطرين)
-
-بنختبر هل طبقة الفهرس المتفرق (Sparse Concept Registry) المدمجة جوه Transformer صغير (~10M باراميتر) هتقدر تفرز وتخصص خاناتها تلقائيًا بين دومينين متباعدين (كود Python مقابل نصوص Wikipedia) **بدون أي إشراف مسبق**.
-لو خانات الفهرس طلعت أنقى بوضوح من أبعاد التمثيل الخام، يبقى إثبات المفهوم نجح ونقدر نبني باقي المعمارية بثقة؛ لو محصلش، يبقى الفكرة محتاجة مراجعة من الأساس.
+A quick, practical, step-by-step guide to running the core validation experiment for the built-in Concept Registry on Kaggle for free.
 
 ---
 
-## 2. خطوات التشغيل على Kaggle بالتفصيل
+## 1. The goal of the experiment (in two lines)
 
-التجربة مصممة للتشغيل في جلسة واحدة (الوقت المتوقع: **50 إلى 80 دقيقة**) على كروت Kaggle المجانية.
-
-1. **إنشاء النوت بوك:**
-   - ادخل على حسابك في [Kaggle](https://www.kaggle.com).
-   - من القائمة الجانبية أو الصفحة الرئيسية، اضغط **`+ Create`** ثم اختار **`New Notebook`**.
-2. **رفع كود التجربة:**
-   - من القائمة العلوية للنوت بوك اختار **`File`** -> **`Import Notebook`** (أو `Upload Notebook`).
-   - ارفع ملف [`exp0_kaggle.ipynb`]() مباشرة (أو انسخ كود [`exp0_source.py`]() داخل خلايا النوت بوك).
-3. **ضبط الإعدادات (Settings Panel من الشريط الجانبي الأيمن):**
-   - **Accelerator:** اختار **`GPU T4 x2`** **حصريًا** (لا تستخدم `GPU P100`: معمارية `sm_60` غير مدعومة في نسخة PyTorch المستخدمة وقت إجراء هذه التجارب — أغسطس 2026).
-   - **Internet:** فعّل الخيار ليكون **`On`** ⚡ *(إجباري لتحميل الداتاست من HuggingFace وتدريب التوكنايزر)*.
-   - **Persistence:** اتركه الافتراضي (`No persistence`).
-4. **بدء التدريب:**
-   - اضغط **`Run All`** من شريط الأدوات العلوي، أو اضغط **`Save Version`** ثم اختار **`Run & Save All (Commit)`** لتشغيل النوت بوك بالكامل في الخلفية حتى لو قفلت المتصفح.
-   - تابع طباعة الخطوات للتأكد من نزول الـ Loss وتدرج قيمة `alpha` وانخفاض نسبة الخانات الميتة.
+We test whether a Sparse Concept Registry layer embedded inside a small Transformer (~10M parameters) can sort and specialize its slots automatically between two distant domains (Python code vs Wikipedia text) **without any prior supervision**.
+If the registry's slots come out clearly purer than the raw representation dimensions, the proof of concept has succeeded and we can build the rest of the architecture with confidence; if not, the idea needs revisiting from the ground up.
 
 ---
 
-## 3. المخرجات المتوقعة في `/kaggle/working`
+## 2. Running it on Kaggle, in detail
 
-الملفات دي بتتحفظ تلقائيًا في مسار العمل بنهاية التشغيل:
+The experiment is designed to run in a single session (expected time: **50 to 80 minutes**) on Kaggle's free GPUs.
 
-| اسم الملف | نوعه | الفائدة ودوره في التجربة |
+1. **Create the notebook:**
+   - Sign in to your [Kaggle](https://www.kaggle.com) account.
+   - From the sidebar or the home page, click **`+ Create`** then choose **`New Notebook`**.
+2. **Upload the experiment code:**
+   - From the notebook's top menu choose **`File`** -> **`Import Notebook`** (or `Upload Notebook`).
+   - Upload the [`exp0_kaggle.ipynb`]() file directly (or paste the [`exp0_source.py`]() code into the notebook's cells).
+3. **Configure the settings (Settings panel in the right sidebar):**
+   - **Accelerator:** choose **`GPU T4 x2`** **exclusively** (do not use `GPU P100`: the `sm_60` architecture is unsupported in the PyTorch version used at the time these experiments were run — August 2026).
+   - **Internet:** set it to **`On`** ⚡ *(mandatory for downloading the dataset from HuggingFace and training the tokenizer)*.
+   - **Persistence:** leave it at the default (`No persistence`).
+4. **Start training:**
+   - Click **`Run All`** in the top toolbar, or click **`Save Version`** and choose **`Run & Save All (Commit)`** to run the whole notebook in the background even if you close the browser.
+   - Watch the printed steps to confirm the loss is falling, `alpha` is ramping up, and the dead-slot fraction is dropping.
+
+---
+
+## 3. Expected outputs in `/kaggle/working`
+
+These files are saved automatically in the working directory at the end of the run:
+
+| File name | Type | What it is and its role in the experiment |
 |---|---|---|
-| `tokenizer.json` | JSON | ملف الـ Tokenizer المدرب (Byte-level BPE, Vocab=8192) على خليط من نصوص الكود والويكي. |
-| `code.npy` | NumPy Binary | مصفوفة التوكنز المحولة لكود Python (15 مليون توكن uint16) لتسريع سحب الباتشات من الذاكرة مباشرة. |
-| `wiki.npy` | NumPy Binary | مصفوفة التوكنز المحولة لنصوص Wikipedia (15 مليون توكن uint16) لتسريع التدريب. |
-| `exp0_model.pt` | PyTorch Weights | أوزان الموديل الكامل بعد 6000 خطوة تدريب (الموديل الأساسي + طبقة الفهرس `ConceptRegistry`). |
-| `exp0_results.png` | صورة PNG | رسم بياني من 3 أشكال: (1) مسار LM Loss مع صعود `alpha`، (2) نسبة الخانات الميتة %، (3) هيستوجرام مقارنة توزيع النقاء بين الفهرس والأبعاد الخام. |
-| `exp0_summary.json` | JSON | التقرير النهائي الشامل: الحكم التلقائي (`verdict`)، متوسط النقاء، الفارق (`gap`)، نسبة الميت، وإعدادات الـ CFG. |
+| `tokenizer.json` | JSON | The trained tokenizer (Byte-level BPE, Vocab=8192) over a mixture of code and wiki text. |
+| `code.npy` | NumPy Binary | The tokenized Python code array (15 million uint16 tokens), for pulling batches straight from memory. |
+| `wiki.npy` | NumPy Binary | The tokenized Wikipedia text array (15 million uint16 tokens), to speed up training. |
+| `exp0_model.pt` | PyTorch Weights | The full model weights after 6000 training steps (the base model + the `ConceptRegistry` layer). |
+| `exp0_results.png` | PNG image | A 3-panel chart: (1) the LM loss trajectory against the `alpha` ramp, (2) the dead-slot percentage, (3) a histogram comparing the purity distribution of the registry against the raw dimensions. |
+| `exp0_summary.json` | JSON | The full final report: the automated `verdict`, the mean purity, the `gap`, the dead fraction, and the CFG settings. |
 
 ---
 
-## 4. لو حصل كذا... يبقى المشكلة كذا (استكشاف الأعطال)
+## 4. If this happens... then the problem is this (troubleshooting)
 
-| المشكلة أو رسالة الخطأ | السبب المحتمل | الحل السريع |
+| Problem or error message | Likely cause | Quick fix |
 |---|---|---|
-| `device: cpu` أو تحذير "مفيش GPU" | النوت بوك مضبوط على المعالج المركزي (CPU). | افتح Settings في الشريط الجانبي واختار `GPU T4 x2`. |
-| `ConnectionError` / فشل تحميل الداتاست | خاصية الاتصال بالإنترنت مغلقة في النوت بوك. | من Settings في الشريط الجانبي، تأكد إن **`Internet: On`** وأعد تشغيل الخلية. |
-| `CUDA out of memory` (OOM) | استهلاك زائد للرامات بسبب خلايا مكررة في الجلسة. | اضغط `Restart Session`. لو تكررت المشكلة، صغّر `batch_size` في الـ `CFG` من 48 إلى 32. |
-| نفاد حصة الـ GPU / انقطاع الجلسة | استهلاك الـ 30 ساعة الأسبوعية أو توقف الجلسة للخمول. | شغّل النوت بوك عبر `Save Version -> Run & Save (Commit)` لتفادي مشاكل انقطاع الاتصال بالمتصفح، أو بدّل لحساب كاجل بديل. |
-| بطء وتأخر في خطوة تجهيز البيانات | عملية HuggingFace Streaming للنصوص بتعتمد على سرعة السيرفرات. | طبيعي في أول 5–10 دقائق؛ بمجرد إنشاء وحفظ ملفات `.npy`، التدريب بيكمل بأقصى سرعة مباشرة من الديسك. |
+| `device: cpu` or a "no GPU" warning | The notebook is set to CPU. | Open Settings in the sidebar and choose `GPU T4 x2`. |
+| `ConnectionError` / the dataset fails to download | Internet access is disabled in the notebook. | In Settings in the sidebar, make sure **`Internet: On`** and re-run the cell. |
+| `CUDA out of memory` (OOM) | Excess memory use from repeated cells in the session. | Click `Restart Session`. If it recurs, reduce `batch_size` in the `CFG` from 48 to 32. |
+| GPU quota exhausted / the session drops | The 30 weekly hours are used up, or the session stopped for idleness. | Run the notebook via `Save Version -> Run & Save (Commit)` to avoid browser-disconnection problems, or switch to another Kaggle account. |
+| The data-preparation step is slow | HuggingFace text streaming depends on server speed. | Normal for the first 5–10 minutes; once the `.npy` files are created and saved, training proceeds at full speed straight from disk. |
 
 ---
 
-## 5. إزاي تقرأ نتيجة التجربة (`exp0_summary.json`)
+## 5. How to read the experiment's result (`exp0_summary.json`)
 
-في القسم الأخير من الكود، بيتم قياس نقاء كل خانة:
+In the final section of the code, each slot's purity is measured:
 $$\text{purity} = \frac{\max(\text{code\_acts}, \text{wiki\_acts})}{\text{code\_acts} + \text{wiki\_acts}}$$
-- **0.50**: عشوائي تمامًا (الخانة بتشتغل على المجالين بنفس النسبة).
-- **1.00**: تخصص نقي ومثالي لمجال واحد فقط.
+- **0.50**: completely random (the slot fires on both domains at the same rate).
+- **1.00**: pure, perfect specialization on a single domain.
 
-وبيتم حساب الفارق بين متوسط نقاء الفهرس ومتوسط نقاء أبعاد التمثيل الخام (بنفس الـ sparsity $k=16$):
+And the gap is computed between the registry's mean purity and the raw representation dimensions' mean purity (at the same sparsity $k=16$):
 $$\text{gap} = \text{mean\_purity}(\text{slots}) - \text{mean\_purity}(\text{raw\_dims})$$
 
-### عتبات النجاح والفشل المبرمجة فعليًا في الكود:
+### The success and failure thresholds actually programmed into the code:
 
 ```json
-// مثال لشكل ملف exp0_summary.json الناتج
+// An example of the resulting exp0_summary.json
 {
-  "verdict": "✅ نجحت — الخانات اتخصصت لوحدها، والفهرس أنقى من التمثيل الخام بفارق واضح.",
+  "verdict": "✅ pass — slots specialized on their own, and the registry is clearly purer than the raw embedding.",
   "slots": { "mean": 0.842, "median": 0.887, "live": 1014, "above_80": 0.792 },
   "raw_dims": { "mean": 0.618, "median": 0.605 },
   "gap": 0.224,
@@ -82,13 +82,13 @@ $$\text{gap} = \text{mean\_purity}(\text{slots}) - \text{mean\_purity}(\text{raw
 }
 ```
 
-| الحالة والرمز | الشروط الرقمية (من الكود) | المعنى العلمي والعملي | الخطوة التالية |
+| Status and symbol | The numeric conditions (from the code) | What it means scientifically and practically | Next step |
 |---|---|---|---|
-| **✅ نجحت** | `mean > 0.80`<br>و `gap > 0.10` | الخانات تخصصت لوحدها بنقاء مرتفع، والفهرس أنقى بوضوح من التمثيل الخام بفارق أكبر من 0.10. | كمّل مباشرة إلى **التجربة 1** (4 دومينات + قاموس كامل + نطاقات محجوزة بالاسم). |
-| **🟡 إشارة إيجابية ضعيفة** | `mean > 0.70`<br>و `gap > 0.05` | فيه تخصص وانفصال، لكنه مش حاسم وقاطع. | جرّب تعديل الهايبرباراميترز قبل الحكم: $k$ أقل (8)، أو خانات أكتر (2048)، أو تدريب أطول. |
-| **❌ فشلت** | أقل من الشروط أعلاه | الخانات لم تتخصص بشكل مفيد والفهرس لم يضف أي نقاء. | راجع الترتيب التشخيصي التالي:<br>1. هل نسبة الخانات الميتة `final_dead_frac` عالية؟<br>2. هل `alpha` اترفع بسرعة والموديل انهار؟<br>3. هل `recon_loss` عالي أوي؟<br>*(لو كلهم سليمين، الفكرة محتاجة مراجعة جوهرية).* |
+| **✅ pass** | `mean > 0.80`<br>and `gap > 0.10` | The slots specialized on their own with high purity, and the registry is clearly purer than the raw representation by more than 0.10. | Move straight on to **experiment 1** (4 domains + a full dictionary + named reserved ranges). |
+| **🟡 weak positive signal** | `mean > 0.70`<br>and `gap > 0.05` | There is specialization and separation, but it isn't decisive. | Try adjusting the hyper-parameters before judging: a lower $k$ (8), or more slots (2048), or longer training. |
+| **❌ fail** | Below the conditions above | The slots did not specialize usefully and the registry added no purity. | Work through this diagnostic order:<br>1. Is the dead-slot fraction `final_dead_frac` high?<br>2. Did `alpha` ramp too fast and the model collapse?<br>3. Is `recon_loss` very high?<br>*(If all of those are fine, the idea needs a fundamental rethink.)* |
 
 ---
 
-> **💡 لحظة التحقق بالعين (تفسير الخانات):**
-> في الخلية الأخيرة، الكود بيطبع أعلى التوكنز اللي بتفعّل أنشط الخانات. لو شوفت خانات كودية صريحة (زي `def`, `import`, `self`, `return`) وخانات نصوص عامة صريحة، ده الدليل العيني المباشر على إن الخانات اتفرزت وفهمت طبيعة كل دومين.
+> **💡 The eyeball check (slot interpretation):**
+> In the last cell, the code prints the top tokens that activate the most active slots. If you see explicitly code-like slots (things like `def`, `import`, `self`, `return`) and explicitly general-text slots, that is the direct, concrete evidence that the slots sorted themselves out and captured the nature of each domain.

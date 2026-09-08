@@ -1,92 +1,92 @@
-# دليل تشغيل التجربة الثالثة (Exp3) على Kaggle 🚀
-### المرحلة G (Phase G) — اختبار التخصص على تمثيلات نموذج حقيقي مدرب مسبقًا (Pythia-160m)
+# Running Experiment Three (Exp3) on Kaggle 🚀
+### Phase G — testing specialization on the representations of a real pretrained model (Pythia-160m)
 
-دليل عملي وسريع لتشغيل التجربة الأولى من المرحلة G لفهرس المفاهيم المتفرق (Sparse Concept Registry) على منصة Kaggle مجانًا خطوة بخطوة، للتحقق من تكرار ظاهرة التخصص التلقائي على تمثيلات نموذج حقيقي مجمد.
-
----
-
-## 1. الهدف من التجربة (في فقرة موجزة)
-
-تختبر التجربة الثالثة (Exp3) وهي أولى تجارب **المرحلة G (Phase G)**: هل تتكرر ظاهرة التخصص التلقائي لخانات الفهرس المتفرق (التي أثبتناها في Exp0 على نموذج صغير مدرب من الصفر) عند تطبيقها على **التمثيلات الوسيطة الحقيقية لنموذج مدرب مسبقًا ومجمد بالكامل (EleutherAI/pythia-160m)**؟
-يقوم النوت بوك بتحميل نموذج `pythia-160m` في وضع التجميد الكامل (`eval()` بدون أي تعديل على أوزانه إطلاقًا)، واستخراج تيارات التنشيط المتبقية (Residual Stream Activations) من الطبقة الوسطى السادسة (`hidden_states[6]` بأبعاد 768) مباشرة أثناء تدفق الباتشات في الذاكرة (On-the-fly دون حفظها على القرص) عبر **4 مجالات متنوعة** (الطب، القانون، البرمجة، والأدب — نفس مصادر HuggingFace في Exp1). يتم تدريب **فهرس متفرق فقط** (TopK sparse dictionary بـ `n_slots=4096`, `k=16`, مع آلية إحياء الخانات الميتة `AuxK`) لتقريب وإعادة بناء تلك التنشيطات، دون أي دالة خسارة لغوية (No LM Loss) وبدون أي تعديل على Pythia. معيار النجاح هو مقارنة نقاء خانات الفهرس بنقاء أبعاد تمثيل Pythia الخام (نفس اختبار Exp0 عند نفس مستوى التفرق $k=16$)، مع طباعة خسارة التوكن التالي لـ Pythia كاختبار سلامة (Sanity Check).
+A quick, practical, step-by-step guide to running the first phase-G experiment for the Sparse Concept Registry on Kaggle for free, to check whether the automatic-specialization phenomenon replicates on the representations of a real frozen model.
 
 ---
 
-## 2. خطوات التشغيل على Kaggle بالتفصيل
+## 1. The goal of the experiment (in a brief paragraph)
 
-التجربة مصممة للتشغيل في جلسة واحدة (الوقت المتوقع: **15 إلى 25 دقيقة**) على كروت Kaggle المجانية.
-
-1. **إنشاء النوت بوك:**
-   - ادخل على حسابك في [Kaggle](https://www.kaggle.com).
-   - من القائمة الجانبية أو الصفحة الرئيسية، اضغط **`+ Create`** ثم اختار **`New Notebook`**.
-2. **رفع كود التجربة:**
-   - من القائمة العلوية للنوت بوك اختار **`File`** -> **`Import Notebook`** (أو `Upload Notebook`).
-   - ارفع ملف [`exp3_kaggle.ipynb`]() مباشرة (أو انسخ كود [`exp3_source.py`]() داخل خلايا النوت بوك).
-3. **ضبط الإعدادات (Settings Panel من الشريط الجانبي الأيمن):**
-   - **Accelerator:** اختار **`GPU T4 x2`** حصريًا ⚠️ *(تنبيه مهم: معمارية `sm_60` (P100) غير مدعومة في نسخة PyTorch المستخدمة وقت إجراء هذه التجارب — أغسطس 2026؛ استخدم T4 x2)*.
-   - **Internet:** فعّل الخيار ليكون **`On`** ⚡ *(إجباري لتحميل أوزان `EleutherAI/pythia-160m` والداتاست الأربعة من HuggingFace وتثبيت المكتبات)*.
-   - **Persistence:** اتركه الافتراضي (`No persistence`).
-4. **بدء التدريب:**
-   - تأكد من تشغيل الخلية الأولى لتثبيت/التحقق من مكتبة `transformers` (`pip install -q transformers`).
-   - اضغط **`Run All`** من شريط الأدوات العلوي، أو اضغط **`Save Version`** ثم اختار **`Run & Save All (Commit)`** لتشغيل النوت بوك بالكامل في الخلفية بشكل آمن.
-   - تابع مخرجات الـ Console للتأكد من نزول خسارة إعادة البناء (`recon_loss`)، انخفاض نسبة الخانات الميتة (`dead_frac`)، واستقرار التدريب.
+Experiment three (Exp3), the first of the **Phase G** experiments, tests: does the automatic specialization of sparse-registry slots (which we demonstrated in Exp0 on a small model trained from scratch) replicate when applied to the **real intermediate representations of a fully frozen pretrained model (EleutherAI/pythia-160m)**?
+The notebook loads `pythia-160m` fully frozen (`eval()` with no modification to its weights whatsoever), and extracts the residual stream activations from the middle sixth layer (`hidden_states[6]`, 768 dimensions) on the fly as batches flow through memory (without saving them to disk), across **4 diverse domains** (medicine, law, code and literature — the same HuggingFace sources as in Exp1). **Only a sparse registry** is trained (a TopK sparse dictionary with `n_slots=4096`, `k=16`, plus the `AuxK` dead-slot revival mechanism) to approximate and reconstruct those activations, with no language-modelling loss (no LM loss) and no modification to Pythia. The success criterion is comparing the registry slots' purity against the purity of Pythia's raw representation dimensions (the same Exp0 test at the same sparsity level $k=16$), while printing Pythia's next-token loss as a sanity check.
 
 ---
 
-## 3. زمن التشغيل المتوقع وشكل مخرجات الكونسول (Console Output)
+## 2. Running it on Kaggle, in detail
 
-- **الزمن المتوقع:** حوالي **15 إلى 25 دقيقة** إجمالاً على كارت T4 (نظراً لميزانية البيانات المخففة ~3 ملايين توكن لكل مجال وعدد خطوات ~3000-4000 خطوة).
+The experiment is designed to run in a single session (expected time: **15 to 25 minutes**) on Kaggle's free GPUs.
 
-### تسلسل المخرجات أثناء التشغيل:
+1. **Create the notebook:**
+   - Sign in to your [Kaggle](https://www.kaggle.com) account.
+   - From the sidebar or the home page, click **`+ Create`** then choose **`New Notebook`**.
+2. **Upload the experiment code:**
+   - From the notebook's top menu choose **`File`** -> **`Import Notebook`** (or `Upload Notebook`).
+   - Upload the [`exp3_kaggle.ipynb`]() file directly (or paste the [`exp3_source.py`]() code into the notebook's cells).
+3. **Configure the settings (Settings panel in the right sidebar):**
+   - **Accelerator:** choose **`GPU T4 x2`** exclusively ⚠️ *(important: the `sm_60` (P100) architecture is unsupported in the PyTorch version used at the time these experiments were run — August 2026; use T4 x2)*.
+   - **Internet:** set it to **`On`** ⚡ *(mandatory for downloading the `EleutherAI/pythia-160m` weights and the four datasets from HuggingFace, and for installing the libraries)*.
+   - **Persistence:** leave it at the default (`No persistence`).
+4. **Start training:**
+   - Make sure you run the first cell to install/verify the `transformers` library (`pip install -q transformers`).
+   - Click **`Run All`** in the top toolbar, or click **`Save Version`** and choose **`Run & Save All (Commit)`** to run the whole notebook safely in the background.
+   - Watch the console output to confirm the reconstruction loss (`recon_loss`) is falling, the dead-slot fraction (`dead_frac`) is dropping, and training is stable.
 
-1. **التهيئة وفحص العتاد وتنزيل النموذج:**
+---
+
+## 3. Expected runtime and what the console output looks like
+
+- **Expected time:** roughly **15 to 25 minutes** in total on a T4 (given the lighter data budget of ~3 million tokens per domain and ~3000-4000 steps).
+
+### The sequence of output during the run:
+
+1. **Initialization, hardware check and model download:**
    ```text
    device: cuda
    gpu: Tesla T4
    Loading frozen EleutherAI/pythia-160m and tokenizer...
    Pythia-160m loaded: 12 layers, hidden_size=768 (All parameters FROZEN).
    ```
-2. **سحب وتوكينيز البيانات (Data Streaming):**
+2. **Data streaming and tokenization:**
    ```text
    Streaming datasets from HuggingFace (medicine, law, code, literature)...
    Tokenizing ~3M tokens per domain using Pythia's GPTNeoX tokenizer...
    Data ready in memory.
    ```
-3. **مخرجات حلقة التدريب (تُطبع دورياً كل 100 أو 200 خطوة):**
+3. **Training-loop output (printed periodically every 100 or 200 steps):**
    ```text
    step   200/3500 | loss: 0.0412 (recon: 0.0385, auxk: 0.0027) | dead: 0.4% | 18.2 step/s
    step   400/3500 | loss: 0.0278 (recon: 0.0259, auxk: 0.0019) | dead: 0.2% | 18.5 step/s
    ...
    step  3500/3500 | loss: 0.0115 (recon: 0.0108, auxk: 0.0007) | dead: 0.1% | 18.4 step/s
    ```
-   - ستلاحظ انخفاضًا مستمرًا وسلسًا في `recon_loss`.
-   - نسبة الخانات الميتة `dead_frac` ستظل منخفضة جدًا (< 1%) بفضل آلية `AuxK dead-slot revival`.
+   - You should see a continuous, smooth decline in `recon_loss`.
+   - The dead-slot fraction `dead_frac` should stay very low (< 1%) thanks to the `AuxK dead-slot revival` mechanism.
 
 ---
 
-## 4. المخرجات المتوقعة في `/kaggle/working`
+## 4. Expected outputs in `/kaggle/working`
 
-تُحفظ الملفات التالية تلقائيًا في مجلد المخرجات بنهاية التشغيل:
+The following files are saved automatically in the output folder at the end of the run:
 
-| اسم الملف | نوعه | الفائدة ودوره في التجربة |
+| File name | Type | What it is and its role in the experiment |
 |---|---|---|
-| `exp3_model.pt` | PyTorch Weights | أوزان طبقة الفهرس المتفرق `ConceptRegistry` فقط (4096 خانة) دون أوزان Pythia المجمدة. |
-| `exp3_results.png` | صورة PNG | رسم بياني يوضح: (1) مسار انخفاض `recon_loss` و `auxk_loss`، (2) نسبة الخانات الميتة %، (3) هيستوجرام مقارنة توزيع النقاء بين خانات الفهرس وأبعاد Pythia الخام. |
-| `exp3_summary.json` | JSON | التقرير النهائي الشامل: الحكم التلقائي (`verdict`)، متوسط النقاء والوسيط، فارق النقاء (`gap`)، نسبة الخانات النشطة فوق 80% و 95%، وقيمة فحص سلامة خسارة Pythia (`pythia_heldout_ce`). |
+| `exp3_model.pt` | PyTorch Weights | The weights of the sparse `ConceptRegistry` layer only (4096 slots), without Pythia's frozen weights. |
+| `exp3_results.png` | PNG image | A chart showing: (1) the decline of `recon_loss` and `auxk_loss`, (2) the dead-slot percentage, (3) a histogram comparing the purity distribution of the registry slots against Pythia's raw dimensions. |
+| `exp3_summary.json` | JSON | The full final report: the automated `verdict`, the mean and median purity, the purity `gap`, the fraction of active slots above 80% and 95%, and Pythia's sanity-check loss value (`pythia_heldout_ce`). |
 
 ---
 
-## 5. كيفية قراءة النتيجة والجدول النهائي (`exp3_summary.json`)
+## 5. How to read the result and the final table (`exp3_summary.json`)
 
-في نهاية التجربة، يتم قياس نقاء كل خانة في الفهرس المتفرق عبر المجالات الأربعة:
+At the end of the experiment, each registry slot's purity is measured across the four domains:
 $$\text{purity} = \frac{\max(\text{domain\_acts})}{\sum_{d=1}^{4} \text{domain\_acts}}$$
-- **0.25**: توزيع عشوائي متساوٍ تمامًا عبر المجالات الأربعة (الخانة غير متخصصة).
-- **1.00**: تخصص نقي ومطلق لمجال واحد فقط.
+- **0.25**: a perfectly uniform random distribution across the four domains (the slot is not specialized).
+- **1.00**: pure, absolute specialization on a single domain.
 
-ولضمان عدالة المقارنة، يتم قياس نقاء أبعاد تمثيل Pythia الخام الـ 768 **عند نفس مستوى التفرق $k=16$** (بأخذ أعلى 16 بعداً لكل توكن):
+And to keep the comparison fair, the purity of Pythia's 768 raw representation dimensions is measured **at the same sparsity level $k=16$** (taking the top 16 dimensions per token):
 $$\text{gap} = \text{mean\_purity}(\text{registry\_slots}) - \text{mean\_purity}(\text{raw\_pythia\_dims})$$
 
-### مثال لشكل ملف `exp3_summary.json` والتقرير المطبوع:
+### An example of the `exp3_summary.json` file and the printed report:
 
 ```json
 {
@@ -109,30 +109,30 @@ $$\text{gap} = \text{mean\_purity}(\text{registry\_slots}) - \text{mean\_purity}
 }
 ```
 
-### معايير الحكم على النتيجة:
+### The criteria for judging the result:
 
-| الحالة والرمز | الشروط الرقمية (من الكود) | المعنى العلمي والعملي |
+| Status and symbol | The numeric conditions (from the code) | What it means scientifically and practically |
 |---|---|---|
-| **✅ نجحت (Passed)** | `mean > 0.75`<br>و `gap > 0.10` | خانات الفهرس تخصصت تلقائيًا بنقاء عالٍ على تمثيلات Pythia الحقيقية، وأثبتت تفوقًا كاسحًا على الأبعاد الخام بفارق يتجاوز 0.10. |
-| **🟡 إشارة إيجابية جزئية** | `mean > 0.65`<br>و `gap > 0.05` | حدث تمايز ملحوظ بين المجالات ولكنه يحتاج ضبطًا للسعة أو لطبقة الاستخراج (`hidden_states`). |
-| **❌ فشلت (Failed)** | أقل من الشروط أعلاه | لم تتخصص الخانات بصورة كافية أو تساوت مع أبعاد Pythia الخام. |
+| **✅ Passed** | `mean > 0.75`<br>and `gap > 0.10` | The registry slots specialized automatically with high purity on real Pythia representations, and decisively outperformed the raw dimensions by more than 0.10. |
+| **🟡 Partial positive signal** | `mean > 0.65`<br>and `gap > 0.05` | There is noticeable differentiation between the domains, but it needs tuning of the capacity or of the extraction layer (`hidden_states`). |
+| **❌ Failed** | Below the conditions above | The slots did not specialize sufficiently, or they matched Pythia's raw dimensions. |
 
-> **💡 فحص السلامة (Pythia Sanity Check):**
-> قيمة `pythia_heldout_ce` تمثل خسارة التوكن التالي لنموذج Pythia-160m على بيانات الاختبار المستبعدة؛ يجب أن تكون مستقرة وطبيعية (~3.2 إلى 3.6) للتأكد من سلامة تغذية البيانات وتجميد النموذج.
+> **💡 The sanity check (Pythia sanity check):**
+> The `pythia_heldout_ce` value is Pythia-160m's next-token loss on held-out test data; it should be stable and normal (~3.2 to 3.6) to confirm the data feeding is sound and the model is frozen.
 
-> **💡 لحظة التحقق البصري بالعين (Slot Interpretability):**
-> يطبع الكود في الخلية الختامية أعلى التوكنز التي تنشط أبرز الخانات المتخصصة في كل مجال (مصطلحات طبية مثل `syndrome`, `patient`، مصطلحات قانونية مثل `statute`, `amendment`، كلمات برمجية مثل `def`, `async`, `return`، وتراكيب أدبية). رؤية هذه الكلمات تمنحك دليلاً نوعياً مباشراً على الفرز المفاهيمي.
+> **💡 The eyeball check (slot interpretability):**
+> In the closing cell the code prints the top tokens that activate the most specialized slots in each domain (medical terms like `syndrome`, `patient`; legal terms like `statute`, `amendment`; programming words like `def`, `async`, `return`; and literary constructions). Seeing these words gives you direct qualitative evidence of the conceptual sorting.
 
 ---
 
-## 6. لو حصل كذا... يبقى المشكلة كذا (استكشاف الأعطال)
+## 6. If this happens... then the problem is this (troubleshooting)
 
-| المشكلة أو رسالة الخطأ | السبب المحتمل | الحل السريع |
+| Problem or error message | Likely cause | Quick fix |
 |---|---|---|
-| `ModuleNotFoundError: No module named 'transformers'` | لم يتم تشغيل خلية التثبيت الأولى. | تأكد من تنفيذ أول خلية في النوت بوك: `!pip install -q transformers`، ثم أعد تشغيل الخلايا. |
-| `ConnectionError` / فشل تحميل Pythia أو الداتاست | خاصية الاتصال بالإنترنت مغلقة في النوت بوك. | من قائمة **Settings** في الشريط الجانبي الأيمن، غيّر **`Internet`** إلى **`On`** ثم أعد تشغيل النوت بوك. |
-| `device: cpu` أو تحذير "مفيش GPU" | النوت بوك يعمل على المعالج المركزي أو تم اختيار نوع كارت خاطئ. | افتح **Settings** واختار **`GPU T4 x2`** حصريًا. لا تستخدم P100 (معمارية sm_60 غير مدعومة). |
-| `CUDA out of memory` (OOM) | تراكم كائنات في الذاكرة من جلسات سابقة. | اضغط **`Restart Session`**. الإعدادات الافتراضية (`batch_size=24`, `ctx=256`) مصممة لتستهلك أقل من 6GB VRAM على T4. |
-| خطأ عند تشغيل كارت P100 | معمارية `sm_60` (P100) غير مدعومة في نسخة PyTorch المستخدمة وقت إجراء هذه التجارب. | بدّل إلى مسرّع **`GPU T4 x2`** وستعمل التجربة فوراً بسلاسة. |
-| نفاد حصة الـ GPU / انقطاع الجلسة | استهلاك الساعات الأسبوعية أو توقف الجلسة للخمول أثناء العمل التفاعلي. | شغّل النوت بوك عبر **`Save Version` -> `Run & Save All (Commit)`** ليعمل في الخلفية تلقائياً دون الحاجة لبقاء المتصفح مفتوحاً. |
-| بطء في مرحلة تجهيز البيانات الأولى | سرعة السيرفرات أثناء الـ Streaming من HuggingFace. | أمر طبيعي في أول 2-3 دقائق فقط أثناء سحب الداتاست وتوكينيز النصوص، ويكتمل التدريب بعدها بسرعة فائقة. |
+| `ModuleNotFoundError: No module named 'transformers'` | The first installation cell wasn't run. | Make sure you execute the notebook's first cell: `!pip install -q transformers`, then re-run the cells. |
+| `ConnectionError` / Pythia or the dataset fails to download | Internet access is disabled in the notebook. | In the **Settings** menu in the right sidebar, change **`Internet`** to **`On`** then re-run the notebook. |
+| `device: cpu` or a "no GPU" warning | The notebook is running on CPU, or the wrong accelerator type was chosen. | Open **Settings** and choose **`GPU T4 x2`** exclusively. Do not use P100 (the sm_60 architecture is unsupported). |
+| `CUDA out of memory` (OOM) | Objects accumulated in memory from earlier sessions. | Click **`Restart Session`**. The default settings (`batch_size=24`, `ctx=256`) are designed to use less than 6GB of VRAM on a T4. |
+| An error when running on a P100 | The `sm_60` (P100) architecture is unsupported in the PyTorch version used at the time these experiments were run. | Switch to the **`GPU T4 x2`** accelerator and the experiment will run smoothly straight away. |
+| GPU quota exhausted / the session drops | The weekly hours are used up, or the session stopped for idleness during interactive work. | Run the notebook via **`Save Version` -> `Run & Save All (Commit)`** so it runs automatically in the background with no need to keep the browser open. |
+| The first data-preparation stage is slow | HuggingFace server speed during streaming. | Normal, and only for the first 2-3 minutes while the datasets are pulled and the text tokenized; training then completes very quickly. |

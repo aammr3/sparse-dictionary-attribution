@@ -63,7 +63,8 @@ exp9/    four-arm control taxonomy
 
 logs*.txt  29 raw Kaggle run logs, unedited (at repository root)
 paper/   paper sources (markdown), references, built PDF
-التقرير.md   full research log — 81 numbered events, in Arabic
+research-log.ar.md   full research log — 79 numbered events, in Arabic (the original)
+research-log.en.md   English translation of the research log
 ```
 
 Each `expN/` contains a `*_source.py`, a generated `*_kaggle.ipynb`, and the
@@ -114,10 +115,13 @@ Runs worth reading if you only read a few:
 
 ## The research log
 
-[`التقرير.md`](التقرير.md) is a chronological record of the whole project — 81
-numbered events, in Arabic. It contains the reasoning behind each decision, the
-16 code and data errors caught before they corrupted a result, and the
-adversarial audit that withdrew four claims we had recorded as settled.
+[`research-log.ar.md`](research-log.ar.md) is a chronological record of the
+whole project — 79 numbered events, in Arabic. It contains the reasoning behind
+each decision, the 16 code and data errors caught before they corrupted a
+result, and the adversarial audit that withdrew four claims we had recorded as
+settled. An English translation is provided alongside it as
+[`research-log.en.md`](research-log.en.md); the Arabic file is the original and
+the one the paper's §7.6 refers to.
 
 It is included deliberately. The paper argues that two of its six pitfalls could
 only be caught by attacking results one already believes; this file is what that

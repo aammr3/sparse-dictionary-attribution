@@ -1,83 +1,83 @@
-# دليل تشغيل التجربة الأولى (Exp1) على Kaggle 🚀
+# Running Experiment One (Exp1) on Kaggle 🚀
 
-دليل عملي وسريع لتشغيل التجربة الأولى لفهرس المفاهيم المدمج (Concept Registry) على منصة Kaggle مجانًا خطوة بخطوة، مع التوسع لـ 4 مجالات واختبار النطاقات المحجوزة بالإشراف الجزئي.
-
----
-
-## 1. الهدف من التجربة (في سطرين أو ثلاثة)
-
-تبني التجربة الأولى (Exp1) على النتيجة المحققة في تجربة صفر (حيث تخصص الفهرس المتفرق تلقائيًا بين مجالين دون إشراف بنقاء 0.805 وفارق 0.222).
-في Exp1، نوسع النطاق إلى **4 مجالات متباعدة** (الطب، القانون، البرمجة، الأدب) ونختبر آلية جديدة: حجز **1024 خانة** من أصل 4096 (موزعة على 4 كتل متساوية، 256 خانة لكل مجال) مع إشراف توجيهي خفيف (Soft Auxiliary Supervision Loss) لتشجيعها على التخصص في مجالها المحدد بالاسم، بينما تترك الـ **3072 خانة** المتبقية حرة تمامًا بدون إشراف لتكرار الاكتشاف التلقائي. الهدف هو إثبات قدرة الفهرس على الجمع بين التوجيه بالاسم (Supervised Steering) والاكتشاف الحر للمفاهيم في آن واحد.
+A quick, practical, step-by-step guide to running the first experiment for the built-in Concept Registry on Kaggle for free, extending to 4 domains and testing named reserved ranges under partial supervision.
 
 ---
 
-## 2. خطوات التشغيل على Kaggle بالتفصيل
+## 1. The goal of the experiment (in two or three lines)
 
-التجربة مصممة للتشغيل في جلسة واحدة (الوقت المتوقع: **60 إلى 90 دقيقة**) على كروت Kaggle المجانية.
-
-1. **إنشاء النوت بوك:**
-   - ادخل على حسابك في [Kaggle](https://www.kaggle.com).
-   - من القائمة الجانبية أو الصفحة الرئيسية، اضغط **`+ Create`** ثم اختار **`New Notebook`**.
-2. **رفع كود التجربة:**
-   - من القائمة العلوية للنوت بوك اختار **`File`** -> **`Import Notebook`** (أو `Upload Notebook`).
-   - ارفع ملف [`exp1_kaggle.ipynb`]() مباشرة (أو انسخ كود [`exp1_source.py`]() داخل خلايا النوت بوك).
-3. **ضبط الإعدادات (Settings Panel من الشريط الجانبي الأيمن):**
-   - **Accelerator:** اختار **`GPU T4 x2`** **حصريًا** (لا تستخدم `GPU P100`: معمارية `sm_60` غير مدعومة في نسخة PyTorch المستخدمة وقت إجراء هذه التجارب — أغسطس 2026).
-   - **Internet:** فعّل الخيار ليكون **`On`** ⚡ *(إجباري لتحميل الداتاست من HuggingFace وتدريب التوكنايزر)*.
-   - **Persistence:** اتركه الافتراضي (`No persistence`).
-4. **بدء التدريب:**
-   - اضغط **`Run All`** من شريط الأدوات العلوي، أو اضغط **`Save Version`** ثم اختار **`Run & Save All (Commit)`** لتشغيل النوت بوك بالكامل في الخلفية حتى لو قفلت المتصفح.
-   - تابع طباعة الخطوات للتأكد من نزول الـ Loss، تدرج قيمة `alpha`، متابعة دقة تصنيف النطاقات المحجوزة، وانخفاض نسبة الخانات الميتة.
+Experiment one (Exp1) builds on the result achieved in experiment zero (where the sparse registry specialized automatically between two domains with no supervision, at a purity of 0.805 and a gap of 0.222).
+In Exp1 we widen the scope to **4 distant domains** (medicine, law, code, literature) and test a new mechanism: reserving **1024 slots** out of 4096 (split into 4 equal blocks, 256 slots per domain) with a light steering supervision (a Soft Auxiliary Supervision Loss) to encourage them to specialize in their named domain, while the remaining **3072 slots** are left entirely free with no supervision so the automatic discovery can replicate. The goal is to demonstrate the registry's ability to combine supervised steering by name with free concept discovery at the same time.
 
 ---
 
-## 3. المخرجات المتوقعة في `/kaggle/working`
+## 2. Running it on Kaggle, in detail
 
-الملفات دي بتتحفظ تلقائيًا في مسار العمل بنهاية التشغيل:
+The experiment is designed to run in a single session (expected time: **60 to 90 minutes**) on Kaggle's free GPUs.
 
-| اسم الملف | نوعه | الفائدة ودوره في التجربة |
+1. **Create the notebook:**
+   - Sign in to your [Kaggle](https://www.kaggle.com) account.
+   - From the sidebar or the home page, click **`+ Create`** then choose **`New Notebook`**.
+2. **Upload the experiment code:**
+   - From the notebook's top menu choose **`File`** -> **`Import Notebook`** (or `Upload Notebook`).
+   - Upload the [`exp1_kaggle.ipynb`]() file directly (or paste the [`exp1_source.py`]() code into the notebook's cells).
+3. **Configure the settings (Settings panel in the right sidebar):**
+   - **Accelerator:** choose **`GPU T4 x2`** **exclusively** (do not use `GPU P100`: the `sm_60` architecture is unsupported in the PyTorch version used at the time these experiments were run — August 2026).
+   - **Internet:** set it to **`On`** ⚡ *(mandatory for downloading the dataset from HuggingFace and training the tokenizer)*.
+   - **Persistence:** leave it at the default (`No persistence`).
+4. **Start training:**
+   - Click **`Run All`** in the top toolbar, or click **`Save Version`** and choose **`Run & Save All (Commit)`** to run the whole notebook in the background even if you close the browser.
+   - Watch the printed steps to confirm the loss is falling, `alpha` is ramping, the reserved-range classification accuracy is progressing, and the dead-slot fraction is dropping.
+
+---
+
+## 3. Expected outputs in `/kaggle/working`
+
+These files are saved automatically in the working directory at the end of the run:
+
+| File name | Type | What it is and its role in the experiment |
 |---|---|---|
-| `tokenizer.json` | JSON | ملف الـ Tokenizer المدرب (Byte-level BPE, Vocab=8192) على خليط المجالات الأربعة. |
-| `medicine.npy` | NumPy Binary | مصفوفة التوكنز المحولة لنصوص الطب (uint16) لتسريع سحب الباتشات من الذاكرة مباشرة. |
-| `law.npy` | NumPy Binary | مصفوفة التوكنز المحولة لنصوص القانون (uint16). |
-| `code.npy` | NumPy Binary | مصفوفة التوكنز المحولة لنصوص البرمجة والكود (uint16). |
-| `literature.npy` | NumPy Binary | مصفوفة التوكنز المحولة للنصوص الأدبية والروايات (uint16). |
-| `exp1_model.pt` | PyTorch Weights | أوزان الموديل الكامل بعد التدريب (الموديل الأساسي + طبقة الفهرس `ConceptRegistry` بـ 4096 خانة). |
-| `exp1_results.png` | صورة PNG | رسم بياني يوضح: (1) مسار LM Loss مع صعود `alpha`، (2) دقة النطاقات المحجوزة ونسبة الخانات الميتة، (3) مقارنة توزيع النقاء بين الفهرس والأبعاد الخام. |
-| `exp1_summary.json` | JSON | التقرير النهائي الشامل: الحكم التلقائي (`verdict`)، الأرقام الثلاثة الرئيسية (دقة المحجوز، نقاء المنطقة الحرة، ونقاء الفهرس الكلي)، وإعدادات التجربة. |
+| `tokenizer.json` | JSON | The trained tokenizer (Byte-level BPE, Vocab=8192) over the mixture of all four domains. |
+| `medicine.npy` | NumPy Binary | The tokenized medical text array (uint16), for pulling batches straight from memory. |
+| `law.npy` | NumPy Binary | The tokenized legal text array (uint16). |
+| `code.npy` | NumPy Binary | The tokenized code text array (uint16). |
+| `literature.npy` | NumPy Binary | The tokenized literary/novel text array (uint16). |
+| `exp1_model.pt` | PyTorch Weights | The full model weights after training (the base model + the 4096-slot `ConceptRegistry` layer). |
+| `exp1_results.png` | PNG image | A chart showing: (1) the LM loss trajectory against the `alpha` ramp, (2) the reserved-range accuracy and the dead-slot percentage, (3) a comparison of the purity distribution between the registry and the raw dimensions. |
+| `exp1_summary.json` | JSON | The full final report: the automated `verdict`, the three headline numbers (reserved accuracy, free-region purity, and whole-registry purity), and the experiment's settings. |
 
 ---
 
-## 4. لو حصل كذا... يبقى المشكلة كذا (استكشاف الأعطال)
+## 4. If this happens... then the problem is this (troubleshooting)
 
-| المشكلة أو رسالة الخطأ | السبب المحتمل | الحل السريع |
+| Problem or error message | Likely cause | Quick fix |
 |---|---|---|
-| `device: cpu` أو تحذير "مفيش GPU" | النوت بوك مضبوط على المعالج المركزي (CPU). | افتح Settings في الشريط الجانبي واختار `GPU T4 x2`. |
-| `ConnectionError` / فشل تحميل الداتاست | خاصية الاتصال بالإنترنت مغلقة في النوت بوك. | من Settings في الشريط الجانبي، تأكد إن **`Internet: On`** وأعد تشغيل الخلية. |
-| `CUDA out of memory` (OOM) | استهلاك زائد للرامات بسبب خلايا مكررة في الجلسة. | اضغط `Restart Session`. لو تكررت المشكلة، صغّر `batch_size` في الـ `CFG` من 48 إلى 32. |
-| نفاد حصة الـ GPU / انقطاع الجلسة | استهلاك الـ 30 ساعة الأسبوعية أو توقف الجلسة للخمول. | شغّل النوت بوك عبر `Save Version -> Run & Save (Commit)` لتفادي مشاكل انقطاع الاتصال بالمتصفح، أو بدّل لحساب كاجل بديل. |
-| بطء وتأخر في خطوة تجهيز البيانات | عملية HuggingFace Streaming للنصوص بتعتمد على سرعة السيرفرات. | طبيعي في أول 5–10 دقائق؛ بمجرد إنشاء وحفظ ملفات `.npy` الأربعة، التدريب بيكمل بأقصى سرعة مباشرة من الديسك. |
+| `device: cpu` or a "no GPU" warning | The notebook is set to CPU. | Open Settings in the sidebar and choose `GPU T4 x2`. |
+| `ConnectionError` / the dataset fails to download | Internet access is disabled in the notebook. | In Settings in the sidebar, make sure **`Internet: On`** and re-run the cell. |
+| `CUDA out of memory` (OOM) | Excess memory use from repeated cells in the session. | Click `Restart Session`. If it recurs, reduce `batch_size` in the `CFG` from 48 to 32. |
+| GPU quota exhausted / the session drops | The 30 weekly hours are used up, or the session stopped for idleness. | Run the notebook via `Save Version -> Run & Save (Commit)` to avoid browser-disconnection problems, or switch to another Kaggle account. |
+| The data-preparation step is slow | HuggingFace text streaming depends on server speed. | Normal for the first 5–10 minutes; once the four `.npy` files are created and saved, training proceeds at full speed straight from disk. |
 
 ---
 
-## 5. إزاي تقرأ نتيجة التجربة (`exp1_summary.json`)
+## 5. How to read the experiment's result (`exp1_summary.json`)
 
-على عكس تجربة صفر التي كانت تعتمد على مقياس نقاء واحد، يُخرج تقرير التجربة الأولى **ثلاثة مؤشرات رقمية رئيسية**:
+Unlike experiment zero, which relied on a single purity metric, experiment one's report produces **three headline numbers**:
 
-1. **دقة تصنيف النطاقات المحجوزة (Reserved-Block Domain Accuracy):**
-   - يقيس مدى قدرة كتل الخانات المحجوزة الأربع (256 خانة لكل مجال = 1024 خانة إجمالاً) على التنبؤ بالمجال الحقيقي للنص وتحديده بدقة.
-   - يمثل إشارة التوجيه الإشرافي الخفيف (Supervised-Steering Signal) والتأكد من أن النطاقات المحجوزة بالاسم استجابت بالفعل للمجال المخصص لها.
-2. **نقاء وفارق المنطقة الحرة (Free-Region Purity & Gap):**
-   - يقيس متوسط النقاء والفارق ($\text{gap}$) مقارنة بالتمثيل الخام عبر الـ 3072 خانة المتبقية المتروكة دون أي إشراف.
-   - يكرر بشكل مباشر نتيجة الاكتشاف التلقائي الحر (Unsupervised Discovery) التي تحققت في Exp0 ولكن في مساحة أوسع بـ 4 مجالات.
-3. **نقاء وفارق الفهرس ككل (Whole-Registry Purity & Gap):**
-   - يقيس متوسط النقاء الإجمالي لكامل الـ 4096 خانة، مما يتيح المقارنة المعيارية المباشرة مع نتائج Exp0/Exp0d السابقة (حيث حققت Exp0 نقاء 0.766 / فارق 0.187، وحققت Exp0d نقاء 0.805 / فارق 0.222).
+1. **Reserved-block domain accuracy:**
+   - Measures how well the four reserved slot blocks (256 slots per domain = 1024 slots in total) can predict and identify the text's true domain.
+   - It represents the supervised-steering signal and confirms that the ranges reserved by name actually responded to the domain assigned to them.
+2. **Free-region purity & gap:**
+   - Measures the mean purity and the $\text{gap}$ against the raw representation across the remaining 3072 slots left entirely unsupervised.
+   - It directly replicates the unsupervised-discovery result achieved in Exp0, but in a wider space with 4 domains.
+3. **Whole-registry purity & gap:**
+   - Measures the overall mean purity across all 4096 slots, allowing a direct like-for-like comparison with the earlier Exp0/Exp0d results (Exp0 reached a purity of 0.766 / a gap of 0.187, and Exp0d reached 0.805 / 0.222).
 
-### مثال لشكل ملف `exp1_summary.json` الناتج:
+### An example of the resulting `exp1_summary.json`:
 
 ```json
 {
-  "verdict": "✅ نجحت — النطاقات المحجوزة تخصصت بالاسم، والمنطقة الحرة اكتشفت المفاهيم تلقائيًا بنقاء مرتفع.",
+  "verdict": "✅ pass — the reserved ranges specialized by name, and the free region discovered concepts automatically at high purity.",
   "reserved_blocks": {
     "accuracy": 0.892,
     "medicine_acc": 0.910,
@@ -100,20 +100,20 @@
 }
 ```
 
-### كيف تحكم على النتيجة؟
+### How do you judge the result?
 
-| المؤشر | التقدير الإيجابي المتوقع | المعنى العلمي والعملي |
+| Indicator | The expected positive range | What it means scientifically and practically |
 |---|---|---|
-| **دقة النطاقات المحجوزة (`reserved_blocks.accuracy`)** | $> 0.80$ | الإشراف الخفيف نجح في توجيه النطاقات المحجوزة لتخصصها المسمى دون تشويش. |
-| **نقاء وفارق المنطقة الحرة (`free_region`)** | `mean > 0.75`<br>و `gap > 0.10` | الخانات غير الموجهة لا تزال قادرة على تنظيم واكتشاف المفاهيم ذاتيًا في فضاء 4 مجالات. |
-| **نقاء وفارق الفهرس الكلي (`whole_registry`)** | `mean > 0.75`<br>و `gap > 0.15` | المعمارية ككل متماسكة وأنقى بوضوح من التمثيل الخام، وقابلة للمقارنة مع نتائج Exp0. |
+| **Reserved-range accuracy (`reserved_blocks.accuracy`)** | $> 0.80$ | The light supervision succeeded in steering the reserved ranges toward their named specialization without disruption. |
+| **Free-region purity & gap (`free_region`)** | `mean > 0.75`<br>and `gap > 0.10` | The unsteered slots are still able to organize and discover concepts on their own in a 4-domain space. |
+| **Whole-registry purity & gap (`whole_registry`)** | `mean > 0.75`<br>and `gap > 0.15` | The architecture as a whole is coherent and clearly purer than the raw representation, and comparable with the Exp0 results. |
 
 > [!WARNING]
-> **تنبيه منهجي مهم:**
-> عتبات التفسير المذكورة هنا هي **تقدير أولي منطقي ومبدئي** (بخلاف تجربة صفر التي تمت معايرة عتباتها عبر 4 تشغيلات فعلية متكررة)، وليست حقائق قطعية مثبتة بعد.
-> **لذلك، اقرأ دائمًا نص الحكم التفصيلي المطبوع في الـ Log (`verdict`)** للاطلاع على التحفظات والملاحظات الدقيقة، وتجنب الاعتماد الأعمى على رقم واحد منفرد.
+> **An important methodological caution:**
+> The interpretation thresholds given here are **a preliminary, reasoned estimate** (unlike experiment zero, whose thresholds were calibrated across 4 actual repeated runs), and they are not yet established facts.
+> **So always read the detailed `verdict` text printed in the log** for the precise caveats and notes, and avoid relying blindly on any single number in isolation.
 
 ---
 
-> **💡 لحظة التحقق بالعين (تفسير الخانات المحجوزة والحرة):**
-> في نهاية التشغيل، يطبع الكود أنشط التوكنز المنشطة لكل كتلة محجوزة (المصطلحات الطبية، القانونية، البرمجية، والأدبية) بالإضافة لأبرز خانات المنطقة الحرة. التحقق المباشر بالعين من قوائم التوكنز يمنحك التأكيد الحسي الفوري على دقة فرز المفاهيم.
+> **💡 The eyeball check (interpreting the reserved and free slots):**
+> At the end of the run the code prints the most activating tokens for each reserved block (medical, legal, programming and literary terms) as well as the most prominent free-region slots. Checking those token lists directly gives you immediate, concrete confirmation of how well the concepts were sorted.
