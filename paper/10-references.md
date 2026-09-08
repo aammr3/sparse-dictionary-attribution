@@ -78,15 +78,3 @@ This entry was retitled between arXiv versions. An earlier version circulated as
 *"Pairwise Matrices for Sparse Autoencoders: Single-Feature Inspection Mislabels
 Causal Axes."* The title above is the current one; readers encountering the
 earlier title should note it is the same identifier.
-
----
-
-## Remaining pre-submission tasks for this file
-
-- [x] Publication status checked against the arXiv abstract pages on
-      8 September 2026. [12] has since appeared at EACL 2026 and is cited as
-      such above. The same check found two further entries already published:
-      [7] (ICML 2025) and [11] (EMNLP 2025), both now updated. [1], [2], [8],
-      [9] and [10] remain preprints with no venue recorded on arXiv. Re-check
-      immediately before submission.
-- [ ] Convert to the target venue's citation style (BibTeX for arXiv/LaTeX).
