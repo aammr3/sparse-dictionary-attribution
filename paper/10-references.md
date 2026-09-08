@@ -32,7 +32,7 @@ Representations.* arXiv:2402.17700, 27 February 2024. ACL 2024.
 Lau, Y.-T., Farrell, E., McDougall, C., Ayonrinde, K., Till, D., Wearden, M.,
 Conmy, A., Marks, S., and Nanda, N. *SAEBench: A Comprehensive Benchmark for
 Sparse Autoencoders in Language Model Interpretability.* arXiv:2503.09532,
-12 March 2025.
+12 March 2025. ICML 2025.
 
 **[8]** Bal, M. A. *From Geometric Recovery to Causal Validation: A Reproducible
 Audit of Sparse Autoencoder Features, from Superposition Geometry to Causal
@@ -47,11 +47,11 @@ and Alignment Leakage in Activation-Steering Audits.* arXiv:2608.24335,
 25 August 2026.
 
 **[11]** Arad, D., Mueller, A., and Belinkov, Y. *SAEs Are Good for Steering —
-If You Select the Right Features.* arXiv:2505.20063, 26 May 2025.
+If You Select the Right Features.* arXiv:2505.20063, 26 May 2025. EMNLP 2025.
 
 **[12]** Goyal, N., and Daumé III, H. *Steering Safely or Off a Cliff?
 Rethinking Specificity and Robustness in Inference-Time Interventions.*
-arXiv:2602.06256, 5 February 2026.
+arXiv:2602.06256, 5 February 2026. EACL 2026.
 
 **[13]** Birardi, G., and Paulo, G. *Automated Attribution Graph Interpretation
 via Probe Prompting.* arXiv:2511.07002, 10 November 2025.
@@ -83,7 +83,10 @@ earlier title should note it is the same identifier.
 
 ## Remaining pre-submission tasks for this file
 
-- [ ] Confirm publication status for [1], [2], [8]–[10], [12] — all are 2026
-      preprints and may have appeared at a venue since; cite the published
-      version if so.
+- [x] Publication status checked against the arXiv abstract pages on
+      8 September 2026. [12] has since appeared at EACL 2026 and is cited as
+      such above. The same check found two further entries already published:
+      [7] (ICML 2025) and [11] (EMNLP 2025), both now updated. [1], [2], [8],
+      [9] and [10] remain preprints with no venue recorded on arXiv. Re-check
+      immediately before submission.
 - [ ] Convert to the target venue's citation style (BibTeX for arXiv/LaTeX).
