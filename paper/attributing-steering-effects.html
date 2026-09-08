@@ -1,0 +1,1859 @@
+<meta charset='utf-8'>
+<title>Attributing Steering Effects to Specific Dictionary Slots</title>
+<style>
+@page { size: A4; margin: 20mm 19mm; }
+* { box-sizing: border-box; }
+body {
+  font-family: "Charter", "Georgia", "Cambria", serif;
+  font-size: 10.5pt; line-height: 1.62; color: #16181a;
+  margin: 0; text-align: justify; hyphens: auto;
+}
+h1 {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 21pt; line-height: 1.28; color: #0d1b2a;
+  margin: 0 0 4px; text-align: left; letter-spacing: -0.3px;
+}
+h1 + p em, h1 + p { text-align: left; }
+h2 {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 14pt; color: #0d1b2a; margin: 26px 0 10px;
+  padding-bottom: 5px; border-bottom: 1.6px solid #0d1b2a;
+  text-align: left; page-break-after: avoid;
+}
+h3 {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 11.6pt; color: #17334d; margin: 20px 0 7px;
+  text-align: left; page-break-after: avoid;
+}
+h4 {
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 10.5pt; color: #2a3d4d; margin: 14px 0 5px;
+  text-align: left; page-break-after: avoid;
+}
+p { margin: 7px 0; }
+strong { color: #0d1b2a; }
+em { color: #33414d; }
+ul, ol { padding-left: 20px; margin: 7px 0; }
+li { margin: 3px 0; }
+table {
+  width: 100%; border-collapse: collapse; margin: 11px 0;
+  font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 8.8pt; page-break-inside: avoid; text-align: left;
+}
+th {
+  background: #0d1b2a; color: #fff; padding: 6px 8px;
+  text-align: left; font-weight: 600; border: 1px solid #0d1b2a;
+}
+td { border: 1px solid #ccd6de; padding: 5px 8px; vertical-align: top; }
+tr:nth-child(even) td { background: #f5f8fa; }
+code {
+  font-family: "Consolas", "DejaVu Sans Mono", monospace;
+  font-size: 8.8pt; background: #eef2f5; padding: 1px 4px;
+  border-radius: 3px; color: #14304a;
+}
+pre {
+  font-family: "Consolas", "DejaVu Sans Mono", monospace;
+  background: #f6f8fa; border: 1px solid #dde4ea; border-left: 3px solid #0d1b2a;
+  padding: 9px 12px; font-size: 8.6pt; line-height: 1.5;
+  overflow-x: auto; page-break-inside: avoid; text-align: left;
+  border-radius: 3px;
+}
+pre code { background: none; padding: 0; font-size: 8.6pt; }
+blockquote {
+  margin: 12px 0; padding: 9px 14px;
+  background: #f2f7fb; border-left: 4px solid #2b6ca3;
+  page-break-inside: avoid; text-align: left;
+}
+blockquote p { margin: 4px 0; }
+blockquote h2, blockquote h3 { border: none; margin: 2px 0 6px; font-size: 11pt; }
+hr { border: none; border-top: 1px solid #dde4ea; margin: 20px 0; }
+.pb { page-break-before: always; }
+</style>
+<h1>Attributing Steering Effects to Specific Dictionary Slots</h1>
+<p><em>A control protocol for a frozen language model, and what survived auditing it</em></p>
+<p><strong>Amr Elsaeed</strong>
+Independent Researcher
+<code>amrelsaeed225@gmail.com</code></p>
+<p>September 2026</p>
+<hr />
+<p><strong>Code and data availability.</strong> All experiment sources, generated notebooks, and
+the complete run logs for every experiment reported here (28 runs) are available
+at: <code>[repository URL — to be added before submission]</code>. The research log
+documenting all 81 recorded events, including the four withdrawn claims of §5, is
+included in that repository.</p>
+<hr />
+<h2>Abstract</h2>
+<p>When writing into a sparse dictionary's slots changes a frozen language model's
+output, what licenses the claim that the <em>concept</em> those slots encode caused the
+change? We give a control protocol for that question, run it, and report what it
+licenses and what it does not.</p>
+<p>The question is live because the field currently has no agreed way to determine
+whether a given dictionary's handles are meaningful: recent work
+reports that randomized dictionary variants match trained ones on standard
+evaluations [1], an audit of a widely used benchmark finds several of its metrics
+unfit for use [2], and automated interpretability metrics have been shown not to
+distinguish trained from randomly initialized models [3]. The diagnosis is better
+developed than the remedy.</p>
+<p><strong>Our main result.</strong> On a frozen Pythia-410M with a TopK concept registry (4096
+slots, k = 16) over four text domains, a targeted intervention rises monotonically
+to 41.7% on a concept-defined metric while <strong>three independent controls return
+exactly zero at every strength</strong>: a magnitude-matched random direction,
+quality-matched features belonging to other concepts, and a <strong>shuffled-decoder</strong>
+control that biases the same slots through the same learned columns under a
+permuted assignment. The last of these is the informative one, and we did not
+find it in use in this literature. Subject to a dose mismatch we report rather
+than suppress (18–29% against a 5% tolerance), the pattern is most consistent
+with the effect arising from the specific slot-to-column correspondence rather
+than from slot quality or from the columns merely being learned.</p>
+<p><strong>Why the controls are the contribution.</strong> Getting to a result we could defend
+required removing several we could not. We document <strong>six evaluation pitfalls</strong>, each
+quantified from our own runs, that individually produced a false negative or a
+false positive in our results: uncalibrated intervention magnitude, greedy
+decoding artifacts, metric mismatch, measurement at the wrong token span, a
+control pinned at the metric floor, and a metric that rewards fluency collapse.
+Four produced effects we recorded as absent; two produced numbers we recorded as
+evidence and later withdrew.</p>
+<p>We then subject our own settled results to an adversarial audit, which <strong>overturns
+or restricts four recorded claims</strong>, including the one our internal record
+described as the cleanest result in the project. We report what survives, and
+note that the two false positives could not have been found by adding
+instrumentation — the instruments were reporting correctly; the inference drawn
+from them was wrong.</p>
+<p>We organize the control landscape by what each class rules out, and identify two
+constructions we did not find used in this literature: controls matched on a
+<em>measured feature-quality score</em>, and the shuffled-decoder control above
+(permutation controls are long established in other settings). We further report
+that the feature-defined metric ranks a random direction <em>above</em> the intended
+intervention in one domain — an independent confirmation of the sixth pitfall,
+on new data.</p>
+<p>This is not a novelty claim. Where prior work anticipates our findings we say so.
+Its contribution is that the failure modes are measured rather than hypothesized,
+and reported by the people who fell into them.</p>
+<hr />
+<p><strong>Keywords:</strong> sparse autoencoders · activation steering · evaluation methodology ·
+causal specificity · controls · negative results</p>
+<hr />
+<h2>Contributions</h2>
+<ol>
+<li><strong>An attribution result</strong> (§6.6): a steering effect that survives three
+   independent controls at zero, including a shuffled-decoder control we did not
+   find in use in this literature — reported with the dose mismatch that limits it.</li>
+<li><strong>Six quantified evaluation pitfalls</strong> from the same pipeline (§4), each with
+   the reasoning that produced the wrong conclusion, the measurement that revealed
+   it, and a transferable rule.</li>
+<li><strong>An adversarial audit of our own settled results</strong> (§5), reported in full,
+   which overturned or restricted four claims and whose selectivity is itself
+   diagnostic.</li>
+<li><strong>A control taxonomy</strong> organized by what each class rules out (§6.2), with two
+   constructions we did not find used in this literature (§6.3), four of five run
+   empirically (§6.6).</li>
+<li><strong>A diagnostic for null results</strong> (§4.4): when a null includes a baseline you
+   expected to work, the joint failure localizes the problem to the measurement
+   position rather than the instrument. Applying it converted a complete null into
+   the strongest positive result in our pipeline.</li>
+<li><strong>Results that survive the audit</strong> (§3), stated with the restrictions it
+   imposed — including a frozen model's dictionary state at entity-read time
+   discriminating real from invented entities better than the model's own
+   next-token uncertainty at the same positions, in one of three non-confounded
+   domains, at n = 30 per class and a single training seed.</li>
+</ol>
+<div class="pb"></div>
+
+<h1>1. Introduction</h1>
+<p>Sparse dictionaries trained on the activations of a frozen language model are
+now a standard tool for obtaining interpretable, and putatively causal, handles
+on model internals. The premise is that writing into a dictionary's slots
+constitutes an intervention on a <em>concept</em>, and that the resulting behavioural
+change can be attributed to that concept.</p>
+<p><strong>This paper is about the second half of that premise.</strong> Demonstrating that an
+intervention changes behaviour is routine. Demonstrating that the change is
+attributable to the intervened feature — rather than to the act of intervening,
+to the magnitude injected, or to the feature merely being a learned one — requires
+controls that rule out each of those alternatives separately. We set out what
+those controls are, run four of them, and report the attribution they license.</p>
+<p>That premise is currently under pressure. Recent work reports that randomized
+dictionary variants match fully-trained ones on interpretability scores, sparse
+probing, and causal editing, and concludes that dictionaries in their present
+form "do not reliably decompose models' internal mechanisms" [1]. A separate audit
+of a widely used benchmark suite [7] finds that several of its metrics "should not
+be used to evaluate SAEs," and proposes no replacement [2]. A third line of work
+finds that automated interpretability metrics fail to distinguish trained from
+randomly initialized transformers at all [3].</p>
+<p>The common thread is not that dictionaries do not work. It is that <strong>the field
+does not currently have an agreed way to tell whether a given dictionary's
+handles are meaningful</strong>, and the metrics in use are too weak to separate
+learning from the exploitation of random structure at scale.</p>
+<h2>What this paper contributes</h2>
+<p>We do not resolve that question. We report, from a complete pipeline built to
+answer a different question, a set of concrete failure modes that lie between a
+correct implementation and a correct conclusion — and a self-audit that removed
+four of our own results.</p>
+<p>Specifically:</p>
+<ol>
+<li>
+<p><strong>Six measured evaluation pitfalls</strong> (§4), each quantified from our own runs.
+   Four produced false negatives — effects we recorded as absent that were
+   present. Two produced false positives — numbers we recorded as evidence that
+   were artifacts. Each is presented with the reasoning that led us to the wrong
+   conclusion, the measurement that revealed it, and the transferable rule.</p>
+</li>
+<li>
+<p><strong>An adversarial audit of our own settled results</strong> (§5), which overturned or
+   restricted four recorded claims, including the one we had described in our
+   internal record as the cleanest result in the project. We report the audit's
+   method, its findings, and — because it is diagnostic — the observation that
+   the two false positives could not have been caught by adding instrumentation,
+   only by attacking conclusions we already believed.</p>
+</li>
+<li>
+<p><strong>A control taxonomy and a proposed protocol</strong> (§6), organized around what
+   each control class actually rules out. We identify two constructions for which
+   we did not find in use in this literature — controls matched on a <em>measured feature-quality
+   score</em>, and a <em>shuffled-decoder</em> control that preserves the learned columns
+   but permutes their assignment — run four of the five classes (§6.6), and show
+   from our own data why the quality-matched control alone carries no
+   information.</p>
+</li>
+<li>
+<p><strong>The results that survive</strong> (§3), stated with the restrictions the audit
+   imposed. The strongest of these is that a frozen model's sparse-dictionary
+   state, read at the moment it processes an entity name, discriminates real
+   from invented entities better than the model's own next-token uncertainty at
+   the same positions — in one of three non-confounded domains.</p>
+</li>
+</ol>
+<h2>What this paper is not</h2>
+<p>It is not a novelty claim. The mechanisms we build on are established, and where
+prior work anticipates our findings we say so explicitly (§8) — including one
+paper that reports entity-recognition directions of the kind we recover in §3.5 [4],
+and another that separates causal read- from write-inertness along the same lines
+as our own mechanistic reasoning [8].</p>
+<p>It is a case study, on a single 410M-parameter model, four text domains, and one
+dictionary architecture. Its value, if it has any, is that the failure modes are
+measured rather than hypothesized, and that they are reported by the people who
+fell into them.</p>
+<h2>Why report failures at this level of detail</h2>
+<p>Each pitfall in §4 cost us at least one full experimental run, and in one case
+five. Two of them produced results we recorded internally as successes and later
+withdrew. None of them are exotic: uncalibrated intervention magnitude, greedy
+decoding, a metric that does not measure what the mechanism moves, measurement at
+the wrong token positions, a control that cannot vary, and a metric that rewards
+degenerate output.</p>
+<p>We expect these to be common precisely because they are individually easy to
+miss and collectively invisible in published work — a paper that fell into any
+of them would report either a clean null or a clean effect, and in neither case
+would the underlying failure be visible to a reader.</p>
+<div class="pb"></div>
+
+<h1>2. Setup</h1>
+<h2>2.1 Model and dictionary</h2>
+<p><strong>Base model.</strong> Pythia-410M [14] (EleutherAI), frozen throughout. Every parameter has
+<code>requires_grad = False</code>, the model is held in evaluation mode, and the optimizer
+is constructed over dictionary parameters only. The base model's next-token
+cross-entropy was measured on held-out data at intervals during training and
+remained stable, confirming that no parameter drift occurred.</p>
+<p><strong>Dictionary.</strong> A TopK sparse dictionary ("registry") over residual-stream
+activations at layer 12 of 24:</p>
+<pre><code>pre   = ReLU( W_enc (h − b_dec) )
+acts  = TopK( pre, k )
+recon = W_dec acts + b_dec
+</code></pre>
+<p>with <code>n_slots = 4096</code>, <code>k = 16</code>, and an auxiliary top-<code>k_aux = 32</code> reconstruction
+term (weight 0.03) to revive slots that have stopped firing. Decoder columns are
+unit-normalized at initialization and renormalized periodically during training.
+The training objective is reconstruction only — no domain labels enter it.</p>
+<p>The expansion factor is 4 (4096 slots over 1024 dimensions). This is
+substantially lower than is typical in recent dictionary work, and we treat it as
+a scope limitation rather than a design choice (§7).</p>
+<p><strong>Domains.</strong> Four text corpora: medicine (PubMedQA), law (BillSum), code
+(CodeParrot), literature (Project Gutenberg). Domains define the concept
+partition against which slot specialization is measured; they are not used as
+training signal.</p>
+<h2>2.2 Measuring specialization</h2>
+<p>For each slot we count firings per domain over held-out text and define</p>
+<pre><code>purity(slot) = max_d count[d] / Σ_d count[d]
+</code></pre>
+<p>so a slot firing only within one domain has purity 1.0 and a slot firing equally
+across four has purity 0.25.</p>
+<p>The comparison of interest is against the model's own hidden dimensions. To be
+meaningful, this must be made <strong>at matched sparsity</strong>: raw-dimension purity is
+computed over the top-16 dimensions per token, the same budget the dictionary
+operates under. Comparing a sparse representation against a dense one inflates
+the apparent gap and we do not report such comparisons.</p>
+<h2>2.3 Intervention</h2>
+<p>Steering biases slot scores <em>before</em> selection, so that the bias can change which
+slots are selected, and injects the difference between the two decodes as a
+residual-stream update at the same layer:</p>
+<pre><code>delta   = decode( TopK(pre + bias) ) − decode( TopK(pre) )
+h'      = h + gain · delta
+</code></pre>
+<p>At <code>bias = 0</code> this is a bit-exact no-op, verified by the fact that purity and
+training metrics are identical to the runs without a steering hook installed.</p>
+<p><strong>Magnitude.</strong> Every intervention row reports</p>
+<pre><code>delta_ratio = ‖ gain · delta ‖ / ‖ h ‖
+</code></pre>
+<p>the norm of the injected update relative to the residual stream it is added to,
+averaged over token positions. §4.1 explains why we regard reporting this as
+mandatory rather than optional.</p>
+<h2>2.4 Generation and fluency gating</h2>
+<p>Generation uses sampling (<code>temperature = 0.8</code>, <code>top_p = 0.9</code>). Greedy decoding is
+not used anywhere in this work; §4.2 explains why. The nucleus filter includes
+the token that crosses the probability threshold rather than excluding it.</p>
+<p>Every generated continuation is scored for repetition rate and mean token-level
+entropy, and rows exceeding a repetition threshold or falling below an entropy
+threshold are flagged as degenerate. §4.6 documents a case where a metric was
+maximized by exactly such degenerate output, and §5.2 records the consequence.</p>
+<h2>2.5 Metrics</h2>
+<ul>
+<li><strong>Concept-defined rate</strong> — frequency of terms selected as distinctive to a
+  domain by relative frequency against the other three corpora.</li>
+<li><strong>Feature-defined rate</strong> — frequency of the tokens the intervened slots
+  themselves most strongly fire on. Introduced as a mismatch diagnostic (§4.3),
+  and restricted to that role after §4.6.</li>
+<li><strong>AUROC</strong>, polarity-corrected as <code>max(AUC, 1 − AUC)</code>, for the detection
+  experiments. Polarity correction is necessary because several registry signals
+  are inverted-but-informative; it is applied identically to registry signals and
+  to baselines, and the permutation test in §3.5 recomputes the maximum over
+  signals inside every shuffle so that the correction cannot inflate the reported
+  significance.</li>
+</ul>
+<h2>2.6 Detection experiment</h2>
+<p>For the hallucination experiments the steering bias is identically zero
+throughout and the hook is read-only; this is asserted at six points in the
+execution path. Signals are recorded over three spans — the entity tokens
+specifically, the full prompt, and the generated tokens — with the entity span
+located by re-encoding the template prefix, prefix-plus-entity, and the full
+prompt, and verifying that the reconstruction agrees.</p>
+<p>LM-head baselines (next-token entropy and negative max log-probability) are
+computed from the prefill at every context position, from the full softmax before
+temperature and nucleus filtering, and sliced into the same spans under two
+alignments: at the same positions as the registry signal, and shifted by one so
+as to characterize the same tokens. The verdict is required to clear <strong>the
+stronger of the two</strong>, so that the choice of alignment cannot favour the
+dictionary.</p>
+<h2>2.7 Reproducibility of the runs reported here</h2>
+<p>Training in this configuration is bit-reproducible on the hardware used (NVIDIA
+T4). Across ten independent sessions the purity gap was identical to sixteen
+significant figures and per-slot firing counts were identical as integers. All
+runs used a single fixed training seed; consequently seed-to-seed variance was
+never measured, and no claim in this paper rests on stability across seeds
+(§3.2, §5.2 R4).</p>
+<div class="pb"></div>
+
+<h1>3. Results</h1>
+<p>This section reports the findings that survive the adversarial audit described
+in §5. Four claims that appeared in earlier internal versions of this work were
+withdrawn or restricted by that audit; they are listed in §5.2 rather than here,
+and the restrictions are carried into the statements below.</p>
+<p>Every number is traceable to a run log; references are given inline.</p>
+<hr />
+<h2>3.1 Slots specialize without supervision</h2>
+<p>Trained with a reconstruction objective alone — no domain labels, no auxiliary
+classification term — registry slots separate by domain far more cleanly than
+the model's own hidden dimensions do at the same sparsity.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>registry slots</th>
+<th>raw hidden dims</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mean purity</td>
+<td><strong>0.805</strong></td>
+<td>0.583</td>
+</tr>
+<tr>
+<td>gap</td>
+<td><strong>+0.222</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>The comparison is made at matched sparsity: the raw-dimension purity is computed
+over the top-16 dimensions per token, the same budget the registry is given.
+Without this matching the comparison is not meaningful, since a dense
+representation is being compared against a sparse one.</p>
+<p>The effect is monotone in dictionary capacity, over three successive
+configurations at fixed sparsity <code>k = 16</code>:</p>
+<table>
+<thead>
+<tr>
+<th>slots</th>
+<th>1024</th>
+<th>2048</th>
+<th>4096</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mean purity</td>
+<td>0.766</td>
+<td>0.786</td>
+<td><strong>0.805</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>A hypothesis we rejected.</strong> Our prior expectation was the opposite of what we
+found. We expected that <em>reducing</em> the number of simultaneously active slots
+would force cleaner specialization, and tested <code>k = 8</code> at fixed capacity. Every
+measured quantity degraded: mean purity fell to 0.708, the purity gap fell from
+0.187 to 0.089, and language-model loss worsened. Increasing capacity, not
+increasing sparsity pressure, is what produced specialization in our setting.</p>
+<hr />
+<h2>3.2 The mechanism transfers to a frozen pretrained model, and improves with scale</h2>
+<p>We repeated the procedure on frozen Pythia models, training only the registry on
+mid-network activations while every model parameter was held fixed
+(<code>requires_grad = False</code>, verified; cross-entropy of the base model measured
+stable throughout training).</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Pythia-160M</th>
+<th>Pythia-410M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>purity gap over raw dims</td>
+<td>+0.288</td>
+<td><strong>+0.317</strong></td>
+</tr>
+<tr>
+<td>dead slots at end of training</td>
+<td>5.1%</td>
+<td><strong>0.5%</strong></td>
+</tr>
+<tr>
+<td>live slots</td>
+<td>2377 / 4096</td>
+<td><strong>3527 / 4096</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Both the separation and the utilization of the dictionary improve with model
+scale. Two data points do not establish a trend, and we do not claim one; we
+report the direction and note that it is consistent with the expectation that
+richer representations admit cleaner sparse decomposition.</p>
+<p><strong>Reproducibility.</strong> Training in this regime is bit-reproducible on the hardware
+used. Across <strong>ten independent sessions spanning seven distinct codebases</strong>, the
+reported purity gap was identical to sixteen significant figures
+(<code>0.31747859716415405</code>), as were per-slot firing counts as integers. We note
+this explicitly because an earlier phase of this work — in which the dictionary
+was trained <em>jointly</em> with a from-scratch transformer — was strongly
+non-reproducible at fixed seed, and we had incorrectly carried that expectation
+forward. See §5.2, R4.</p>
+<p>A caveat follows directly from the same fact: because the seed was held fixed at
+a single value throughout, <strong>seed-to-seed variance in this regime has never been
+measured.</strong> No claim in this paper depends on stability across seeds.</p>
+<hr />
+<h2>3.3 Writing into slots changes generation, monotonically in the injected magnitude</h2>
+<p>Biasing a domain's purest slots before top-k selection, and injecting the
+resulting difference of decodes as a residual-stream update, produces a monotone
+dose–response relationship between the relative magnitude of the update and the
+rate of targeted vocabulary in the continuation:</p>
+<table>
+<thead>
+<tr>
+<th><code>delta_ratio</code></th>
+<th>0%</th>
+<th>2.8%</th>
+<th>6.1%</th>
+<th>7.7%</th>
+<th>9.0%</th>
+<th>11.4%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>targeted-vocabulary rate</td>
+<td>0.0%</td>
+<td>1.3%</td>
+<td>16.0%</td>
+<td>22.8%</td>
+<td>38.2%</td>
+<td>41.7%</td>
+</tr>
+</tbody>
+</table>
+<p>Monotonicity across six points is the relevant evidence here, not any single
+value; individual cell values carry substantial variance (§5.2, R1).</p>
+<p>Fluency was checked on every row via repetition rate and token-level entropy,
+under sampling-based decoding. The operating region in which the intervention
+produces measurable movement without degrading fluency is approximately
+<code>delta_ratio ∈ [6%, 8%]</code>; below roughly 1% the intervention is not detectable
+(§4.1), and above roughly 10% generation degrades.</p>
+<hr />
+<h2>3.4 Suppression is structurally saturated</h2>
+<p>The same mechanism applied in the negative direction — biasing a domain's slots
+<em>downward</em> so they fall out of the top-k selection — does not produce a
+comparable intervention. Measured at identical settings:</p>
+<table>
+<thead>
+<tr>
+<th>direction</th>
+<th>maximum achieved <code>delta_ratio</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>promotion</td>
+<td><strong>12.29%</strong></td>
+</tr>
+<tr>
+<td>suppression</td>
+<td><strong>≤ 0.36%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>a factor of <strong>34</strong>, and the suppression figure does not increase with strength.
+The mechanism is straightforward: removing k slots from a top-k selection
+promotes the next k in rank order, and their reconstruction is nearly
+equivalent, so the difference between the two decodes remains small no matter
+how negative the bias becomes.</p>
+<p>This is a limitation of the intervention mechanism, not of the dictionary. Any
+application requiring suppression rather than promotion needs a different
+mechanism — for example forcing activations to zero after selection rather than
+biasing scores before it.</p>
+<hr />
+<h2>3.5 The registry's internal signature at entity tokens exceeds the model's own uncertainty signal</h2>
+<p>We tested whether the registry's internal state predicts ungroundedness <em>before
+generation</em>, using a read-only hook (steering bias identically zero throughout,
+asserted at six points in the code) on a frozen Pythia-410M.</p>
+<p>The contrast is between prompts naming real entities and prompts naming invented
+ones, where the invented case is ungrounded by construction. Signals are computed
+over three spans — the entity tokens, the full prompt, and the generated tokens —
+and compared against the model's own LM-head baselines (next-token entropy and
+negative max log-probability) computed at the <strong>same positions</strong>, in two
+alignments, with the verdict required to clear the stronger of them.</p>
+<p><strong>Automated verdict.</strong> At the entity span, the best registry signal exceeds the
+strongest of four LM-head baselines by <strong>+0.139</strong> discrimination
+<em>(logs27.txt:1121)</em>. At the generated-token span the margin is +0.047, close to
+the noise floor — consistent with §4.4, where measuring only at generated tokens
+returned a complete null.</p>
+<p><strong>Independent entity-level analysis.</strong> Because the entity-span signals are read
+from the deterministic prefill, they are bit-identical across generation repeats
+— verified for all 240 entities. The effective independent unit is therefore the
+entity, not the run, and any interval computed over runs would be too narrow by a
+factor of √3. Re-analysing at the entity level (30 real vs 30 invented per
+domain), aggregating each signal over the whole entity span so that no threshold
+on span length is selected post hoc:</p>
+<table>
+<thead>
+<tr>
+<th>domain</th>
+<th>best registry signal</th>
+<th>disc.</th>
+<th>strongest baseline</th>
+<th>disc.</th>
+<th>gap</th>
+<th>95% CI</th>
+<th>perm. <em>p</em></th>
+<th>signals beating baseline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>literature</strong></td>
+<td><code>prompt_domain_share</code></td>
+<td><strong>0.837</strong></td>
+<td><code>neg_max_logprob_state</code></td>
+<td>0.636</td>
+<td><strong>+0.201</strong></td>
+<td><strong>[+0.020, +0.344]</strong></td>
+<td><strong>0.0015</strong></td>
+<td><strong>5 / 7</strong></td>
+</tr>
+<tr>
+<td>law</td>
+<td><code>max_act</code></td>
+<td>0.750</td>
+<td><code>lm_entropy_token</code></td>
+<td>0.623</td>
+<td>+0.127</td>
+<td>[−0.070, +0.267]</td>
+<td>0.0285</td>
+<td>2 / 7</td>
+</tr>
+<tr>
+<td>code</td>
+<td><code>max_act</code></td>
+<td>0.653</td>
+<td><code>neg_max_logprob_state</code></td>
+<td>0.713</td>
+<td>−0.060</td>
+<td>[−0.149, +0.128]</td>
+<td>0.93</td>
+<td>0 / 7</td>
+</tr>
+<tr>
+<td>~~medicine~~</td>
+<td><code>prompt_domain_share</code></td>
+<td>0.958</td>
+<td><code>neg_max_logprob_token</code></td>
+<td>0.744</td>
+<td>+0.213</td>
+<td>[+0.081, +0.331]</td>
+<td>0.0005</td>
+<td><em>excluded — confounded</em></td>
+</tr>
+</tbody>
+</table>
+<p>The permutation test recomputes the maximum over all seven registry signals
+<em>inside every label shuffle</em>, so the reported <em>p</em>-value already accounts for the
+post-hoc selection of the best signal.</p>
+<p><strong>Confound control.</strong> Medicine is excluded by an automatic gate, not by
+inspection. Real disease names are common English words that tokenize to a single
+in-context BPE token (<code>asthma</code>, <code>stroke</code>, <code>migraine</code>); invented proper nouns
+cannot. The in-context token-length gap between the real and invented lists is
+0.767 for medicine against a 0.5 threshold, versus 0.133, 0.167 and 0.033 for the
+other three domains. The experiment prints the flag and reports the restricted
+result separately <em>(logs27.txt:1186–1208)</em>.</p>
+<p><strong>What this supports, and what it does not.</strong> In one of three non-confounded
+domains the result is robust: the confidence interval excludes zero, the
+permutation <em>p</em> survives Bonferroni correction across the three domains
+(α = 0.0167), and five of seven independent signals clear the strongest
+baseline. Law is suggestive but not robust. Code fails, consistent with its
+behaviour throughout this work: its purest slots fire on punctuation and fire an
+order of magnitude less often than other domains'.</p>
+<p>We do not claim a general hallucination detector. We claim a measured instance,
+in one domain, in which a frozen model's sparse-dictionary state at the moment it
+reads an entity is more informative about ungroundedness than the model's own
+next-token uncertainty at the same positions.</p>
+<p><strong>Second test.</strong> A cloze-style correct-versus-incorrect test was included and
+returned no usable signal: Pythia-410M produced zero exact-match correct answers
+across all 360 runs under sampling, leaving a single label class. The
+experiment's degeneracy check detected this and reported an explicit honest
+negative rather than propagating undefined AUROC values <em>(logs27.txt:1161,
+1173)</em>.</p>
+<div class="pb"></div>
+
+<h1>4. Six Measured Pitfalls</h1>
+<p>We report six evaluation failures encountered while building a sparse-registry
+steering and hallucination-detection pipeline on a frozen Pythia-410M. Each one
+individually produced either a false negative (an effect we wrongly reported as
+absent) or a false positive (a number we wrongly reported as evidence). All six
+were caught, and all are quantified from our own runs; log line references are
+given so that each claim is traceable.</p>
+<p>We present them in the order a practitioner is likely to meet them: first the
+failures that corrupt the <em>measurement apparatus</em>, then those that corrupt the
+<em>conclusion drawn from it</em>.</p>
+<hr />
+<h2>4.1 An uncalibrated intervention magnitude produces a false negative</h2>
+<p><strong>Symptom.</strong> Our first steering experiment on the frozen model biased the two
+purest slots per domain across a strength grid of <code>[0, 0.5, 1, 2, 4] × θ</code>, where
+<code>θ</code> was the empirical top-k selection threshold. Across all four domains and all
+strengths, the targeted-vocabulary rate was flat at approximately zero. Fluency
+was healthy throughout (repetition 9–32%, entropy 4.2–5.2 nats), so the null
+could not be attributed to degenerate generation.</p>
+<p><strong>The conclusion we drew, and it was wrong.</strong> We recorded the result as a
+negative: <em>writing into registry slots does not steer a frozen pretrained model
+in any measurable direction.</em> The reasoning appeared sound — the intervention
+was applied, the model kept generating fluently, and nothing moved.</p>
+<p><strong>What was actually happening.</strong> We had never measured how large the
+intervention was <em>relative to the signal it was competing with</em>. We added a
+diagnostic, <code>delta_ratio</code>, defined as the norm of the injected residual-stream
+update over the norm of the residual stream itself:</p>
+<pre><code>delta_ratio = || gain · (decode(topk(pre + bias)) − decode(topk(pre))) || / || h ||
+</code></pre>
+<p>The failed experiment had been injecting a perturbation of roughly <strong>0.2% of the
+residual stream norm</strong>. The intervention was not ineffective; it was <em>inaudible</em>.
+When we widened the intervention to eight slots per domain and swept a gain
+factor, the same architecture, the same model and the same slots produced a
+monotone dose–response curve:</p>
+<table>
+<thead>
+<tr>
+<th><code>delta_ratio</code></th>
+<th>0%</th>
+<th>2.8%</th>
+<th>6.1%</th>
+<th>7.7%</th>
+<th>9.0%</th>
+<th>11.4%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>targeted-vocabulary rate</td>
+<td>0.0%</td>
+<td>1.3%</td>
+<td>16.0%</td>
+<td>22.8%</td>
+<td>38.2%</td>
+<td>41.7%</td>
+</tr>
+</tbody>
+</table>
+<p>The effect had been there the whole time, below the threshold of measurement.</p>
+<p><strong>Fix.</strong> Report <code>delta_ratio</code> (or an equivalent relative-magnitude measure) for
+every intervention row, and calibrate the strength grid so that it spans the
+region where the quantity is on the order of a few percent. In our setting the
+usable window was roughly 6–8%; below ~1% nothing is measurable, and above ~10%
+fluency degrades.</p>
+<blockquote>
+<p><strong>Transferable lesson.</strong> A null steering result is uninterpretable unless the
+intervention magnitude is reported. "We intervened and nothing happened" and
+"we did not intervene enough to be detectable" are indistinguishable without
+it, and the second is the more common of the two.</p>
+</blockquote>
+<p><em>Evidence: exp4 (all-zero sweep) vs exp4b (<code>delta_ratio</code> diagnostic and gain
+sweep).</em></p>
+<hr />
+<h2>4.2 Greedy decoding manufactures the collapse you are trying to detect</h2>
+<p><strong>Symptom.</strong> Our collapse detector flagged <em>every</em> non-zero intervention
+strength, in every domain, in both intervention directions, as having broken
+fluency. There was no strength small enough to escape it.</p>
+<p><strong>The conclusion we drew, and it was wrong.</strong> We recorded that the intervention
+mechanism destroys generation coherence at any dose, and therefore that no clean
+operating window exists.</p>
+<p><strong>What was actually happening.</strong> Generation used deterministic argmax decoding.
+Small language models are well known to fall into repetition loops under greedy
+decoding, and ours did — <em>before any intervention at all</em>. At <code>strength = 0.0</code>,
+with the steering bias identically zero and the intervention path a bit-exact
+no-op, the measured repetition rate was:</p>
+<pre><code>BOOST,    strength = 0.0 :  rep = 77.4%   (all four domains, shared neutral prompt)
+SUPPRESS, strength = 0.0 :  rep = 69.8% – 88.9%
+</code></pre>
+<p><em>(logs16.txt:240–258 and 271–289)</em></p>
+<p>Our collapse threshold was 50%. The unintervened baseline was already at 77%.
+The detector was not measuring the effect of our intervention; it was reporting
+a property of our decoding strategy.</p>
+<p><strong>Fix.</strong> Replace greedy decoding with sampling (<code>temperature = 0.8</code>,
+<code>top_p = 0.9</code>). Under the corrected decoder the same baseline condition measured
+5.0–18.6% repetition, and across all 48 intervention rows — every domain, every
+strength, both directions — <strong>zero rows were flagged as collapsed</strong>.</p>
+<p><strong>Cost.</strong> Five runs were contaminated before this was found, and two results we
+had reported as positive had to be withdrawn, because the old detector's
+threshold logic had silently exempted the lowest non-zero strengths from the
+collapse check.</p>
+<blockquote>
+<p><strong>Transferable lesson.</strong> Measure your control condition first. If the
+unintervened baseline already fails your quality gate, the gate is measuring
+your pipeline, not your intervention.</p>
+</blockquote>
+<hr />
+<h2>4.3 Metric mismatch: the intervention worked, and we were looking elsewhere</h2>
+<p><strong>Symptom.</strong> After the magnitude fix, the intervention moved the targeted
+metric in one domain and left it at exactly zero in the other three.</p>
+<p><strong>The conclusion we drew, and it was partly wrong.</strong> We recorded that steering
+works for one domain and fails for the rest, and began looking for properties of
+the failing domains that would explain it.</p>
+<p><strong>What was actually happening.</strong> Our metric counted the rate of <em>distinctive</em>
+domain vocabulary — terms selected by relative frequency against the other three
+corpora (e.g. <code>subparagraph</code>, <code>Secretary</code> for law). But inspection of the slots
+we were boosting showed that the purest slots in those domains fire on
+<em>function words and punctuation</em> (<code>the</code>, <code>(</code>, <code>shall</code>, <code>this</code> for law;
+<code>:</code>, <code>)</code>, <code>.</code>, newline for code). Boosting such a slot changes the register and
+formatting of the text, not its rare content words.</p>
+<p>Adding a second metric — the rate of the tokens that <em>the boosted slots
+themselves</em> most strongly fire on — revealed movement of up to tens of
+percentage points in domains where the original metric had been flat at zero.
+The intervention had been working in three of four domains; the metric had been
+measuring the wrong thing in two of them.</p>
+<p><strong>Fix.</strong> Report both a <em>concept-defined</em> metric and a <em>feature-defined</em> metric.
+Their divergence is itself informative: it localizes the mismatch between what
+the feature encodes and what the evaluator counts.</p>
+<blockquote>
+<p><strong>Transferable lesson.</strong> When an intervention shows no effect, the first
+question is not "why is the mechanism failing" but "is the metric measuring
+the quantity the mechanism actually moves."</p>
+</blockquote>
+<p><strong>A caution we impose on ourselves.</strong> The feature-defined metric turned out to
+have a serious failure mode of its own, described in §4.6. It should be reported
+alongside the concept-defined metric as a diagnostic, never used alone as
+evidence of success.</p>
+<hr />
+<h2>4.4 Measuring at the wrong token span yields a total null — and the baseline is the clue</h2>
+<p><strong>Symptom.</strong> Our hallucination-detection experiment returned AUROC ≈ 0.5 for
+every registry signal, at every value of N, on both tests. A complete null.</p>
+<p><strong>Why this null was diagnosable.</strong> The experiment included a mandatory baseline:
+the frozen model's own next-token entropy and negative max log-probability, read
+from its LM head on the same runs. <strong>That baseline was also at 0.5.</strong></p>
+<p>This is the key observation. Had the registry been at chance while the model's
+own uncertainty signal discriminated, the correct conclusion would have been
+that the registry carries no information the model does not already expose. But
+both were at chance simultaneously — and the model's own uncertainty is known to
+carry <em>some</em> signal about unfamiliar entities. Two independent measurement
+instruments returning chance at the same time indicates that the quantity is not
+present <em>where both are looking</em>.</p>
+<p><strong>What was actually happening.</strong> Our read-only hook recorded only the final
+position of each forward pass, which meant we were measuring at the last prompt
+token and at the generated tokens. But the moment at which a model can be said
+to encounter an entity it does not know occurs while it <em>reads that entity</em>,
+during the prefill. The entity tokens were never measured at all.</p>
+<p><strong>Fix.</strong> Record all positions of every forward pass and compute signals over
+three explicit spans: the entity tokens, the full prompt, and the generated
+tokens. Under the corrected measurement, on the same model and the same
+registry, polarity-corrected discrimination at the entity span reached 0.65–0.84
+in the non-confounded domains, while the generated-token span remained at chance
+— exactly as before.</p>
+<p><strong>Result.</strong> The final automated verdict, comparing against the stronger of four
+LM-head baselines computed at the same positions, reported a margin of <strong>+0.139</strong>
+at the entity span <em>(logs27.txt:1121)</em>.</p>
+<blockquote>
+<p><strong>Transferable lesson.</strong> Always include a baseline you expect to work. Its
+failure is not a nuisance — it is the most informative single bit in a null
+result. A registry-only null is ambiguous; a <em>joint</em> null localizes the problem
+to the measurement position rather than the instrument.</p>
+</blockquote>
+<hr />
+<h2>4.5 A control pinned at the metric floor carries no information</h2>
+<p><strong>Symptom.</strong> Our strongest reported result was a comparison against a
+purity-matched control: eight slots drawn from <em>other</em> domains, greedily matched
+to the target slots' measured purity (mean absolute purity gap 0.000 for three
+of four domains) and driven at a matched injected magnitude. The control
+returned 0.0% ± 0.0% at every strength and in every repeat, against 22.8% ± 2.7%
+for the targeted slots. We reported this as decisive.</p>
+<p><strong>What an adversarial audit of our own result found.</strong> The control's value was
+<code>0.0</code> with standard deviation <code>0.0</code> in <strong>18 of 18 runs</strong>. It is therefore
+<em>numerically identical</em> to the raw targeted measurement:</p>
+<pre><code>specificity_gap = hit(target) − hit(control) = hit(target) − 0 ≡ hit(target)
+</code></pre>
+<p>The control added reassurance, not information. Any comparison it licenses is a
+comparison the raw number already licenses.</p>
+<p><strong>A second problem, structural rather than numerical.</strong> Inspection of the
+selected control slot identifiers showed that they were themselves <em>other
+domains' target slots</em>: medicine's controls included code's fourth-ranked target
+slot, law's second, and literature's seventh. The question the control actually
+answers is therefore <em>"if I steer toward a different domain, do this domain's
+words appear?"</em> — a test of cross-domain leakage. It is a legitimate question,
+and the answer is informative. But it does not license the claim we attached to
+it, because <strong>any dictionary with distinct per-domain directions passes it,
+including a randomized one.</strong></p>
+<p><strong>Fix.</strong> Two changes. First, use a metric with dynamic range in both directions
+(for example the log-odds of domain-vocabulary mass in the next-token
+distribution) so that a control can be measurably below, at, or above the target.
+Second, report multiple controls that rule out different hypotheses; a single
+control conflates them (see §6.5).</p>
+<blockquote>
+<p><strong>Transferable lesson.</strong> A control that cannot move is not a control. Before
+reporting a control-based claim, check the control's variance: if it is
+identically zero, the metric is floored and the control is decorative.</p>
+</blockquote>
+<p><strong>Revised claim.</strong> We now state this result as: <em>the effect is specific to the
+targeted domain's slots as against another domain's slots at matched purity and
+matched magnitude</em> — and explicitly not as evidence that the effect requires a
+learned dictionary.</p>
+<hr />
+<h2>4.6 A metric that rewards fluency collapse</h2>
+<p><strong>Symptom.</strong> The feature-defined metric introduced in §4.3 produced the single
+largest specificity margin anywhere in our data: <strong>66.7 percentage points</strong> in
+the code domain, with a t-statistic of 38.</p>
+<p><strong>What was actually happening.</strong> That row's generation had
+<code>repetition = 95.8%</code> and <code>entropy = 0.75 nats</code> — near-deterministic emission of a
+single token, flagged as collapsed in all three repeats. The feature-defined
+vocabulary for code's purest slots consists of punctuation and whitespace
+(<code>:</code>, <code>)</code>, <code>.</code>, newline). A generation that degenerates into repeating one such
+token scores near-perfectly on a metric that counts exactly those tokens.</p>
+<p>The metric was not measuring successful steering. It was measuring collapse, and
+rewarding it.</p>
+<p><strong>Why this matters beyond one row.</strong> The result we had described in our own
+records as the cleanest in the project — a 52.2% versus 1.7% separation in the
+law domain — is produced by the same metric, on slots whose feature vocabulary
+is likewise function words and punctuation. We withdraw it from our primary
+analysis.</p>
+<p><strong>Independent confirmation.</strong> This conclusion was reached from a single
+collapsed row. A later experiment (§6.6.3) tested it on entirely new data, with
+the metric held fixed to the targeted domain's vocabulary across four arms. In
+one domain a <em>random direction</em> scored 42.3 against the targeted arm's 20.7; in
+another, a purity-matched control equalled the targeted arm. A metric that ranks
+a null above the treatment cannot serve as evidence of steering, and the
+withdrawal stands on independent grounds.</p>
+<p><strong>Fix.</strong> Gate every metric on a fluency criterion computed on the same
+generation, and report the collapse rate per condition as a co-primary outcome.
+Where two conditions have different collapse propensities — which is precisely
+the case when comparing a trained dictionary against a randomized one — a
+collapse-rewarding metric cannot be used for comparison at all.</p>
+<blockquote>
+<p><strong>Transferable lesson.</strong> Ask of every metric: what score does a degenerate
+output receive? If the answer is "a high one," the metric is unusable for any
+comparison in which the conditions differ in their tendency to degenerate.</p>
+</blockquote>
+<hr />
+<h2>4.7 Summary</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Pitfall</th>
+<th>Direction of error</th>
+<th>Quantified evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.1</td>
+<td>Uncalibrated intervention magnitude</td>
+<td><strong>False negative</strong></td>
+<td>injected 0.2% of residual norm; effect appears from ~6%</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>Greedy decoding</td>
+<td><strong>False negative</strong></td>
+<td>baseline repetition 77.4% at zero intervention</td>
+</tr>
+<tr>
+<td>4.3</td>
+<td>Metric mismatch</td>
+<td><strong>False negative</strong></td>
+<td>3 of 4 domains moved on the feature-defined metric only</td>
+</tr>
+<tr>
+<td>4.4</td>
+<td>Wrong measurement span</td>
+<td><strong>False negative</strong></td>
+<td>AUROC 0.5 including the baseline; 0.65–0.84 at the entity span</td>
+</tr>
+<tr>
+<td>4.5</td>
+<td>Control pinned at the floor</td>
+<td><strong>False positive</strong></td>
+<td>control 0.0 ± 0.0 in 18/18; gap ≡ raw value</td>
+</tr>
+<tr>
+<td>4.6</td>
+<td>Metric rewards collapse</td>
+<td><strong>False positive</strong></td>
+<td>66.7 pp margin at entropy 0.75, repetition 95.8%</td>
+</tr>
+</tbody>
+</table>
+<p>Four of the six produced false negatives — results we would have published as
+"the mechanism does not work." Two produced false positives — results we did
+publish internally as successes and later withdrew. We note that the false
+negatives were each caught by adding a <em>measurement</em>, while the false positives
+were caught only by an adversarial review of results we already believed
+(§5).</p>
+<blockquote>
+<p><strong>The single most reusable item in this section</strong> is the diagnostic in §4.4:
+when a null result includes a baseline you expected to work, the joint failure
+localizes the problem to <em>where</em> you are measuring, not to <em>what</em> you are
+measuring with. That observation converted a complete null into the strongest
+positive result in our pipeline.</p>
+</blockquote>
+<div class="pb"></div>
+
+<h1>5. An Adversarial Audit of Our Own Claims</h1>
+<p>The pitfalls in §4 were found during development, each by adding a measurement
+that had been missing. Two of them, however — the floored control (§4.5) and the
+collapse-rewarding metric (§4.6) — were not found that way. They were found only
+after the results had been recorded as successes, by deliberately attempting to
+destroy them.</p>
+<p>We describe that process, because it is the part of this work we consider most
+reusable, and we report its outcome without softening: <strong>four of our own
+recorded claims did not survive it.</strong></p>
+<hr />
+<h2>5.1 Method</h2>
+<p>Before committing to a further experiment, we submitted the design <em>and the
+established results it rested on</em> to five independent adversarial reviews, each
+assigned a distinct axis and each instructed to attempt refutation rather than
+confirmation:</p>
+<table>
+<thead>
+<tr>
+<th>axis</th>
+<th>task</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>prior art</strong></td>
+<td>find published work that removes the novelty of the proposed contribution</td>
+</tr>
+<tr>
+<td><strong>external source</strong></td>
+<td>verify our reading of the paper we were responding to, from its source, and flag any over-reading</td>
+</tr>
+<tr>
+<td><strong>implementation</strong></td>
+<td>verify every claim we made about our own code, with line numbers, from the code</td>
+</tr>
+<tr>
+<td><strong>design</strong></td>
+<td>attack the experimental design; quantify anything that would make its result uninterpretable</td>
+</tr>
+<tr>
+<td><strong>independent replication of the above</strong></td>
+<td>a second executor, given the same brief with the relevant code injected</td>
+</tr>
+</tbody>
+</table>
+<p>Two properties of this setup mattered more than the number of reviewers.</p>
+<p>First, <strong>the reviews covered our established results, not only the new design.</strong>
+It is normal to review new code; it is less common to re-open conclusions that
+have already been recorded as settled. Three of the four claims withdrawn below
+came from that re-opening.</p>
+<p>Second, <strong>reviewers were required to cite evidence they had themselves
+retrieved</strong> — a line number, a log row, a quoted passage — rather than to
+summarize our description of it. Two of the four withdrawals were found by
+recomputing figures directly from our own run logs, which we had summarized
+correctly but compared incorrectly.</p>
+<hr />
+<h2>5.2 What did not survive</h2>
+<h3>R1 — "The result replicated across three seeds"</h3>
+<p>We had recorded a targeted-vocabulary rate of 22.8% ± 2.7%, described as a
+replication of an earlier run's 23.5%.</p>
+<p>Recomputation from the logs shows the two figures were measured <strong>at different
+intervention strengths</strong>. At the same strength (2.1868):</p>
+<table>
+<thead>
+<tr>
+<th>run</th>
+<th>targeted-vocabulary rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>earlier run</td>
+<td><strong>23.5%</strong></td>
+</tr>
+<tr>
+<td>later run, three repeats</td>
+<td>15.5%, 16.5%, 16.0% → <strong>16.0% ± 0.5%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>(logs22.txt:278–280)</em></p>
+<p>A 7.5 percentage-point difference between two bit-identical registries measured
+at the same dose. Pooling the four available draws gives σ̂ ≈ 3.8 pp — the
+reported ±0.5 understates the true dispersion by roughly a factor of eight, which
+is the expected behaviour of a standard deviation estimated from three samples
+(2 degrees of freedom; SD(s) ≈ 0.52σ).</p>
+<p>Further, the three "repeats" varied only the <em>generation</em> seed. The training seed
+was fixed at a single value in every run reported in this work. <strong>No seed
+replication was performed.</strong></p>
+<p><strong>Withdrawn.</strong> The number is reported in §3.3 as a point on a dose–response
+curve, with the curve's monotonicity — not any single cell — as the evidence.</p>
+<hr />
+<h3>R2 — "The control returned exactly zero, therefore the effect is specific"</h3>
+<p>Discussed in §4.5. Two independent problems.</p>
+<p>The control's value was <code>0.0</code> with standard deviation <code>0.0</code> in 18 of 18 runs, so
+the difference statistic was numerically identical to the raw targeted value and
+carried no additional information.</p>
+<p>And the control slots were themselves <em>other domains' target slots</em> — medicine's
+controls included code's fourth-ranked, law's second-ranked and literature's
+seventh-ranked target slots. The comparison therefore tests cross-domain leakage.
+It is a real test with a real answer, but it is passed by any dictionary with
+distinct per-domain directions, including a randomized one, and so cannot support
+a claim about learned structure.</p>
+<p><strong>Restricted, not withdrawn.</strong> We now state the result as specificity <em>against
+another domain's slots at matched purity and matched magnitude</em>, and not as
+evidence that a learned dictionary is required. §6.5 sets out the additional
+controls that would be needed for the stronger claim.</p>
+<hr />
+<h3>R3 — "The cleanest separation in the project"</h3>
+<p>A 52.2% versus 1.7% separation in the law domain, on the feature-defined metric.</p>
+<p>The same metric produces its largest value anywhere in our data — 66.7
+percentage points in the code domain — on a generation with repetition 95.8% and
+entropy 0.75 nats, flagged as collapsed in all three repeats. The metric counts
+the tokens the boosted slots fire on; for law and code these are function words
+and punctuation; a degenerate repetition of such a token scores near-perfectly.</p>
+<p><strong>Withdrawn from primary analysis.</strong> The metric is retained only as a
+mismatch diagnostic (§4.3), always reported alongside repetition and entropy.</p>
+<hr />
+<h3>R4 — "Training is not reproducible even at fixed seed"</h3>
+<p>We had carried this forward as an established property of the pipeline, and had
+been reading single-run figures as draws from a wide distribution accordingly.</p>
+<p>It is false for the regime in which the results of this paper were obtained.
+Across ten independent sessions and seven distinct codebases, the purity gap was
+identical to sixteen significant figures and per-slot firing counts were
+identical as integers.</p>
+<p>The non-reproducibility we had observed (final dead-slot fraction ranging 11% to
+48% at fixed seed) belonged to an <strong>earlier architecture that no longer exists</strong>
+in this pipeline: a dictionary trained <em>jointly</em> with a from-scratch transformer
+over 6000 steps. Training only a dictionary on a fully frozen pretrained model is
+a far better-conditioned problem, and in our runs it was deterministic.</p>
+<p><strong>Withdrawn.</strong> The correction cuts both ways: we had been applying an
+inapplicable caution, and simultaneously had never measured the seed variance
+that does matter. §3.2 states this.</p>
+<hr />
+<h3>R5 — The decision rule's false-positive rate was uncontrolled</h3>
+<p>Not a single claim but the rule that generated several. Our automatic verdict
+declared a "clean window" where the targeted condition exceeded both its baseline
+and its control by more than twice the pooled standard deviation, with n = 3 per
+group.</p>
+<p>With n = 3, that threshold is equivalent to <code>t &gt; 2.45</code> on 4 degrees of freedom —
+a two-sided <strong>p ≈ 0.070</strong> — and it was applied across 4 domains × 2 metrics × 6
+strengths = <strong>48 tests with no correction</strong>. The expected number of spurious
+clean windows under the null is <strong>3.4</strong>, and the family-wise error rate, if any
+single window is treated as a success, is <strong>0.97</strong>.</p>
+<p>Our run reported clean windows in three of four domains. That count is fully
+consistent with noise under this rule.</p>
+<p><strong>Consequence.</strong> Verdicts produced by that rule are treated as exploratory
+throughout this paper. The one confirmatory claim we retain (§3.5) uses a
+pre-specified aggregation, an entity-level independent unit, a permutation test
+that recomputes the maximum over signals inside each shuffle, and Bonferroni
+correction across domains.</p>
+<hr />
+<h2>5.3 What survived, and why the distinction matters</h2>
+<p>Six findings survived unchanged (§3.1–3.5, and the suppression-saturation
+measurement). They share a property that the withdrawn claims did not: each rests
+either on a <strong>monotone trend across several points</strong> or on a <strong>quantity measured
+identically across many independent runs</strong>, rather than on a single cell compared
+against a single reference.</p>
+<p>The withdrawn claims, by contrast, were all of the form <em>"this number is large
+and this other number is small."</em> That form is exactly what a floored control, an
+unmatched dose, an uncorrected multiple comparison, or a collapse-rewarding
+metric will produce for free.</p>
+<hr />
+<h2>5.4 A note on cost and on what this section is for</h2>
+<p>The audit cost approximately one working session and no additional model training
+or GPU runs, though it consumed a substantial number of language-model API calls,
+as the reviews were model-assisted. It removed four
+claims, one of which we had described in our own records as the cleanest result
+in the project.</p>
+<p>We report it in full for two reasons. The first is simply that the claims were
+wrong and the record should say so. The second is that the <em>distribution</em> of what
+it caught is informative: the four false negatives in §4 were each found by
+adding a measurement, but <strong>both false positives were found only by attacking
+results we already believed.</strong> No amount of additional instrumentation would have
+surfaced them, because the instruments were reporting correctly — a control
+really was returning zero, and a metric really was returning 66.7 points. What
+was wrong was the inference drawn from those readings.</p>
+<p>We suggest that a deliberate adversarial pass over <em>settled</em> results, not only
+over new code, belongs in the standard practice for causal-specificity claims,
+and that its cost is low relative to the cost of publishing a result that a
+reviewer will overturn.</p>
+<div class="pb"></div>
+
+<h1>6. A Control Protocol for Causal-Specificity Claims</h1>
+<p>§4.5 and §5.2 established that our own control, despite being carefully
+constructed, licensed a weaker claim than we attached to it. This section sets
+out what we think a control for a causal-specificity claim has to do, organized
+around what each control class rules out.</p>
+<p>The framing is deliberately modest: we propose a protocol and identify the two
+components of it that we did not find in use in this literature. §6.6 reports the result of
+running four of its five controls, and §6.5 and §6.7 state what remains untested
+and why.</p>
+<hr />
+<h2>6.1 The claim being controlled</h2>
+<p>A causal-specificity claim has the form:</p>
+<blockquote>
+<p><em>Intervening on feature set F changes behaviour B, and the change is
+attributable to F rather than to the act of intervening.</em></p>
+</blockquote>
+<p>The second clause is where the work is. It decomposes into a sequence of
+progressively stronger negations, and a single control cannot establish more than
+one of them.</p>
+<hr />
+<h2>6.2 Control taxonomy</h2>
+<table>
+<thead>
+<tr>
+<th>control</th>
+<th>rules out</th>
+<th>used in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>no intervention</td>
+<td>"nothing moves anyway"</td>
+<td>most steering work</td>
+</tr>
+<tr>
+<td>random direction, magnitude-matched</td>
+<td><strong>"any vector of this size steers"</strong></td>
+<td>established practice [9]</td>
+</tr>
+<tr>
+<td>randomized dictionary (frozen / soft-frozen decoder)</td>
+<td><strong>"learning the dictionary is unnecessary"</strong></td>
+<td>recent sanity-check work [1]</td>
+</tr>
+<tr>
+<td><strong>other concepts' features, quality-matched</strong></td>
+<td><strong>"any good feature steers"</strong></td>
+<td><strong>not found in this literature</strong></td>
+</tr>
+<tr>
+<td><strong>shuffled decoder</strong> (same columns, permuted assignment)</td>
+<td><strong>"any learned column steers"</strong></td>
+<td><strong>not found in this literature</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The first three negate hypotheses about the <strong>mechanism</strong>: whether anything
+happens, whether direction matters, whether training matters. The last two negate
+hypotheses about <strong>attribution</strong>: whether <em>this</em> feature, as opposed to any
+comparable one, is responsible.</p>
+<p>Neither group substitutes for the other. A result that clears a random-direction
+control has shown that direction matters; it has not shown that the <em>particular</em>
+direction is the concept it is labelled with.</p>
+<hr />
+<h2>6.3 The unclaimed component: quality-matched controls</h2>
+<p>A search across the dictionary and steering literature returned no instance of a
+control set selected by <strong>matching on a measured feature-quality score</strong>. We
+claim only that we did not find one in this literature; permutation- and
+matching-based controls are long established elsewhere, including in saliency-map
+sanity checks.
+Existing controls are either constructed nulls (random directions, permuted
+signs, subspace projections) or ablated training variants. Controls drawn from
+<em>real learned features chosen to be comparable on a measured axis</em> appear not to
+have been used.</p>
+<p>The construction is simple. For each target feature, select from the pool of
+features belonging to other concepts the one whose measured quality is closest,
+greedily and without replacement, and record the per-feature matching gap so that
+match quality is auditable from the log alone. In our runs this produced a mean
+absolute purity gap of 0.000 for three of four domains.</p>
+<p><strong>And it is not sufficient on its own.</strong> Two failures observed in our own
+implementation must be designed out:</p>
+<ol>
+<li>
+<p><strong>The metric must have dynamic range in both directions.</strong> Our control
+   returned exactly the metric's floor in every run, which made the difference
+   statistic numerically identical to the raw targeted value (§4.5). A control
+   that cannot move is decorative. A metric such as the log-odds of
+   domain-vocabulary mass in the next-token distribution admits movement in both
+   directions and makes a floored control impossible.</p>
+</li>
+<li>
+<p><strong>Matching must cover the variables known to be causal.</strong> We matched on purity
+   and used firing frequency only as a tie-breaker, leaving per-slot frequency
+   gaps in the thousands — while our own analysis had identified firing rarity as
+   the mechanism behind one domain's failure to steer. A variable known to drive
+   the outcome cannot be left unmatched. We propose matching jointly on quality
+   and on log firing frequency.</p>
+</li>
+</ol>
+<hr />
+<h2>6.4 Proposed protocol</h2>
+<ol>
+<li>
+<p><strong>Report intervention magnitude</strong> for every row, relative to the signal
+   intervened upon, and <strong>match it across conditions</strong> to a tight tolerance.
+   Compare dose–response <em>curves</em> rather than a single operating point selected
+   after seeing the outcome. Our own verdict rule admitted a 35% magnitude
+   mismatch, which at the measured slope of the dose–response curve is worth up
+   to 21 percentage points of the metric — larger than the effect being measured.</p>
+</li>
+<li>
+<p><strong>Use a two-sided metric</strong> with range in both directions, and gate it on a
+   fluency criterion computed on the same generation. Report collapse rate per
+   condition as a co-primary outcome (§4.6).</p>
+</li>
+<li>
+<p><strong>Report at least three controls</strong>: magnitude-matched random direction,
+   quality-matched other-concept features, and shuffled decoder. They rule out
+   different things and the reader needs all three.</p>
+</li>
+<li>
+<p><strong>Match on every variable known to be causal</strong>, not only the headline one.</p>
+</li>
+<li>
+<p><strong>Vary the training seed, not only the generation seed</strong>, and report the
+   seed-level variance separately. Our own repeats varied only the generation
+   seed and were reported as replication (§5.2, R1).</p>
+</li>
+<li>
+<p><strong>Pre-specify one primary endpoint</strong> and correct the rest for multiple
+   comparisons. Our unadjusted rule had a family-wise error rate of 0.97 across
+   48 tests (§5.2, R5).</p>
+</li>
+<li>
+<p><strong>Diversify the prompt.</strong> Our steering measurements used a single degenerate
+   context, leaving prompt variance entirely unmeasured.</p>
+</li>
+</ol>
+<hr />
+<h2>6.5 What remains untested, and two objections we cannot yet answer</h2>
+<p>We have since run four of the five controls in §6.2; the results are in §6.6.
+What remains untested is the randomized-dictionary arm, for the reason given in
+§6.7, and the two-sided metric of §6.3, which is not implemented. The protocol is
+therefore partly validated: its control taxonomy has been exercised and produced
+a result the single-control version could not license, while its dose-matching
+requirement was measurably violated in our own run (§6.6.2) — which is itself
+evidence that the requirement needs enforcing rather than assuming.</p>
+<p>Two objections are on record and we do not consider them answered:</p>
+<p><strong>Magnitude may be the wrong matching variable.</strong> Recent work [10] argues that
+matching the norm of a perturbation fixes its Fisher norm while leaving its
+alignment with the behavioural gradient free — so norm-matched directions "need
+not be comparably dosed" in the sense a specificity audit requires. If this is
+right, <code>delta_ratio</code> matching is necessary but not sufficient, and an
+off-target-KL criterion should be reported alongside it.</p>
+<p><strong>Quality may be the wrong matching axis.</strong> Work [11] separating "input features"
+(which reflect input activations) from "output features" (which causally
+influence output tokens) reports substantial steering gains from selecting on the
+latter. Purity, as we compute it, is an input-side score. A reviewer is entitled
+to ask why controls should be matched on an input-side quantity when the claim
+being controlled is about output-side effect. We think the answer is that
+matching should be on the axis used to <em>select</em> the targets — and we selected on
+purity — but this is an argument, not a result.</p>
+<div class="pb"></div>
+
+<h1>6.6 Running the taxonomy: results</h1>
+<p>§6.2 set out five control classes and what each rules out, and §6.5 noted that
+two of them had no data in our pipeline. We ran them. This section reports the
+result, which strengthens one claim, settles a second, and introduces a
+measured caveat that applies to all of them.</p>
+<p><strong>Design.</strong> The identical registry (training is bit-reproducible in this regime,
+§3.2) with four arms per cell — domain × strength × repeat:</p>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th>construction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>targeted</code></td>
+<td>bias the domain's eight purest slots</td>
+</tr>
+<tr>
+<td><code>control</code></td>
+<td>bias eight purity-matched slots belonging to <em>other</em> domains</td>
+</tr>
+<tr>
+<td><code>random_dir</code></td>
+<td>bypass the dictionary entirely: inject a random unit vector scaled to the norm the <code>targeted</code> arm injected <strong>in that same cell</strong>, redrawn independently per repeat</td>
+</tr>
+<tr>
+<td><code>shuffled_dec</code></td>
+<td>bias the <strong>same target slot ids</strong>, but decode through a permuted slot-to-column assignment of the same decoder matrix</td>
+</tr>
+</tbody>
+</table>
+<p>288 runs. The encoder and top-k selection are untouched in every arm; only the
+write path differs.</p>
+<hr />
+<h2>6.6.1 Result on the concept-defined metric</h2>
+<p>Medicine, the one domain in which this metric has dynamic range:</p>
+<table>
+<thead>
+<tr>
+<th>strength</th>
+<th><code>targeted</code></th>
+<th><code>control</code></th>
+<th><code>random_dir</code></th>
+<th><code>shuffled_dec</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.00</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>1.64</td>
+<td>1.3</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>2.19</td>
+<td><strong>16.0</strong></td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>2.73</td>
+<td><strong>22.8</strong></td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>3.28</td>
+<td><strong>38.2</strong></td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td>4.37</td>
+<td><strong>41.7</strong></td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+<p>All three controls return zero at every strength, while the targeted arm rises
+monotonically to 41.7%.</p>
+<p><strong>The <code>shuffled_dec</code> result is the informative one.</strong> That arm biases the <em>same
+slot identifiers</em>, at approximately the same injected magnitude, through the
+<em>same set of decoder columns</em> — differing only in which column each slot writes
+through. It returns zero. Slot quality and the columns being
+learned are therefore not sufficient on their own to produce the effect; what
+distinguishes the targeted arm is <strong>the specific slot-to-column
+correspondence</strong>. Intervention magnitude is not fully excluded — see the dose
+mismatch in §6.6.2.</p>
+<p>This is the strongest attribution our pipeline supports. It is stronger than the
+claim we made before running these arms (§5.2, R2), which the purity-matched
+control alone could not license — and weaker than it would be had the arms been
+equally dosed.</p>
+<p><strong>Literature</strong> shows the same ordering at much smaller magnitude (targeted
+3.5–3.8 against controls 0.0–0.8). <strong>Law and code</strong> sit at the metric floor in
+all four arms and are uninformative here, consistent with §4.3.</p>
+<hr />
+<h2>6.6.2 A measured caveat: the arms are not equally dosed</h2>
+<p>Our own dose-match check failed on <strong>every cell</strong>, at a 5% tolerance:</p>
+<pre><code>medicine 2.7335 : gap 19.1%   targeted 7.708% | control 7.479% | random_dir 6.233% | shuffled_dec 6.651%
+law      1.6401 : gap 29.0%
+...                            all cells, gaps 18%–29%
+</code></pre>
+<p>The targeted arm consistently injects a larger perturbation than the controls at
+the same nominal strength. At the dose–response slope measured in §3.3 — roughly
+7.9 points of the metric per point of <code>delta_ratio</code> — a 19% relative gap at
+<code>delta_ratio ≈ 7.7%</code> corresponds to a bias of order <strong>11 percentage points</strong>.</p>
+<p>We report this rather than suppress it. It does not account for a separation of
+41.7 against 0.0, but it is large enough that a smaller effect measured this way
+would be uninterpretable, and it invalidates any fine comparison <em>among</em> the
+three controls.</p>
+<p><strong>Consequence for the protocol.</strong> Matching the nominal strength across arms is
+not sufficient; each arm must be calibrated to a target <code>delta_ratio</code>
+individually. Our §6.4 already required a tolerance of 0.05; this run shows that
+requirement is not automatically satisfied by construction, and must be enforced
+by per-arm calibration rather than assumed.</p>
+<hr />
+<h2>6.6.3 The feature-defined metric fails, independently</h2>
+<p>§4.6 withdrew the feature-defined metric from primary analysis on the grounds
+that it rewards degenerate output, reasoning from a single domain in an earlier
+run. This experiment tests that conclusion on entirely new data, and confirms it.</p>
+<p>At strength 2.19, with the metric fixed to the <em>targeted</em> domain's slot
+vocabulary in all four arms:</p>
+<table>
+<thead>
+<tr>
+<th>domain</th>
+<th><code>targeted</code></th>
+<th><code>control</code></th>
+<th><code>random_dir</code></th>
+<th><code>shuffled_dec</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>medicine</td>
+<td>30.0</td>
+<td><strong>31.2</strong></td>
+<td>14.8</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>literature</td>
+<td>20.7</td>
+<td>3.7</td>
+<td><strong>42.3</strong></td>
+<td>24.8</td>
+</tr>
+<tr>
+<td>code</td>
+<td>88.7</td>
+<td>34.7</td>
+<td>11.8</td>
+<td><strong>70.7</strong></td>
+</tr>
+</tbody>
+</table>
+<p>In medicine the purity-matched control <strong>equals</strong> the targeted arm. In literature
+the <em>random direction</em> <strong>exceeds</strong> it. In code the shuffled decoder comes close
+to it.</p>
+<p>The one apparent anomaly in the concept-defined table resolves the same way:
+<code>code / random_dir / 4.37</code> averaged 9.7% because a single repeat returned 29.0%
+with repetition 86.4% and entropy 1.156 nats — flagged as collapsed.</p>
+<p>A metric on which a random direction outscores the intended intervention in a
+whole domain cannot be used as evidence of steering. We had reached that
+conclusion by inspection of one collapsed row; it now rests on an independent
+run in which the metric ranks a null above the treatment.</p>
+<hr />
+<h2>6.6.4 Completed taxonomy</h2>
+<table>
+<thead>
+<tr>
+<th>control</th>
+<th>rules out</th>
+<th>our result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>no intervention</td>
+<td>"nothing moves anyway"</td>
+<td>✅ 0.0 at <code>strength = 0</code></td>
+</tr>
+<tr>
+<td>random direction, magnitude-matched</td>
+<td>"any vector of this size steers"</td>
+<td>✅ <strong>ruled out</strong> (0.0)</td>
+</tr>
+<tr>
+<td>other concepts' features, quality-matched</td>
+<td>"any good feature steers"</td>
+<td>✅ <strong>ruled out</strong> (0.0)</td>
+</tr>
+<tr>
+<td><strong>shuffled decoder</strong></td>
+<td><strong>"any learned column steers"</strong></td>
+<td>✅ <strong>ruled out</strong> (0.0)</td>
+</tr>
+<tr>
+<td>randomized dictionary</td>
+<td>"learning the dictionary is unnecessary"</td>
+<td>✗ not run (§6.7)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What we can now claim.</strong> On the concept-defined metric, in one domain, and
+subject to the dose mismatch of §6.6.2, the pattern is most consistent with the
+steering effect arising from the specific slot-to-decoder-column correspondence
+rather than from slot quality or from the columns merely being learned. Because
+the controls were systematically <em>under</em>-dosed relative to the targeted arm, we
+cannot fully separate magnitude from correspondence on this data.</p>
+<p><strong>What we still cannot claim.</strong> That a <em>trained</em> dictionary is required. That
+question needs the randomized-dictionary arm, which we did not run for the reason
+given in §6.7.</p>
+<p><strong>Standing limitations on the above.</strong> Dose mismatch of 18–29% across arms;
+one domain with dynamic range on the metric; three repeats per cell; a single
+training seed.</p>
+<hr />
+<h2>6.7 Why we did not run the randomized-dictionary arm</h2>
+<p>The natural fifth arm — a dictionary trained with a randomly initialized and
+constrained decoder — was designed and then dropped before execution, for a
+reason we state because it may save others the run.</p>
+<p>Under a cosine constraint of τ = 0.8 to a random initialization, a decoder column
+can carry at most 60% of its magnitude along the direction an unconstrained
+column would learn. At the dose–response slope of §3.3, that amplitude penalty
+alone predicts a gap of roughly 13 percentage points between arms — before any
+question of dictionary quality enters. Our design would then have been unable to
+distinguish "learning matters" from "the constrained arm was quieter," and at a
+single training seed per arm its minimum detectable effect exceeded the effect it
+predicted.</p>
+<p>Separately, our expansion factor of 4 makes random dictionaries measurably less
+expressive than at the expansion factors used in the work reporting that
+randomized baselines match trained ones. A negative result for the randomized arm
+at expansion 4 would not transfer upward, and we would not have been entitled to
+present it as a response to that work.</p>
+<p>The arm remains the right experiment; it needs an amplitude-matched null arm,
+multiple training seeds, and a higher expansion factor to be interpretable.</p>
+<div class="pb"></div>
+
+<h1>7. Limitations</h1>
+<p>We state these at the level of detail we would want from a paper we were
+reviewing. Several of them are load-bearing enough that a reader should treat the
+corresponding claims as provisional.</p>
+<h2>7.1 Scope</h2>
+<p><strong>One model, one size.</strong> Pythia-410M throughout, with a single earlier comparison
+point at 160M. The scale trend we report in §3.2 rests on two points and is
+reported as a direction, not a trend.</p>
+<p><strong>One dictionary architecture.</strong> TopK only. We did not test JumpReLU, BatchTopK,
+gated variants, transcoders or crosscoders.</p>
+<p><strong>Expansion factor 4.</strong> 4096 slots over 1024 dimensions. Much recent dictionary
+work operates at expansion 32 or higher, where random dictionaries are
+measurably more expressive. Conclusions drawn at expansion 4 do not transfer
+upward, and in particular any comparison against randomized-dictionary baselines
+would be biased in our favour at this expansion factor. We do not make such a
+comparison for that reason.</p>
+<p><strong>Four domains, one language.</strong> Domains are coarse (medicine, law, code,
+literature) and English-only. Slot "concepts" are only as fine-grained as the
+partition used to measure them.</p>
+<h2>7.2 The most important limitation</h2>
+<p><strong>We measured domain vocabulary, not correctness.</strong></p>
+<p>Every steering result in this paper measures the rate at which domain-associated
+tokens appear in the continuation. At no point did we measure whether the
+model's answers became more <em>accurate</em>. We have no evidence that intervening on
+a domain's slots improves task performance, and it would be a misreading of this
+work to conclude that it does.</p>
+<p>The intervention demonstrably changes register, vocabulary and formatting. Whether
+it changes what the model knows or gets right is untested here.</p>
+<h2>7.3 Statistical limitations</h2>
+<p><strong>Seed variance is unmeasured.</strong> All runs used a single fixed training seed. The
+training is bit-reproducible in this regime (§3.2), which means our repeats
+carried no information about seed-level variability. No claim rests on stability
+across seeds, and none should be read as doing so.</p>
+<p><strong>Small samples in the detection experiment.</strong> Thirty real and thirty invented
+entities per domain. Confidence intervals are correspondingly wide, and the
+result that survives correction does so in one domain of three.</p>
+<p><strong>The exploratory verdict rule.</strong> The automatic rule used through most of this
+work corresponds to an uncorrected p ≈ 0.070 applied 48 times (§5.2, R5). Every
+verdict it produced is treated as exploratory. Only the analysis in §3.5 is
+confirmatory, and it is pre-specified, entity-level, permutation-tested with the
+maximum recomputed inside each shuffle, and Bonferroni-corrected.</p>
+<p><strong>One domain excluded by confound gate.</strong> Medicine, the numerically strongest
+domain in the detection experiment, is excluded automatically because real
+disease names are common single-token English words and invented proper nouns
+cannot be. This is the correct action but it removes the strongest data.</p>
+<h2>7.4 Measurement and implementation caveats</h2>
+<p><strong>No attention mask on the padded prefill.</strong> Generation uses left padding with an
+end-of-text token and no attention mask, so the model attends to pad positions.
+This is applied identically across all conditions and both to registry signals
+and to baselines, so it is not a differential bias — but it is a departure from
+best practice and we state it rather than leave it implicit.</p>
+<p><strong>Decoder renormalization is periodic, not continuous.</strong> Decoder columns are
+renormalized at intervals during training rather than every step, and the saved
+model is one optimizer step past the last renormalization. No decoder-norm
+diagnostic was logged. For the results reported here this affects nothing we
+measure, but it would need fixing before any cross-condition comparison that
+depends on injected magnitude being comparable by construction.</p>
+<p><strong>Control arms were not equally dosed.</strong> In the four-arm experiment of §6.6
+the injected magnitude differed between arms by 18–29% at the same nominal
+strength, against a 5% tolerance, in every cell. At the measured dose–response
+slope this is worth of order 11 percentage points of the metric. It does not
+account for the separation we report (41.7 against 0.0), but it invalidates fine
+comparisons among the controls and would make a smaller effect uninterpretable.
+Per-arm calibration to a target <code>delta_ratio</code>, rather than a shared nominal
+strength, is required.</p>
+<p><strong>The feature-defined metric is retained only as a diagnostic.</strong> §4.6 shows it is
+maximized by degenerate output. It appears in this paper as evidence of metric
+mismatch and nowhere as evidence of successful steering.</p>
+<h2>7.5 Relation to prior work</h2>
+<p>This work is an independent replication of established findings, with tighter
+controls in some places and, as §5 documents, looser ones in others than we had
+believed. It is not a novelty claim.</p>
+<p>Two prior results in particular anticipate parts of it: sparse-dictionary
+directions that detect whether a model recognizes an entity, reported with causal
+interventions we did not perform; and a decomposition of causal inertness into
+read- and write-directional components, which is the mechanism our own reasoning
+in §6.2 appeals to. Both predate this work and we cite them as such (§8).</p>
+<p>The one component we could not find precedent for is the quality-matched control
+of §6.3, together with the shuffled-decoder control of §6.2. Both were run
+(§6.6); the quality-matched control, taken alone, returns the metric floor and
+carries no information, while the shuffled-decoder control is the one that
+licenses the attribution claim we make.</p>
+<h2>7.6 A note on the research log</h2>
+<p>The repository includes the project's working research log, in Arabic. It is an
+unedited development diary, written informally and in real time, not a polished
+document; it is included as evidence of the process described in §5, including
+the four withdrawn claims. Executor and reviewer roles in it are referred to by
+neutral labels rather than by product name, because the incidents recorded there
+are single-sample, time-bound, and in several cases attributable to transport or
+tooling rather than to any model's behaviour.</p>
+<h2>7.7 What would change our conclusions</h2>
+<ul>
+<li>A run at expansion 32 could invalidate any comparison we make against
+  randomized-dictionary results.</li>
+<li>Measuring seed-level variance could widen every interval reported here.</li>
+<li>Implementing the two-sided metric of §6.3 could show that our surviving
+  specificity result is smaller than reported, since the floored metric cannot
+  express a control performing <em>worse</em> than chance.</li>
+<li>A test of task accuracy under steering could show that the intervention we
+  characterize as control is cosmetic.</li>
+</ul>
+<div class="pb"></div>
+
+<h1>8. Related Work</h1>
+<p>We group prior work by its relation to this paper: work that motivates it, work
+that anticipates its findings, and work that objects to its proposed method. We
+place the anticipating work first and prominently, because two of those results
+substantially overlap with ours and it would be misleading to bury them.</p>
+<hr />
+<h2>8.1 Work that anticipates our findings</h2>
+<p><strong>Entity-recognition directions and hallucination [4].</strong>
+Sparse-dictionary directions at entity tokens have been shown to encode whether a
+model can recall facts about that entity — a form of self-knowledge about its own
+capabilities — and to be causally relevant, in that intervening on them can induce
+refusal on known entities or hallucinated attributes on unknown ones.</p>
+<p>Our §3.5 recovers the detection half of this independently, on a different model,
+with a baseline comparison at the same token positions that we do not believe has
+been reported in that form. We do not recover the causal half: we performed no
+intervention in the detection experiment. <strong>This prior result is stronger than
+ours and predates it</strong>, and we cite it as the primary reference for the finding
+rather than presenting §3.5 as new.</p>
+<p><strong>Read- versus write-directional causal inertness [8].</strong>
+A decomposition of feature causal inertness by direction — separating whether a
+feature can be <em>read from</em> versus <em>written through</em> — has been reported, together
+with the observation that a large fraction of features passing a correlational
+recovery criterion are causally inert. This is the same mechanism our §6.2
+reasoning appeals to when distinguishing controls that test the encoder path from
+those that test the decoder path. We did not originate that distinction.</p>
+<hr />
+<h2>8.2 Work that motivates this paper</h2>
+<p><strong>Randomized dictionary baselines [1].</strong>
+Recent sanity-check work constructs dictionary variants with randomized and
+frozen encoders or decoders and reports that the soft-frozen variant matches
+fully-trained dictionaries on interpretability, sparse probing and causal editing
+at matched sparsity, concluding that dictionaries in their present form do not
+reliably decompose model internals.</p>
+<p>We note two properties of that comparison relevant to reading it, both visible in
+the reported tables. First, the three headline pairs correspond to <em>different</em>
+baseline variants — the causal-editing figure to the soft-frozen decoder, the
+sparse-probing figure to a frozen decoder — so each is a maximum over five
+variants presented as a single result. Second, the causal-editing metric — the RAVEL
+disentanglement score [6] — has a floor: a variant with zero explained variance
+and chance-level probing still scores approximately 0.485. Read against that floor, the headline comparison of
+0.73 against 0.72 becomes 0.24 against 0.23, and in two of three model-layer
+settings the fully-trained dictionary is itself close to the floor. This does not
+contradict the paper's conclusion — the trained model's above-floor margin is
+indeed largely matched — but it substantially changes the effect size a reader
+takes away, and it is not stated in the paper's limitations.</p>
+<p><strong>Benchmark reliability [2, 7].</strong>
+An audit of a widely used dictionary benchmark suite [7] finds that two of its
+metrics fail multiple evaluation lenses at their canonical settings and should
+not be used, recommends a third, and explicitly does not propose replacements.
+Separately, automated interpretability metrics have been shown not to distinguish
+trained from randomly initialized transformers [3].</p>
+<p>Together these establish the gap this paper addresses: there is no accepted
+causal discriminator for dictionary quality, and the diagnosis is better developed
+than the remedy.</p>
+<hr />
+<h2>8.3 Work on controls and intervention magnitude</h2>
+<p><strong>Magnitude-matched controls [9].</strong>
+Matching a control perturbation to the same residual-stream distortion as the
+intervention is established practice, and has been used to show that steering
+collapse is direction-pattern-dependent rather than magnitude-dependent. Our
+<code>delta_ratio</code> reporting (§4.1) is an instance of this practice, not a
+contribution; we report it because our failure to apply it produced a false
+negative, not because the idea is new.</p>
+<p><strong>Structural matching of controls [13].</strong>
+Matched-random-control protocols that hold structural properties constant while
+varying only concept alignment have been used in attribution-graph work, with the
+explicit warning that without such matching the labelled-versus-random gap is
+easy to misstate. This is the closest precedent we found for the <em>philosophy</em> of
+§6.3, though applied to a different object.</p>
+<p><strong>Specificity as side-effect measurement [12].</strong>
+Work on inference-time intervention defines specificity as the preservation of
+unrelated behaviour — general capability, related-behaviour retention, robustness
+under distribution shift. This is a different quantity from the attribution
+specificity of §6.1: it asks whether the intervention broke anything else, not
+whether the effect is attributable to the intervened feature. That work does not
+employ matched controls at equivalent magnitude, which is the gap §6.3 addresses.</p>
+<p><strong>Feature selection for steering [11].</strong>
+Separating features that reflect input activations from those that causally
+influence output tokens, and selecting on the latter, has been reported to
+improve steering substantially. This is the basis of the objection we record in
+§6.5: purity is an input-side score, and a reviewer may reasonably ask why
+controls should be matched on it.</p>
+<hr />
+<h2>8.4 Work on steering and task performance</h2>
+<p>Inference-time intervention along truth-correlated directions has been shown to
+improve accuracy on a truthfulness benchmark substantially [5], establishing that
+activation-level intervention can change task performance and not only style.</p>
+<p>We flag this specifically because it marks the boundary of our own claims: we did
+not measure accuracy under intervention (§7.2), and the existence of that prior
+result means the question is neither open nor answered by us.</p>
+<hr />
+<h2>8.5 Positioning</h2>
+<p>Relative to this literature, the present work is an independent replication with
+a documented failure catalogue. Its contributions are the six measured pitfalls
+(§4), the adversarial audit of its own results (§5), the control taxonomy (§6.2),
+and two control constructions we did not find in use in this literature (§6.3) — of which
+the shuffled-decoder control produced the attribution result in §6.6 that the
+quality-matched control alone could not license.</p>
+<div class="pb"></div>
+
+<h1>9. Conclusion</h1>
+<p>We set out to build a numbered concept registry inside a frozen language model and
+to test whether its internal state could be used for control and for diagnosis.
+The mechanism works, within limits we can now state precisely. But the more
+durable output of the work turned out to be the record of how often, and how
+quietly, it appeared to work when it did not.</p>
+<p><strong>What we can state.</strong> Slots in a sparse dictionary trained on a frozen model's
+activations specialize by domain without supervision, and the separation improves
+with model scale. Writing into a domain's slots changes generation monotonically
+in the injected magnitude, with a usable window of roughly 6–8% of the residual
+stream norm. In one domain, on a concept-defined metric, that effect survives
+three independent controls — a magnitude-matched random direction, quality-matched
+features from other domains, and a shuffled decoder that preserves the learned
+columns but permutes their assignment — each of which returns exactly zero. Subject
+to the dose mismatch of 18–29% we report in §6.6.2, that pattern points to the
+specific slot-to-column correspondence as the locus of the effect. And a frozen
+model's dictionary state, read while it processes an entity name, discriminates
+real from invented entities better than the model's own next-token uncertainty at
+the same positions, in one of three non-confounded domains.</p>
+<p><strong>What we cannot state.</strong> That any of this improves accuracy: we measured domain
+vocabulary throughout and never measured correctness. That suppression is
+available: it saturates structurally, by a factor of 34. That the results extend
+beyond a single 410M model, one dictionary architecture, an expansion factor of 4,
+and a single training seed. That a <em>trained</em> dictionary is required: the arm that
+would answer it was designed, costed, and dropped because its outcome was
+predictable from geometry alone.</p>
+<p><strong>What we would emphasize to a practitioner.</strong> Four of our six pitfalls produced
+false negatives, and each was found by adding a measurement that had been absent —
+the injected magnitude, the baseline's own behaviour, a second metric, the
+positions being read. The remaining two produced false positives, and neither
+could have been found that way. The control really was returning zero; the metric
+really was returning 66.7 points. What was wrong was the inference, and only a
+deliberate attempt to destroy a result we already believed surfaced it.</p>
+<p>That asymmetry is the thing we would carry to the next project. Instrumentation
+protects against the failure to see an effect. Nothing but adversarial review
+protects against seeing one that is not there — and in our case that review cost one
+working session and no additional model training or GPU runs — though it did
+consume a substantial number of language-model API calls, since the reviews were
+themselves model-assisted — against results that had already been recorded as
+settled.</p>
+<p><strong>A closing note on the shape of the claim.</strong> The strongest sentence in this paper
+is narrow: one domain, one metric, one model, three controls at zero. We arrived
+at it by removing four broader sentences that we had preferred. We think that
+trade is the correct one, and that a literature which reported it more often would
+be easier to build on.</p>
+<div class="pb"></div>
+
+<h1>References</h1>
+<p>All entries below were verified against the arXiv abstract page for the given
+identifier: author list, exact title, and submission date.</p>
+<hr />
+<p><strong>[1]</strong> Korznikov, A., Galichin, A., Dontsov, A., Rogov, O., Oseledets, I., and
+Tutubalina, E. <em>Sanity Checks for Sparse Autoencoders: Do SAEs Beat Random
+Baselines?</em> arXiv:2602.14111, 15 February 2026.</p>
+<p><strong>[2]</strong> Chanin, D. <em>Are Sparse Autoencoder Benchmarks Reliable?</em>
+arXiv:2605.18229, 18 May 2026.</p>
+<p><strong>[3]</strong> Heap, T., Lawson, T., Farnik, L., and Aitchison, L. <em>Automated
+Interpretability Metrics Do Not Distinguish Trained and Random Transformers.</em>
+arXiv:2501.17727, 29 January 2025.</p>
+<p><strong>[4]</strong> Ferrando, J., Obeso, O., Rajamanoharan, S., and Nanda, N. <em>Do I Know
+This Entity? Knowledge Awareness and Hallucinations in Language Models.</em>
+arXiv:2411.14257, 21 November 2024.</p>
+<p><strong>[5]</strong> Li, K., Patel, O., Viégas, F., Pfister, H., and Wattenberg, M.
+<em>Inference-Time Intervention: Eliciting Truthful Answers from a Language Model.</em>
+arXiv:2306.03341, 6 June 2023. NeurIPS 2023 (spotlight).</p>
+<p><strong>[6]</strong> Huang, J., Wu, Z., Potts, C., Geva, M., and Geiger, A. <em>RAVEL:
+Evaluating Interpretability Methods on Disentangling Language Model
+Representations.</em> arXiv:2402.17700, 27 February 2024. ACL 2024.</p>
+<p><strong>[7]</strong> Karvonen, A., Rager, C., Lin, J., Tigges, C., Bloom, J., Chanin, D.,
+Lau, Y.-T., Farrell, E., McDougall, C., Ayonrinde, K., Till, D., Wearden, M.,
+Conmy, A., Marks, S., and Nanda, N. <em>SAEBench: A Comprehensive Benchmark for
+Sparse Autoencoders in Language Model Interpretability.</em> arXiv:2503.09532,
+12 March 2025.</p>
+<p><strong>[8]</strong> Bal, M. A. <em>From Geometric Recovery to Causal Validation: A Reproducible
+Audit of Sparse Autoencoder Features, from Superposition Geometry to Causal
+Inertness.</em> arXiv:2607.12166, 13 July 2026.</p>
+<p><strong>[9]</strong> Riegler, M. A., and Torpmann-Hagen, B. S. F. <em>Steering Grids for
+Sparse-Autoencoder Features: When a Top-Context Label Names an Activation Regime
+Rather Than a Causal Axis.</em> arXiv:2605.03160, 4 May 2026.</p>
+<p><strong>[10]</strong> Luo, D., Liang, C., and Xuan, J. <em>SteerCheck: Attribution Specificity
+and Alignment Leakage in Activation-Steering Audits.</em> arXiv:2608.24335,
+25 August 2026.</p>
+<p><strong>[11]</strong> Arad, D., Mueller, A., and Belinkov, Y. <em>SAEs Are Good for Steering —
+If You Select the Right Features.</em> arXiv:2505.20063, 26 May 2025.</p>
+<p><strong>[12]</strong> Goyal, N., and Daumé III, H. <em>Steering Safely or Off a Cliff?
+Rethinking Specificity and Robustness in Inference-Time Interventions.</em>
+arXiv:2602.06256, 5 February 2026.</p>
+<p><strong>[13]</strong> Birardi, G., and Paulo, G. <em>Automated Attribution Graph Interpretation
+via Probe Prompting.</em> arXiv:2511.07002, 10 November 2025.</p>
+<p><strong>[14]</strong> Biderman, S., Schoelkopf, H., Anthony, Q., Bradley, H., O'Brien, K.,
+Hallahan, E., Khan, M. A., Purohit, S., Prashanth, U. S., Raff, E., Skowron, A.,
+Sutawika, L., and van der Wal, O. <em>Pythia: A Suite for Analyzing Large Language
+Models Across Training and Scaling.</em> arXiv:2304.01373, 3 April 2023. ICML 2023.</p>
+<hr />
+<h2>Datasets</h2>
+<ul>
+<li><strong>PubMedQA</strong> — <code>qiaojin/PubMedQA</code>, configuration <code>pqa_artificial</code>.</li>
+<li><strong>BillSum</strong> — <code>FiscalNote/billsum</code>.</li>
+<li><strong>CodeParrot</strong> — <code>codeparrot/codeparrot-clean-valid</code>.</li>
+<li><strong>Project Gutenberg</strong> — <code>manu/project_gutenberg</code>, split <code>en</code>.</li>
+</ul>
+<hr />
+<h2>Note on [9]</h2>
+<p>This entry was retitled between arXiv versions. An earlier version circulated as
+<em>"Pairwise Matrices for Sparse Autoencoders: Single-Feature Inspection Mislabels
+Causal Axes."</em> The title above is the current one; readers encountering the
+earlier title should note it is the same identifier.</p>
+<hr />
+<h2>Remaining pre-submission tasks for this file</h2>
+<ul>
+<li>[ ] Confirm publication status for [1], [2], [8]–[10], [12] — all are 2026
+      preprints and may have appeared at a venue since; cite the published
+      version if so.</li>
+<li>[ ] Convert to the target venue's citation style (BibTeX for arXiv/LaTeX).</li>
+</ul>

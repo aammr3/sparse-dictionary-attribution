@@ -1,0 +1,1131 @@
+5.7s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.7s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.7s 3 0.00s - to python to disable frozen modules.
+5.7s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.2s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.2s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.2s 7 0.00s - to python to disable frozen modules.
+6.2s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+23.0s 9 transformers already present, version: 5.0.0
+25.0s 10 datasets already present, version: 5.0.0
+25.3s 11 device: cuda
+25.3s 12 gpu: Tesla T4
+25.4s 13 {
+25.4s 14 "pythia_name": "EleutherAI/pythia-410m",
+25.4s 15 "extract_layer": 12,
+25.4s 16 "hidden_size": 1024,
+25.4s 17 "n_slots": 4096,
+25.4s 18 "k": 16,
+25.4s 19 "k_aux": 32,
+25.4s 20 "dead_after": 800,
+25.4s 21 "tokens_per_domain": 3000000,
+25.4s 22 "ctx": 256,
+25.4s 23 "batch_size": 24,
+25.4s 24 "steps": 3000,
+25.4s 25 "lr_registry": 0.003,
+25.4s 26 "warmup": 200,
+25.4s 27 "grad_clip": 1.0,
+25.4s 28 "lambda_recon": 1.0,
+25.4s 29 "lambda_auxk": 0.03,
+25.4s 30 "eval_every": 500,
+25.4s 31 "eval_batches": 40,
+25.4s 32 "eval_loss_batches": 4,
+25.4s 33 "gen_len": 32,
+25.4s 34 "gen_temp": 0.8,
+25.4s 35 "gen_top_p": 0.9,
+25.4s 36 "repeats": 3,
+25.4s 37 "seed_base": 2000,
+25.4s 38 "n_values": [
+25.4s 39 1,
+25.4s 40 2,
+25.4s 41 4,
+25.4s 42 8,
+25.4s 43 16,
+25.4s 44 32
+25.4s 45 ]
+25.4s 46 }
+30.0s 47 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+30.0s 48 
+30.0s 49 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+30.0s 50 loading EleutherAI/pythia-410m...
+42.6s 51 loaded in 13s
+42.6s 52 pythia params : 405.3M
+42.6s 53 tokenizer     : vocab=50254, len(tokenizer)=50277, eos_token_id=0
+42.6s 54 pythia params frozen: 405,334,016 total, 0 trainable (must be 0)
+64.3s 55 medicine: 3,000,000 tokens in 22s
+75.3s 56 law: 3,000,000 tokens in 11s
+75.5s 57 Repo card metadata block was not found. Setting CardData to empty.
+75.5s 58 
+75.5s 59 Repo card metadata block was not found. Setting CardData to empty.
+84.5s 60 code: 3,000,000 tokens in 9s
+102.1s 61 literature: 3,000,000 tokens in 18s
+102.1s 62 medicine: train=2,940,000  eval=60,000
+102.1s 63 law: train=2,940,000  eval=60,000
+102.1s 64 code: train=2,940,000  eval=60,000
+102.1s 65 literature: train=2,940,000  eval=60,000
+102.3s 66 registry params: 8.39M  (n_slots=4096, k=16, k_aux=32, d_in=1024)
+102.3s 67 sanity:  n_slots=4096, k=16, k_aux=32, dead_after=800 -- matches exp0d exactly
+103.7s 68 step     1 | recon 6.6013 | aux 0.0000 | dead  0.0% | 1s
+131.2s 69 step   100 | recon 0.3625 | aux 0.0000 | dead  0.0% | 29s
+160.3s 70 step   200 | recon 0.1407 | aux 0.0000 | dead  0.0% | 58s
+191.3s 71 step   300 | recon 0.1265 | aux 0.0000 | dead  0.0% | 89s
+222.5s 72 step   400 | recon 0.1140 | aux 0.0000 | dead  0.0% | 120s
+252.9s 73 step   500 | recon 0.1131 | aux 0.0000 | dead  0.0% | 150s
+257.7s 74 >> pythia CE (sanity): medicine=2.409  law=2.029  code=2.156  literature=2.890
+288.7s 75 step   600 | recon 0.1133 | aux 0.0000 | dead  0.0% | 186s
+319.5s 76 step   700 | recon 0.1061 | aux 0.0000 | dead  0.0% | 217s
+350.2s 77 step   800 | recon 0.1045 | aux 0.0000 | dead  0.0% | 248s
+380.9s 78 step   900 | recon 0.1105 | aux 0.0000 | dead  0.0% | 278s
+412.0s 79 step  1000 | recon 0.1044 | aux 0.1044 | dead  0.1% | 309s
+416.9s 80 >> pythia CE (sanity): medicine=2.284  law=2.076  code=2.179  literature=2.844
+449.1s 81 step  1100 | recon 0.1059 | aux 0.1059 | dead  0.4% | 346s
+481.2s 82 step  1200 | recon 0.1010 | aux 0.1010 | dead  0.6% | 379s
+513.4s 83 step  1300 | recon 0.1014 | aux 0.1014 | dead  0.3% | 411s
+545.6s 84 step  1400 | recon 0.1009 | aux 0.1009 | dead  0.8% | 443s
+577.7s 85 step  1500 | recon 0.1035 | aux 0.1035 | dead  0.3% | 475s
+582.6s 86 >> pythia CE (sanity): medicine=2.349  law=2.031  code=2.053  literature=2.889
+614.8s 87 step  1600 | recon 0.0997 | aux 0.0997 | dead  0.9% | 512s
+646.9s 88 step  1700 | recon 0.0980 | aux 0.0980 | dead  0.2% | 544s
+679.1s 89 step  1800 | recon 0.0970 | aux 0.0970 | dead  0.9% | 576s
+711.2s 90 step  1900 | recon 0.0975 | aux 0.0974 | dead  0.5% | 609s
+743.4s 91 step  2000 | recon 0.0961 | aux 0.0961 | dead  1.1% | 641s
+748.2s 92 >> pythia CE (sanity): medicine=2.323  law=2.038  code=2.217  literature=2.848
+780.4s 93 step  2100 | recon 0.0954 | aux 0.0954 | dead  0.3% | 678s
+812.5s 94 step  2200 | recon 0.0958 | aux 0.0958 | dead  1.0% | 710s
+844.6s 95 step  2300 | recon 0.0981 | aux 0.0980 | dead  0.5% | 742s
+876.7s 96 step  2400 | recon 0.0981 | aux 0.0980 | dead  1.1% | 774s
+908.8s 97 step  2500 | recon 0.0956 | aux 0.0956 | dead  0.2% | 806s
+913.7s 98 >> pythia CE (sanity): medicine=2.354  law=2.065  code=2.114  literature=2.820
+945.8s 99 step  2600 | recon 0.0925 | aux 0.0924 | dead  1.1% | 843s
+978.0s 100 step  2700 | recon 0.0986 | aux 0.0985 | dead  0.3% | 875s
+1010.1s 101 step  2800 | recon 0.0914 | aux 0.0913 | dead  0.8% | 907s
+1042.2s 102 step  2900 | recon 0.0926 | aux 0.0925 | dead  0.3% | 940s
+1074.3s 103 step  3000 | recon 0.0926 | aux 0.0925 | dead  0.5% | 972s
+1079.1s 104 >> pythia CE (sanity): medicine=2.356  law=2.029  code=2.081  literature=2.872
+1079.1s 105 
+1079.1s 106 training done in 16.3 minutes
+1079.1s 107 saved registry state_dict to /kaggle/working/exp5c_model.pt (8,393,728 params)
+1079.2s 108 token id range check: max_token_id=50276  tokenizer.vocab_size=50254  len(tokenizer)=50277
+1129.5s 109 ================================================================
+1129.5s 110 registry slots           raw dims
+1129.5s 111 ----------------------------------------------------------------
+1129.5s 112 live units                   3527/4096          1024/1024
+1129.5s 113 mean purity                         0.703              0.386
+1129.5s 114 median purity                       0.726              0.365
+1129.5s 115 purity > 0.80                      41.7%              0.1%
+1129.5s 116 purity > 0.95                      16.8%              0.0%
+1129.5s 117 ================================================================
+1178.7s 118 
+1178.7s 119 pythia own next-token CE on held-out data (final sanity check):
+1178.7s 120 medicine     = 2.333
+1178.7s 121 law          = 2.051
+1178.7s 122 code         = 2.043
+1178.7s 123 literature   = 2.822
+1178.7s 124 mean         = 2.312
+1178.8s 125 
+1178.8s 126 mean-purity gap (registry slots vs raw dims): +0.317
+1178.8s 127 
+1178.8s 128 PASS -- exp0's specialization finding replicates on real Pythia activations; the registry is clearly purer than the raw Pythia hidden dimensions at matched sparsity.
+1178.8s 129 next step: next: try a slightly larger pretrained model (pythia-1.4b) to see if the gap widens with richer activations, or move to a downstream observation experiment (e.g. hallucination detection).
+1179.7s 130 saved /kaggle/working/exp5c_purity.png
+1179.8s 131 
+1179.8s 132 ============================================================
+1179.8s 133 ### medicine slots (top 6)
+1179.8s 134 ============================================================
+1179.8s 135 slot 1242 | purity 0.72 | fires  75,139 | . .  of .  the . , . - . ) .  and .  in .  ( . \n
+1179.8s 136 slot 2192 | purity 0.96 | fires  38,099 | . .  and . , .  of .  the .  with .  were .  ( .  was . -
+1179.8s 137 slot 3906 | purity 0.99 | fires  26,161 |  was . , .  a .  the .  of .  were .  to .  in .  significantly .  with
+1179.8s 138 slot 2069 | purity 0.96 | fires  22,084 | - .  of . 1 .  ( . ) . 2 .  LV .  in .  protein .  expression
+1179.8s 139 slot 3882 | purity 0.99 | fires  21,585 |  of .  the .  in . , .  and . - .  to .  ( .  a .  by
+1179.8s 140 slot 2159 | purity 0.97 | fires  21,180 |  and .  were . . . , .  was .  the .  of .  in .  The . )
+1179.8s 141 
+1179.8s 142 ============================================================
+1179.8s 143 ### law slots (top 6)
+1179.8s 144 ============================================================
+1179.8s 145 slot 3996 | purity 0.96 | fires  42,947 |  the .  of .  shall .  to . , .  this . The .  a . \n .  be
+1179.8s 146 slot 1146 | purity 0.98 | fires  41,534 |  of .  the .  in .  to .  a .  for . , .  such .          .  by
+1179.8s 147 slot 3156 | purity 0.98 | fires  34,685 |  the .  to .  of . , .  and .  a . ) . . .  shall .  be
+1179.8s 148 slot  479 | purity 0.98 | fires  29,818 | ) . ( . . .              .  the . \n . .-- . ; . `` .  and
+1179.8s 149 slot 2917 | purity 0.83 | fires  28,189 | ) . \n . . . .-- . , .      .  the . ; .  and .
+1179.8s 150 slot 1469 | purity 0.88 | fires  24,511 |  the .  of .  to .  in .  and .          . , .  for .                  .  that
+1179.8s 151 
+1179.8s 152 ============================================================
+1179.8s 153 ### code slots (top 6)
+1179.8s 154 ============================================================
+1179.8s 155 slot 3599 | purity 0.99 | fires  42,739 | . . , . _ . ( . self .  = .          . \n .  self . )
+1179.8s 156 slot  985 | purity 0.98 | fires  42,164 | \n .  = .      .          . ( . . . , . # . ) . :
+1179.8s 157 slot 3240 | purity 0.86 | fires  32,049 |  = . . . \n . , . = . ( . ', . ) .          . :
+1179.8s 158 slot 3701 | purity 0.89 | fires  29,965 | \n .          . ) . . .      .              . \n\n . , . self . if
+1179.8s 159 slot 2769 | purity 0.98 | fires  25,151 | \n .          .      . \n\n .              . ) . . .  = . : . self
+1179.8s 160 slot  765 | purity 0.75 | fires  24,304 | ( .  = . , . if . . . \n . = .  the .  in . [
+1179.8s 161 
+1179.8s 162 ============================================================
+1179.8s 163 ### literature slots (top 6)
+1179.8s 164 ============================================================
+1179.8s 165 slot 1046 | purity 0.96 | fires  47,953 | , .  the . \n .  to .  of .  and . -- .  that .  a . !
+1179.8s 166 slot  714 | purity 1.00 | fires  38,706 | , . \n .  and .  a .  he .  her .  the .  his .  she .  with
+1179.8s 167 slot 1408 | purity 0.96 | fires  35,103 | , . . . \n .  and .  he .  you . " .  I . !" . !
+1179.8s 168 slot  834 | purity 0.99 | fires  33,618 | \n .  the .  he . , .  to . . .  him . 's .  and .  that
+1179.8s 169 slot 3221 | purity 0.96 | fires  29,157 | \n . . . , .  she .  her . " .  to .  I .  and .  said
+1179.8s 170 slot 4049 | purity 0.99 | fires  27,848 | , . \n . . .  to .  the .  he .  of .  was .  that .  and
+1179.9s 171 {
+1179.9s 172 "verdict": "PASS -- exp0's specialization finding replicates on real Pythia activations; the registry is clearly purer than the raw Pythia hidden dimensions at matched sparsity.",
+1179.9s 173 "slots": {
+1179.9s 174 "mean": 0.7033221125602722,
+1179.9s 175 "median": 0.7262085676193237,
+1179.9s 176 "live": 3527,
+1179.9s 177 "above_80": 0.4173518419265747,
+1179.9s 178 "above_95": 0.1675644963979721
+1179.9s 179 },
+1179.9s 180 "raw_dims": {
+1179.9s 181 "mean": 0.38584351539611816,
+1179.9s 182 "median": 0.3649517595767975,
+1179.9s 183 "live": 1024,
+1179.9s 184 "above_80": 0.0009765625,
+1179.9s 185 "above_95": 0.0
+1179.9s 186 },
+1179.9s 187 "gap": 0.31747859716415405,
+1179.9s 188 "final_dead_frac": 0.005126953125,
+1179.9s 189 "final_recon_loss": 0.09262892603874207,
+1179.9s 190 "final_aux_loss": 0.09254074096679688,
+1179.9s 191 "pythia_next_token_ce": {
+1179.9s 192 "mean": 2.312296549479167,
+1179.9s 193 "medicine": 2.3328317602475486,
+1179.9s 194 "law": 2.051039369901021,
+1179.9s 195 "code": 2.0434248050053916,
+1179.9s 196 "literature": 2.8218902627627056
+1179.9s 197 },
+1179.9s 198 "config": {
+1179.9s 199 "pythia_name": "EleutherAI/pythia-410m",
+1179.9s 200 "extract_layer": 12,
+1179.9s 201 "hidden_size": 1024,
+1179.9s 202 "n_slots": 4096,
+1179.9s 203 "k": 16,
+1179.9s 204 "k_aux": 32,
+1179.9s 205 "dead_after": 800,
+1179.9s 206 "tokens_per_domain": 3000000,
+1179.9s 207 "ctx": 256,
+1179.9s 208 "batch_size": 24,
+1179.9s 209 "steps": 3000,
+1179.9s 210 "lr_registry": 0.003,
+1179.9s 211 "warmup": 200,
+1179.9s 212 "grad_clip": 1.0,
+1179.9s 213 "lambda_recon": 1.0,
+1179.9s 214 "lambda_auxk": 0.03,
+1179.9s 215 "eval_every": 500,
+1179.9s 216 "eval_batches": 40,
+1179.9s 217 "eval_loss_batches": 4,
+1179.9s 218 "gen_len": 32,
+1179.9s 219 "gen_temp": 0.8,
+1179.9s 220 "gen_top_p": 0.9,
+1179.9s 221 "repeats": 3,
+1179.9s 222 "seed_base": 2000,
+1179.9s 223 "n_values": [
+1179.9s 224 1,
+1179.9s 225 2,
+1179.9s 226 4,
+1179.9s 227 8,
+1179.9s 228 16,
+1179.9s 229 32
+1179.9s 230 ]
+1179.9s 231 }
+1179.9s 232 }
+1179.9s 233 
+1179.9s 234 saved /kaggle/working/exp5c_summary.json
+1179.9s 235 registered READ-ONLY hook on pythia.gpt_neox.layers[11] (output is hidden_states[12]); handle=<torch.utils.hooks.RemovableHandle object at 0x78aee124ffe0>
+1179.9s 236 hook records ALL positions of every forward as [T, n_slots] tensors (T=cfg.ctx=256). The generation loop slices these into the three spans downstream.
+1180.0s 237 
+1180.0s 238 Generation config (identical to exp4c / exp5 sampling rules):
+1180.0s 239 GEN_LEN         = 32
+1180.0s 240 GEN_TEMPERATURE = 0.8
+1180.0s 241 GEN_TOP_P       = 0.9
+1180.0s 242 REPEATS         = 3
+1180.0s 243 SEED_BASE       = 2000
+1180.0s 244 EOT             = 0
+1180.0s 245 N values        = [1, 2, 4, 8, 16, 32]
+1180.2s 246 ==============================================================================
+1180.2s 247 TOKENIZATION-CONFOUND CHECK (TEST 1 -- REAL vs FAKE entity names)
+1180.2s 248 (if the abs gap is large the whole REAL-vs-FAKE contrast is
+1180.2s 249 confounded by name rarity -- Pythia distributes mass differently
+1180.2s 250 over rare strings regardless of any registry signal)
+1180.2s 251 
+1180.2s 252 Bare     = len(encode(name))   -- exp5 / historical measurement.
+1180.2s 253 In-ctx   = len(encode(prefix + entity)) - len(encode(prefix)) --
+1180.2s 254 the in-prompt span length (fused leading space
+1180.2s 255 included). This is what the registry actually sees
+1180.2s 256 via span=entity. The OK / CONFOUNDED flag below keys
+1180.2s 257 on the in-context gap (the bare column is printed as
+1180.2s 258 a secondary historical reference).
+1180.2s 259 BEFORE   = exp5 FAKE lists (historical baseline, kept verbatim
+1180.2s 260 from exp5 -- including the real-entity-contaminated
+1180.2s 261 T-060 versions).
+1180.2s 262 AFTER    = exp5b FAKE lists at T-061 (FIX 1 systemic rebuild to
+1180.2s 263 invented-proper-noun names + FIX 3 token-length
+1180.2s 264 matching).
+1180.2s 265 Every domain's in-context gap-after must be <= 0.5 BPE tokens
+1180.2s 266 for the TEST 1 REAL-vs-FAKE contrast to not be confounded by
+1180.2s 267 name rarity.
+1180.2s 268 ==============================================================================
+1180.2s 269 domain  REAL bare FAKE-bf bare bare gap-bf  FAKE-af bare bare gap-af   REAL ic  FAKE-bf ic  ic gap-bf   FAKE-af ic  ic gap-af  flag
+1180.2s 270 -----------------------------------------------------------------------------------------------------------------------------------------------
+1180.2s 271 medicine      3.200        5.700       2.500         3.200       0.000     2.300       5.367      3.067        3.067      0.767  CONFOUNDED (+0.27)
+1180.2s 272 law      4.067        6.300       2.233         4.067       0.000     3.733       5.967      2.233        3.867      0.133  OK
+1180.2s 273 code      2.600        2.733       0.133         2.667       0.067     2.400       2.600      0.200        2.567      0.167  OK
+1180.2s 274 literature      4.000        5.367       1.367         4.133       0.133     3.900       5.367      1.467        3.933      0.033  OK
+1180.2s 275 -----------------------------------------------------------------------------------------------------------------------------------------------
+1180.2s 276 flag OK = in-context |gap_after| <= 0.5 (FIX 3 target; FIX 1
+1180.2s 277 also keeps the FAKE list free of real-entity
+1180.2s 278 collisions). flag CONFOUNDED = in-context gap > 0.5.
+1180.2s 279 The bare-name gap is printed as a secondary historical
+1180.2s 280 column; it was the measurement exp5 used and is no
+1180.2s 281 longer the one the verdict keys on.
+1180.2s 282 ==============================================================================
+1180.3s 283 entity-span self-check (medicine, type 2 diabetes):
+1180.3s 284 prompt_ids = [510, 8521, 806, 14, 1282, 1971, 323, 1511, 374, 8401, 310]... (11 tokens)
+1180.3s 285 entity span = [7, 10) -- 3 tokens
+1180.3s 286 decoded entity from those tokens = ' type 2 diabetes'
+1180.5s 287 ==============================================================================
+1180.5s 288 exp5b hallucination-detection loop (TEST 1 = real/fake, TEST 2 = cloze)
+1180.5s 289 REPEATS = 3, GEN_LEN = 32, total = 1080 runs target
+1180.5s 290 ==============================================================================
+1180.5s 291 
+1180.5s 292 [ TEST 1 ] grounded vs ungrounded (REAL vs FAKE entity names)
+1731.2s 293 
+1731.2s 294 [ TEST 2 ] correct vs incorrect (cloze facts, label from decoded continuation)
+2004.6s 295 
+2004.6s 296 hallucination block done in 13.7 minutes (1080 runs, TEST 1 = 720, TEST 2 = 360, entity_span_failures = 0)
+2004.6s 297 
+2004.6s 298 ENTITY-SPAN BOUNDS FAILURES (e_start, e_end, ctx, prompt_len): 0 total
+2004.6s 299 BASELINE SHIFT CLAMPS (T-070 pad-boundary guard on the token-aligned slice): 1080 total  (prompt=1080)
+2004.6s 300 expected: prompt=1080 (left-pad boundary, one per run), entity=0 (no template begins with {X})
+2004.6s 301 sample: span=prompt  raw_shift_start=244  clamped_shift_start=245  p_start=245  dropped_from_unshifted=1  ctx=256  prompt_len=11
+2004.6s 302 sample: span=prompt  raw_shift_start=244  clamped_shift_start=245  p_start=245  dropped_from_unshifted=1  ctx=256  prompt_len=11
+2004.6s 303 sample: span=prompt  raw_shift_start=244  clamped_shift_start=245  p_start=245  dropped_from_unshifted=1  ctx=256  prompt_len=11
+2004.6s 304 sample: span=prompt  raw_shift_start=246  clamped_shift_start=247  p_start=247  dropped_from_unshifted=1  ctx=256  prompt_len=9
+2004.6s 305 sample: span=prompt  raw_shift_start=246  clamped_shift_start=247  p_start=247  dropped_from_unshifted=1  ctx=256  prompt_len=9
+2004.6s 306 
+2004.6s 307 ==============================================================================
+2004.6s 308 FIX 5 -- TEST 2 LABEL-COLLAPSE DIAGNOSTICS
+2004.6s 309 (label = CORRECT if any accepted answer matches the first 8 generated tokens,
+2004.6s 310 else INCORRECT. Matching rule is unchanged from exp5b; we diagnose first.)
+2004.6s 311 ==============================================================================
+2004.6s 312 domain   correct   incorrect   total   collapsed?
+2004.6s 313 medicine         0          90      90    ***YES***
+2004.6s 314 law         0          90      90    ***YES***
+2004.6s 315 code         0          90      90    ***YES***
+2004.6s 316 literature         0          90      90    ***YES***
+2004.6s 317 
+2004.6s 318 First 5 (prompt, accepted_answers, decoded_continuation, label) tuples per domain:
+2004.6s 319 
+2004.6s 320 --- medicine ---
+2004.6s 321 [1] prompt         = 'The recommended first-line antibiotic for strep throat is'
+2004.6s 322 accepted       = ['penicillin', 'amoxicillin']
+2004.6s 323 decoded (32tok)= ' no longer the best way to do it this year\n\nThe ultimate goal of the group of people in a number of cities across the world, a highly critical'
+2004.6s 324 label          = incorrect    (rep_n=1, seed=2001)
+2004.6s 325 [2] prompt         = 'The recommended first-line antibiotic for strep throat is'
+2004.6s 326 accepted       = ['penicillin', 'amoxicillin']
+2004.6s 327 decoded (32tok)= ' no-risk of common sense leaving the way.\n\n\n\n\n\nMillions of employees in the original, and also their employers, whose industries of the age-old'
+2004.6s 328 label          = incorrect    (rep_n=2, seed=2002)
+2004.6s 329 [3] prompt         = 'The recommended first-line antibiotic for strep throat is'
+2004.6s 330 accepted       = ['penicillin', 'amoxicillin']
+2004.6s 331 decoded (32tok)= ' with 10% to be automatically generated and looking for a room is outsider a difficult-to-performative.\n\nAlfa on the first three days'
+2004.6s 332 label          = incorrect    (rep_n=3, seed=2003)
+2004.6s 333 [4] prompt         = 'The most common cause of community-acquired pneumonia in adults is'
+2004.6s 334 accepted       = ['streptococcus pneumoniae', 'pneumococcus']
+2004.6s 335 decoded (32tok)= "\n\n@D.\n\nAm\n\nThis is a 'social-economics of a subfamily of the Bronx and Cambridge, the USAID is"
+2004.6s 336 label          = incorrect    (rep_n=1, seed=2001)
+2004.6s 337 [5] prompt         = 'The most common cause of community-acquired pneumonia in adults is'
+2004.6s 338 accepted       = ['streptococcus pneumoniae', 'pneumococcus']
+2004.6s 339 decoded (32tok)= "\n\nIt is orchids? They.\n\nThat's how he seemed to be doing.\n\nThat's the latest update to a major new"
+2004.6s 340 label          = incorrect    (rep_n=2, seed=2002)
+2004.6s 341 
+2004.6s 342 --- law ---
+2004.6s 343 [1] prompt         = 'In the United States, the right to remain silent is protected by the'
+2004.6s 344 accepted       = ['fifth amendment', '5th amendment']
+2004.6s 345 decoded (32tok)= ' U.S. Supreme Court of the Third Circuit Court of Appeals start the first case in the Supreme Court, this week, but it is the most significant development'
+2004.6s 346 label          = incorrect    (rep_n=1, seed=2001)
+2004.6s 347 [2] prompt         = 'In the United States, the right to remain silent is protected by the'
+2004.6s 348 accepted       = ['fifth amendment', '5th amendment']
+2004.6s 349 decoded (32tok)= ' U.S. District Court of Appeals along with the CESA and GDC, the first case of the last year, the US military experience in the'
+2004.6s 350 label          = incorrect    (rep_n=2, seed=2002)
+2004.6s 351 [3] prompt         = 'In the United States, the right to remain silent is protected by the'
+2004.6s 352 accepted       = ['fifth amendment', '5th amendment']
+2004.6s 353 decoded (32tok)= ' fact that the White House came to the south of the Western Journal of Applied Social Sciences.beta.31 May 9, 2008-March, April 1, 2010'
+2004.6s 354 label          = incorrect    (rep_n=3, seed=2003)
+2004.6s 355 [4] prompt         = 'The Miranda warning was established by the Supreme Court case'
+2004.6s 356 accepted       = ['miranda v arizona', 'miranda']
+2004.6s 357 decoded (32tok)= '-level relationships, the film, drawing on the birthday cake.            deadline of the president of a range of cases, the Court of Appeals equates with a'
+2004.6s 358 label          = incorrect    (rep_n=1, seed=2001)
+2004.6s 359 [5] prompt         = 'The Miranda warning was established by the Supreme Court case'
+2004.6s 360 accepted       = ['miranda v arizona', 'miranda']
+2004.6s 361 decoded (32tok)= '-invisible, and he wanted to introduce a group of sharkskin.\n\n\n\n\n\nThe Republican-based discussion of The Co-Star.\n\nThis is'
+2004.6s 362 label          = incorrect    (rep_n=2, seed=2002)
+2004.6s 363 
+2004.6s 364 --- code ---
+2004.6s 365 [1] prompt         = 'In Python, the keyword used to define a function is'
+2004.6s 366 accepted       = ['def']
+2004.6s 367 decoded (32tok)= ' possessed by the first-ranked young athletes, it is statistics\n Accepted, over the last decade-length of the current coronavirus pandemic, we will now'
+2004.6s 368 label          = incorrect    (rep_n=1, seed=2001)
+2004.6s 369 [2] prompt         = 'In Python, the keyword used to define a function is'
+2004.6s 370 accepted       = ['def']
+2004.6s 371 decoded (32tok)= ' fit the other side of the cylinder. Chowdhury, although the drug/Zachary Taylor,\n\nKasey Baz, a man who'
+2004.6s 372 label          = incorrect    (rep_n=2, seed=2002)
+2004.6s 373 [3] prompt         = 'In Python, the keyword used to define a function is'
+2004.6s 374 accepted       = ['def']
+2004.6s 375 decoded (32tok)= 'PARAM.\n\n.\n\nWash.\n\nToto\n\n"This is the product of the editors of a\n\n1. How to'
+2004.6s 376 label          = incorrect    (rep_n=3, seed=2003)
+2004.6s 377 [4] prompt         = 'The Python data structure that stores key-value pairs is called a'
+2004.6s 378 accepted       = ['dict', 'dictionary']
+2004.6s 379 decoded (32tok)= ' key driver for an important aspect of the Pomerangia, anti-trapezze, a complex array of novel-endogenous, the prevalence of'
+2004.6s 380 label          = incorrect    (rep_n=1, seed=2001)
+2004.6s 381 [5] prompt         = 'The Python data structure that stores key-value pairs is called a'
+2004.6s 382 accepted       = ['dict', 'dictionary']
+2004.6s 383 decoded (32tok)= ' keystone and the operator to the AVM-977B, the BTA, particularly, with a list of publications, from which we was.\n'
+2004.6s 384 label          = incorrect    (rep_n=2, seed=2002)
+2004.6s 385 
+2004.6s 386 --- literature ---
+2004.6s 387 [1] prompt         = 'The novel Moby-Dick was written by'
+2004.6s 388 accepted       = ['melville', 'herman melville']
+2004.6s 389 decoded (32tok)= ' a member of the convention of a serial killer paranoia. drove to the courtroom story of a female colleague to the court and attorney general, a successful major'
+2004.6s 390 label          = incorrect    (rep_n=1, seed=2001)
+2004.6s 391 [2] prompt         = 'The novel Moby-Dick was written by'
+2004.6s 392 accepted       = ['melville', 'herman melville']
+2004.6s 393 decoded (32tok)= ' an animation by the Board of Directors of the Electronic Frontier Canada, and the Federal Election\n\n“The combined performance of the three-day-old and the'
+2004.6s 394 label          = incorrect    (rep_n=2, seed=2002)
+2004.6s 395 [3] prompt         = 'The novel Moby-Dick was written by'
+2004.6s 396 accepted       = ['melville', 'herman melville']
+2004.6s 397 decoded (32tok)= ' and therefore. .\n\nThe difference between the cast of the House of Capes (although it is - and who knows, after its name is also a'
+2004.6s 398 label          = incorrect    (rep_n=3, seed=2003)
+2004.6s 399 [4] prompt         = 'Pride and Prejudice was written by'
+2004.6s 400 accepted       = ['austen', 'jane austen']
+2004.6s 401 decoded (32tok)= " a high-risk sodium-based r0.\n\nThe early this month, Microsoft's latest acquisition, I'm not saying that the first of a number"
+2004.6s 402 label          = incorrect    (rep_n=1, seed=2001)
+2004.6s 403 [5] prompt         = 'Pride and Prejudice was written by'
+2004.6s 404 accepted       = ['austen', 'jane austen']
+2004.6s 405 decoded (32tok)= '\n\n“The Year of the week will be that year’s best team to be a year of that big budget can be referred to as a year of'
+2004.6s 406 label          = incorrect    (rep_n=2, seed=2002)
+2006.4s 407 ==============================================================================
+2006.4s 408 FIX 4 -- LABEL-COUNT DIAGNOSTICS (printed BEFORE AUROC tables)
+2006.4s 409 Positive class: TEST 1 -> fake; TEST 2 -> incorrect.
+2006.4s 410 A (test, span) is DEGENERATE when pos==0 or neg==0 --
+2006.4s 411 AUROC is undefined in that case (NaN).
+2006.4s 412 ==============================================================================
+2006.4s 413 test    span    pos    neg   total   degenerate
+2006.4s 414 test1  entity    360    360     720           no
+2006.4s 415 test1  prompt    360    360     720           no
+2006.4s 416 test1     gen    360    360     720           no
+2006.4s 417 test2  prompt    360      0     360    ***YES***
+2006.4s 418 *** DEGENERATE: test2/prompt has only one class (negative=0, the other=360) -- AUROC undefined ***
+2006.4s 419 test2     gen    360      0     360    ***YES***
+2006.4s 420 *** DEGENERATE: test2/gen has only one class (negative=0, the other=360) -- AUROC undefined ***
+2006.4s 421 
+2006.4s 422 Per-domain label counts:
+2006.4s 423 test    span      domain    pos    neg   total   degenerate
+2006.4s 424 test1  entity    medicine     90     90     180           no
+2006.4s 425 test1  entity         law     90     90     180           no
+2006.4s 426 test1  entity        code     90     90     180           no
+2006.4s 427 test1  entity  literature     90     90     180           no
+2006.4s 428 test1  prompt    medicine     90     90     180           no
+2006.4s 429 test1  prompt         law     90     90     180           no
+2006.4s 430 test1  prompt        code     90     90     180           no
+2006.4s 431 test1  prompt  literature     90     90     180           no
+2006.4s 432 test1     gen    medicine     90     90     180           no
+2006.4s 433 test1     gen         law     90     90     180           no
+2006.4s 434 test1     gen        code     90     90     180           no
+2006.4s 435 test1     gen  literature     90     90     180           no
+2006.4s 436 test2  prompt    medicine     90      0      90    ***YES***
+2006.4s 437 *** DEGENERATE: test2/prompt/medicine has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.4s 438 test2  prompt         law     90      0      90    ***YES***
+2006.4s 439 *** DEGENERATE: test2/prompt/law has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.4s 440 test2  prompt        code     90      0      90    ***YES***
+2006.4s 441 *** DEGENERATE: test2/prompt/code has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.4s 442 test2  prompt  literature     90      0      90    ***YES***
+2006.4s 443 *** DEGENERATE: test2/prompt/literature has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.4s 444 test2     gen    medicine     90      0      90    ***YES***
+2006.4s 445 *** DEGENERATE: test2/gen/medicine has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.4s 446 test2     gen         law     90      0      90    ***YES***
+2006.4s 447 *** DEGENERATE: test2/gen/law has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.4s 448 test2     gen        code     90      0      90    ***YES***
+2006.4s 449 *** DEGENERATE: test2/gen/code has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.4s 450 test2     gen  literature     90      0      90    ***YES***
+2006.4s 451 *** DEGENERATE: test2/gen/literature has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.4s 452 ==============================================================================
+2006.4s 453 FIX 1 -- assembling halluc_payload for exp5c_halluc.json BEFORE any verdict/table print
+2006.7s 454 FIX 1 -- saved /kaggle/working/exp5c_halluc.json (1080 runs, 7 registry signals + per-span baselines (entity=4, prompt=4, gen=2), 6 N values, per-domain + pooled AUROC for 2 tests x 3 spans (test1) / 2 spans (test2), 6 known_limitations, 1080 baseline shift clamps) -- results are now durable on disk BEFORE any print
+2006.8s 455 >> test1, span=entity: pos=360, neg=360, total=720
+2006.8s 456 
+2006.8s 457 ==============================================================================
+2006.8s 458 POOLED AUROC, TEST 1 -- FAKE vs REAL (positive = FAKE), span=entity -- ENTITY (TEST 1 only, N/A for TEST 2)
+2006.8s 459 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 460 T-070: FOUR baseline rows. `*_state` = LM head read off the
+2006.8s 461 SAME hidden state the registry reads at that position;
+2006.8s 462 `*_token` = LM head's belief about THAT EXACT token (shifted
+2006.8s 463 by -1). The verdict must beat max(state, token).
+2006.8s 464 NOTE: entity spans are 2-4 tokens; values saturate once N exceeds the entity length, so N > 4 carries no extra information at span=entity.
+2006.8s 465 ==============================================================================
+2006.8s 466 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 467 -------------------------------------------------------------------------------------
+2006.8s 468 max_act        0.434     0.297     0.361     0.325     0.325     0.325
+2006.8s 469 act_entropy        0.379     0.473     0.485     0.476     0.476     0.476
+2006.8s 470 top1_share        0.489     0.412     0.477     0.488     0.488     0.488
+2006.8s 471 jaccard        0.471     0.428     0.419     0.387     0.387     0.387
+2006.8s 472 cosine        0.455     0.426     0.423     0.406     0.406     0.406
+2006.8s 473 prompt_domain_share        0.452     0.388     0.368     0.356     0.356     0.356
+2006.8s 474 domain_entropy        0.388     0.515     0.585     0.611     0.611     0.611
+2006.8s 475 lm_entropy_state(B)     0.522     0.539     0.526     0.505     0.505     0.505
+2006.8s 476 neg_max_logprob_state(B)     0.578     0.564     0.538     0.516     0.516     0.516
+2006.8s 477 lm_entropy_token(B)     0.469     0.477     0.486     0.496     0.496     0.496
+2006.8s 478 neg_max_logprob_token(B)     0.482     0.541     0.560     0.564     0.564     0.564
+2006.8s 479 -------------------------------------------------------------------------------------
+2006.8s 480 (B) = LM-head baseline (not from the registry)
+2006.8s 481 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 482 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 483 
+2006.8s 484 >> test1, span=entity, medicine: pos=90, neg=90, total=180
+2006.8s 485 
+2006.8s 486 ==============================================================================
+2006.8s 487 PER-DOMAIN AUROC, medicine, TEST 1 -- FAKE vs REAL (positive = FAKE), span=entity
+2006.8s 488 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 489 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 490 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 491 the verdict must beat max(state, token).
+2006.8s 492 NOTE: entity spans are 2-4 tokens; values saturate once N exceeds the entity length, so N > 4 carries no extra information at span=entity.
+2006.8s 493 *** TEST 1 CONFOUNDED for medicine: real/fake in-context (span=entity) token-length gap = 0.77 (> 0.5) -- AUROC for this domain may reflect name rarity, not grounding ***
+2006.8s 494 ==============================================================================
+2006.8s 495 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 496 -------------------------------------------------------------------------------------
+2006.8s 497 max_act        0.287     0.135     0.121     0.121     0.121     0.121
+2006.8s 498 act_entropy        0.340     0.429     0.450     0.450     0.450     0.450
+2006.8s 499 top1_share        0.430     0.357     0.523     0.523     0.523     0.523
+2006.8s 500 jaccard        0.433     0.367     0.311     0.311     0.311     0.311
+2006.8s 501 cosine        0.433     0.367     0.311     0.311     0.311     0.311
+2006.8s 502 prompt_domain_share        0.140     0.048     0.042     0.042     0.042     0.042
+2006.8s 503 domain_entropy        0.601     0.854     0.892     0.892     0.892     0.892
+2006.8s 504 lm_entropy_state(B)     0.611     0.653     0.601     0.601     0.601     0.601
+2006.8s 505 neg_max_logprob_state(B)     0.694     0.660     0.619     0.619     0.619     0.619
+2006.8s 506 lm_entropy_token(B)     0.387     0.446     0.456     0.456     0.456     0.456
+2006.8s 507 neg_max_logprob_token(B)     0.417     0.723     0.744     0.744     0.744     0.744
+2006.8s 508 -------------------------------------------------------------------------------------
+2006.8s 509 (B) = LM-head baseline (not from the registry)
+2006.8s 510 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 511 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 512 
+2006.8s 513 >> test1, span=entity, law: pos=90, neg=90, total=180
+2006.8s 514 
+2006.8s 515 ==============================================================================
+2006.8s 516 PER-DOMAIN AUROC, law, TEST 1 -- FAKE vs REAL (positive = FAKE), span=entity
+2006.8s 517 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 518 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 519 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 520 the verdict must beat max(state, token).
+2006.8s 521 NOTE: entity spans are 2-4 tokens; values saturate once N exceeds the entity length, so N > 4 carries no extra information at span=entity.
+2006.8s 522 ==============================================================================
+2006.8s 523 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 524 -------------------------------------------------------------------------------------
+2006.8s 525 max_act        0.353     0.178     0.333     0.250     0.250     0.250
+2006.8s 526 act_entropy        0.388     0.579     0.549     0.529     0.529     0.529
+2006.8s 527 top1_share        0.473     0.272     0.398     0.429     0.429     0.429
+2006.8s 528 jaccard        0.465     0.448     0.435     0.376     0.376     0.376
+2006.8s 529 cosine        0.465     0.448     0.441     0.388     0.388     0.388
+2006.8s 530 prompt_domain_share        0.693     0.646     0.516     0.459     0.459     0.459
+2006.8s 531 domain_entropy        0.161     0.250     0.508     0.571     0.571     0.571
+2006.8s 532 lm_entropy_state(B)     0.591     0.613     0.602     0.556     0.556     0.556
+2006.8s 533 neg_max_logprob_state(B)     0.688     0.660     0.622     0.579     0.579     0.579
+2006.8s 534 lm_entropy_token(B)     0.217     0.591     0.602     0.623     0.623     0.623
+2006.8s 535 neg_max_logprob_token(B)     0.354     0.688     0.588     0.603     0.603     0.603
+2006.8s 536 -------------------------------------------------------------------------------------
+2006.8s 537 (B) = LM-head baseline (not from the registry)
+2006.8s 538 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 539 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 540 
+2006.8s 541 >> test1, span=entity, code: pos=90, neg=90, total=180
+2006.8s 542 
+2006.8s 543 ==============================================================================
+2006.8s 544 PER-DOMAIN AUROC, code, TEST 1 -- FAKE vs REAL (positive = FAKE), span=entity
+2006.8s 545 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 546 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 547 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 548 the verdict must beat max(state, token).
+2006.8s 549 NOTE: entity spans are 2-4 tokens; values saturate once N exceeds the entity length, so N > 4 carries no extra information at span=entity.
+2006.8s 550 ==============================================================================
+2006.8s 551 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 552 -------------------------------------------------------------------------------------
+2006.8s 553 max_act        0.431     0.391     0.372     0.347     0.347     0.347
+2006.8s 554 act_entropy        0.438     0.497     0.486     0.480     0.480     0.480
+2006.8s 555 top1_share        0.485     0.540     0.566     0.566     0.566     0.566
+2006.8s 556 jaccard        0.467     0.528     0.516     0.529     0.529     0.529
+2006.8s 557 cosine        0.429     0.521     0.536     0.537     0.537     0.537
+2006.8s 558 prompt_domain_share        0.535     0.592     0.580     0.587     0.587     0.587
+2006.8s 559 domain_entropy        0.522     0.620     0.639     0.652     0.652     0.652
+2006.8s 560 lm_entropy_state(B)     0.402     0.387     0.380     0.368     0.368     0.368
+2006.8s 561 neg_max_logprob_state(B)     0.405     0.319     0.288     0.287     0.287     0.287
+2006.8s 562 lm_entropy_token(B)     0.510     0.383     0.404     0.408     0.408     0.408
+2006.8s 563 neg_max_logprob_token(B)     0.523     0.394     0.353     0.359     0.359     0.359
+2006.8s 564 -------------------------------------------------------------------------------------
+2006.8s 565 (B) = LM-head baseline (not from the registry)
+2006.8s 566 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 567 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 568 
+2006.8s 569 >> test1, span=entity, literature: pos=90, neg=90, total=180
+2006.8s 570 
+2006.8s 571 ==============================================================================
+2006.8s 572 PER-DOMAIN AUROC, literature, TEST 1 -- FAKE vs REAL (positive = FAKE), span=entity
+2006.8s 573 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 574 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 575 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 576 the verdict must beat max(state, token).
+2006.8s 577 NOTE: entity spans are 2-4 tokens; values saturate once N exceeds the entity length, so N > 4 carries no extra information at span=entity.
+2006.8s 578 ==============================================================================
+2006.8s 579 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 580 -------------------------------------------------------------------------------------
+2006.8s 581 max_act        0.631     0.441     0.393     0.352     0.352     0.352
+2006.8s 582 act_entropy        0.336     0.401     0.390     0.391     0.391     0.391
+2006.8s 583 top1_share        0.621     0.428     0.324     0.312     0.312     0.312
+2006.8s 584 jaccard        0.496     0.366     0.273     0.277     0.277     0.277
+2006.8s 585 cosine        0.440     0.236     0.229     0.201     0.201     0.201
+2006.8s 586 prompt_domain_share        0.387     0.207     0.167     0.163     0.163     0.163
+2006.8s 587 domain_entropy        0.348     0.441     0.466     0.496     0.496     0.496
+2006.8s 588 lm_entropy_state(B)     0.506     0.522     0.637     0.593     0.593     0.593
+2006.8s 589 neg_max_logprob_state(B)     0.507     0.594     0.673     0.636     0.636     0.636
+2006.8s 590 lm_entropy_token(B)     0.382     0.493     0.524     0.553     0.553     0.553
+2006.8s 591 neg_max_logprob_token(B)     0.414     0.521     0.631     0.618     0.618     0.618
+2006.8s 592 -------------------------------------------------------------------------------------
+2006.8s 593 (B) = LM-head baseline (not from the registry)
+2006.8s 594 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 595 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 596 
+2006.8s 597 >> test1, span=prompt: pos=360, neg=360, total=720
+2006.8s 598 
+2006.8s 599 ==============================================================================
+2006.8s 600 POOLED AUROC, TEST 1 -- FAKE vs REAL (positive = FAKE), span=prompt -- PROMPT (all left-padded prompt tokens; LM baseline from prefill)
+2006.8s 601 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 602 T-070: FOUR baseline rows. `*_state` = LM head read off the
+2006.8s 603 SAME hidden state the registry reads at that position;
+2006.8s 604 `*_token` = LM head's belief about THAT EXACT token (shifted
+2006.8s 605 by -1). The verdict must beat max(state, token).
+2006.8s 606 ==============================================================================
+2006.8s 607 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 608 -------------------------------------------------------------------------------------
+2006.8s 609 max_act        0.480     0.447     0.394     0.463     0.454     0.454
+2006.8s 610 act_entropy        0.490     0.477     0.516     0.552     0.561     0.561
+2006.8s 611 top1_share        0.488     0.486     0.488     0.408     0.428     0.428
+2006.8s 612 jaccard        0.489     0.488     0.414     0.476     0.463     0.463
+2006.8s 613 cosine        0.494     0.484     0.452     0.467     0.467     0.467
+2006.8s 614 prompt_domain_share        0.536     0.556     0.438     0.424     0.436     0.436
+2006.8s 615 domain_entropy        0.527     0.475     0.512     0.508     0.524     0.524
+2006.8s 616 lm_entropy_state(B)     0.479     0.504     0.494     0.549     0.525     0.525
+2006.8s 617 neg_max_logprob_state(B)     0.502     0.517     0.542     0.539     0.530     0.530
+2006.8s 618 lm_entropy_token(B)     0.495     0.494     0.498     0.530     0.514     0.514
+2006.8s 619 neg_max_logprob_token(B)     0.499     0.507     0.512     0.525     0.523     0.523
+2006.8s 620 -------------------------------------------------------------------------------------
+2006.8s 621 (B) = LM-head baseline (not from the registry)
+2006.8s 622 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 623 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 624 
+2006.8s 625 >> test1, span=prompt, medicine: pos=90, neg=90, total=180
+2006.8s 626 
+2006.8s 627 ==============================================================================
+2006.8s 628 PER-DOMAIN AUROC, medicine, TEST 1 -- FAKE vs REAL (positive = FAKE), span=prompt
+2006.8s 629 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 630 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 631 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 632 the verdict must beat max(state, token).
+2006.8s 633 *** TEST 1 CONFOUNDED for medicine: real/fake in-context (span=entity) token-length gap = 0.77 (> 0.5) -- AUROC for this domain may reflect name rarity, not grounding ***
+2006.8s 634 ==============================================================================
+2006.8s 635 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 636 -------------------------------------------------------------------------------------
+2006.8s 637 max_act        0.500     0.450     0.575     0.138     0.153     0.153
+2006.8s 638 act_entropy        0.463     0.417     0.463     0.494     0.558     0.558
+2006.8s 639 top1_share        0.537     0.537     0.537     0.379     0.607     0.607
+2006.8s 640 jaccard        0.467     0.467     0.467     0.367     0.316     0.316
+2006.8s 641 cosine        0.467     0.467     0.467     0.367     0.316     0.316
+2006.8s 642 prompt_domain_share        0.604     0.616     0.713     0.070     0.103     0.103
+2006.8s 643 domain_entropy        0.583     0.604     0.287     0.780     0.778     0.778
+2006.8s 644 lm_entropy_state(B)     0.654     0.604     0.654     0.603     0.494     0.494
+2006.8s 645 neg_max_logprob_state(B)     0.663     0.604     0.604     0.648     0.588     0.588
+2006.8s 646 lm_entropy_token(B)     0.346     0.463     0.604     0.514     0.483     0.483
+2006.8s 647 neg_max_logprob_token(B)     0.396     0.587     0.684     0.694     0.642     0.642
+2006.8s 648 -------------------------------------------------------------------------------------
+2006.8s 649 (B) = LM-head baseline (not from the registry)
+2006.8s 650 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 651 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 652 
+2006.8s 653 >> test1, span=prompt, law: pos=90, neg=90, total=180
+2006.8s 654 
+2006.8s 655 ==============================================================================
+2006.8s 656 PER-DOMAIN AUROC, law, TEST 1 -- FAKE vs REAL (positive = FAKE), span=prompt
+2006.8s 657 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 658 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 659 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 660 the verdict must beat max(state, token).
+2006.8s 661 ==============================================================================
+2006.8s 662 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 663 -------------------------------------------------------------------------------------
+2006.8s 664 max_act        0.333     0.353     0.218     0.473     0.483     0.483
+2006.8s 665 act_entropy        0.477     0.389     0.561     0.643     0.688     0.688
+2006.8s 666 top1_share        0.321     0.472     0.472     0.301     0.256     0.256
+2006.8s 667 jaccard        0.482     0.465     0.308     0.568     0.578     0.578
+2006.8s 668 cosine        0.482     0.465     0.312     0.542     0.566     0.566
+2006.8s 669 prompt_domain_share        0.888     0.693     0.397     0.658     0.642     0.642
+2006.8s 670 domain_entropy        0.679     0.162     0.587     0.423     0.429     0.429
+2006.8s 671 lm_entropy_state(B)     0.217     0.591     0.530     0.599     0.598     0.598
+2006.8s 672 neg_max_logprob_state(B)     0.354     0.688     0.601     0.609     0.611     0.611
+2006.8s 673 lm_entropy_token(B)     0.783     0.783     0.613     0.550     0.518     0.518
+2006.8s 674 neg_max_logprob_token(B)     0.726     0.726     0.660     0.554     0.550     0.550
+2006.8s 675 -------------------------------------------------------------------------------------
+2006.8s 676 (B) = LM-head baseline (not from the registry)
+2006.8s 677 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 678 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 679 
+2006.8s 680 >> test1, span=prompt, code: pos=90, neg=90, total=180
+2006.8s 681 
+2006.8s 682 ==============================================================================
+2006.8s 683 PER-DOMAIN AUROC, code, TEST 1 -- FAKE vs REAL (positive = FAKE), span=prompt
+2006.8s 684 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 685 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 686 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 687 the verdict must beat max(state, token).
+2006.8s 688 ==============================================================================
+2006.8s 689 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 690 -------------------------------------------------------------------------------------
+2006.8s 691 max_act        0.431     0.377     0.343     0.380     0.376     0.376
+2006.8s 692 act_entropy        0.438     0.502     0.581     0.663     0.662     0.662
+2006.8s 693 top1_share        0.485     0.498     0.491     0.402     0.397     0.397
+2006.8s 694 jaccard        0.467     0.534     0.467     0.364     0.314     0.314
+2006.8s 695 cosine        0.429     0.486     0.491     0.418     0.416     0.416
+2006.8s 696 prompt_domain_share        0.535     0.599     0.592     0.490     0.482     0.482
+2006.8s 697 domain_entropy        0.522     0.594     0.622     0.549     0.552     0.552
+2006.8s 698 lm_entropy_state(B)     0.402     0.399     0.374     0.493     0.470     0.470
+2006.8s 699 neg_max_logprob_state(B)     0.405     0.339     0.324     0.409     0.377     0.377
+2006.8s 700 lm_entropy_token(B)     0.510     0.402     0.388     0.486     0.482     0.482
+2006.8s 701 neg_max_logprob_token(B)     0.523     0.406     0.349     0.411     0.408     0.408
+2006.8s 702 -------------------------------------------------------------------------------------
+2006.8s 703 (B) = LM-head baseline (not from the registry)
+2006.8s 704 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 705 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 706 
+2006.8s 707 >> test1, span=prompt, literature: pos=90, neg=90, total=180
+2006.8s 708 
+2006.8s 709 ==============================================================================
+2006.8s 710 PER-DOMAIN AUROC, literature, TEST 1 -- FAKE vs REAL (positive = FAKE), span=prompt
+2006.8s 711 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 712 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 713 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 714 the verdict must beat max(state, token).
+2006.8s 715 ==============================================================================
+2006.8s 716 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 717 -------------------------------------------------------------------------------------
+2006.8s 718 max_act        0.444     0.438     0.444     0.506     0.508     0.508
+2006.8s 719 act_entropy        0.526     0.522     0.402     0.563     0.528     0.528
+2006.8s 720 top1_share        0.428     0.421     0.423     0.324     0.300     0.300
+2006.8s 721 jaccard        0.500     0.484     0.407     0.317     0.318     0.318
+2006.8s 722 cosine        0.551     0.464     0.222     0.250     0.250     0.250
+2006.8s 723 prompt_domain_share        0.478     0.477     0.201     0.159     0.159     0.159
+2006.8s 724 domain_entropy        0.523     0.593     0.447     0.407     0.413     0.413
+2006.8s 725 lm_entropy_state(B)     0.487     0.404     0.516     0.580     0.606     0.606
+2006.8s 726 neg_max_logprob_state(B)     0.606     0.424     0.593     0.621     0.660     0.660
+2006.8s 727 lm_entropy_token(B)     0.393     0.393     0.511     0.539     0.571     0.571
+2006.8s 728 neg_max_logprob_token(B)     0.393     0.393     0.514     0.552     0.584     0.584
+2006.8s 729 -------------------------------------------------------------------------------------
+2006.8s 730 (B) = LM-head baseline (not from the registry)
+2006.8s 731 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 732 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 733 
+2006.8s 734 >> test1, span=gen: pos=360, neg=360, total=720
+2006.8s 735 
+2006.8s 736 ==============================================================================
+2006.8s 737 POOLED AUROC, TEST 1 -- FAKE vs REAL (positive = FAKE), span=gen -- GEN (the 32 generated tokens; LM baseline from sampling step)
+2006.8s 738 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 739 ==============================================================================
+2006.8s 740 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 741 -------------------------------------------------------------------------------------
+2006.8s 742 max_act        0.488     0.478     0.463     0.485     0.496     0.513
+2006.8s 743 act_entropy        0.488     0.484     0.484     0.506     0.484     0.493
+2006.8s 744 top1_share        0.486     0.491     0.502     0.486     0.511     0.507
+2006.8s 745 jaccard        0.500     0.500     0.490     0.495     0.506     0.508
+2006.8s 746 cosine        0.486     0.490     0.486     0.500     0.503     0.494
+2006.8s 747 prompt_domain_share        0.517     0.489     0.483     0.491     0.509     0.504
+2006.8s 748 domain_entropy        0.479     0.504     0.496     0.482     0.469     0.447
+2006.8s 749 lm_entropy(B)     0.493     0.438     0.464     0.502     0.489     0.505
+2006.8s 750 neg_max_logprob(B)     0.474     0.447     0.478     0.489     0.477     0.503
+2006.8s 751 -------------------------------------------------------------------------------------
+2006.8s 752 (B) = LM-head baseline (not from the registry)
+2006.8s 753 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 754 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 755 
+2006.8s 756 >> test1, span=gen, medicine: pos=90, neg=90, total=180
+2006.8s 757 
+2006.8s 758 ==============================================================================
+2006.8s 759 PER-DOMAIN AUROC, medicine, TEST 1 -- FAKE vs REAL (positive = FAKE), span=gen
+2006.8s 760 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 761 *** TEST 1 CONFOUNDED for medicine: real/fake in-context (span=entity) token-length gap = 0.77 (> 0.5) -- AUROC for this domain may reflect name rarity, not grounding ***
+2006.8s 762 ==============================================================================
+2006.8s 763 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 764 -------------------------------------------------------------------------------------
+2006.8s 765 max_act        0.737     0.722     0.614     0.567     0.534     0.514
+2006.8s 766 act_entropy        0.250     0.541     0.516     0.541     0.533     0.551
+2006.8s 767 top1_share        0.723     0.457     0.462     0.425     0.452     0.466
+2006.8s 768 jaccard        0.500     0.479     0.500     0.524     0.509     0.499
+2006.8s 769 cosine        0.568     0.527     0.526     0.533     0.504     0.489
+2006.8s 770 prompt_domain_share        0.730     0.307     0.466     0.453     0.431     0.453
+2006.8s 771 domain_entropy        0.270     0.470     0.461     0.444     0.462     0.467
+2006.8s 772 lm_entropy(B)     0.144     0.301     0.340     0.412     0.427     0.454
+2006.8s 773 neg_max_logprob(B)     0.233     0.343     0.367     0.443     0.429     0.478
+2006.8s 774 -------------------------------------------------------------------------------------
+2006.8s 775 (B) = LM-head baseline (not from the registry)
+2006.8s 776 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 777 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 778 
+2006.8s 779 >> test1, span=gen, law: pos=90, neg=90, total=180
+2006.8s 780 
+2006.8s 781 ==============================================================================
+2006.8s 782 PER-DOMAIN AUROC, law, TEST 1 -- FAKE vs REAL (positive = FAKE), span=gen
+2006.8s 783 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 784 ==============================================================================
+2006.8s 785 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 786 -------------------------------------------------------------------------------------
+2006.8s 787 max_act        0.458     0.465     0.455     0.454     0.508     0.518
+2006.8s 788 act_entropy        0.544     0.449     0.428     0.469     0.478     0.461
+2006.8s 789 top1_share        0.459     0.540     0.573     0.516     0.524     0.532
+2006.8s 790 jaccard        0.500     0.473     0.456     0.453     0.499     0.484
+2006.8s 791 cosine        0.451     0.455     0.456     0.448     0.493     0.476
+2006.8s 792 prompt_domain_share        0.466     0.413     0.430     0.481     0.555     0.561
+2006.8s 793 domain_entropy        0.534     0.474     0.488     0.483     0.461     0.469
+2006.8s 794 lm_entropy(B)     0.600     0.470     0.480     0.525     0.512     0.523
+2006.8s 795 neg_max_logprob(B)     0.593     0.507     0.475     0.501     0.497     0.527
+2006.8s 796 -------------------------------------------------------------------------------------
+2006.8s 797 (B) = LM-head baseline (not from the registry)
+2006.8s 798 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 799 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 800 
+2006.8s 801 >> test1, span=gen, code: pos=90, neg=90, total=180
+2006.8s 802 
+2006.8s 803 ==============================================================================
+2006.8s 804 PER-DOMAIN AUROC, code, TEST 1 -- FAKE vs REAL (positive = FAKE), span=gen
+2006.8s 805 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 806 ==============================================================================
+2006.8s 807 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 808 -------------------------------------------------------------------------------------
+2006.8s 809 max_act        0.202     0.272     0.390     0.522     0.517     0.559
+2006.8s 810 act_entropy        0.324     0.351     0.500     0.548     0.444     0.427
+2006.8s 811 top1_share        0.284     0.298     0.325     0.392     0.500     0.540
+2006.8s 812 jaccard        0.500     0.507     0.450     0.446     0.514     0.606
+2006.8s 813 cosine        0.544     0.325     0.324     0.392     0.486     0.487
+2006.8s 814 prompt_domain_share        0.792     0.727     0.528     0.493     0.546     0.547
+2006.8s 815 domain_entropy        0.202     0.260     0.350     0.372     0.400     0.376
+2006.8s 816 lm_entropy(B)     0.809     0.589     0.571     0.566     0.557     0.576
+2006.8s 817 neg_max_logprob(B)     0.240     0.365     0.540     0.494     0.506     0.537
+2006.8s 818 -------------------------------------------------------------------------------------
+2006.8s 819 (B) = LM-head baseline (not from the registry)
+2006.8s 820 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 821 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 822 
+2006.8s 823 >> test1, span=gen, literature: pos=90, neg=90, total=180
+2006.8s 824 
+2006.8s 825 ==============================================================================
+2006.8s 826 PER-DOMAIN AUROC, literature, TEST 1 -- FAKE vs REAL (positive = FAKE), span=gen
+2006.8s 827 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 828 ==============================================================================
+2006.8s 829 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 830 -------------------------------------------------------------------------------------
+2006.8s 831 max_act        0.264     0.407     0.373     0.407     0.438     0.476
+2006.8s 832 act_entropy        0.782     0.483     0.465     0.481     0.454     0.514
+2006.8s 833 top1_share        0.239     0.512     0.566     0.571     0.569     0.503
+2006.8s 834 jaccard        0.500     0.518     0.556     0.552     0.590     0.534
+2006.8s 835 cosine        0.359     0.530     0.572     0.580     0.575     0.487
+2006.8s 836 prompt_domain_share        0.203     0.503     0.542     0.536     0.513     0.491
+2006.8s 837 domain_entropy        0.736     0.621     0.628     0.589     0.534     0.468
+2006.8s 838 lm_entropy(B)     0.424     0.440     0.486     0.518     0.465     0.460
+2006.8s 839 neg_max_logprob(B)     0.504     0.495     0.566     0.530     0.483     0.473
+2006.8s 840 -------------------------------------------------------------------------------------
+2006.8s 841 (B) = LM-head baseline (not from the registry)
+2006.8s 842 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 843 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 844 
+2006.8s 845 >> test2, span=prompt: pos=360, neg=0, total=360  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 846 *** DEGENERATE: test2/prompt has only one class (negative=0, the other=360) -- AUROC undefined ***
+2006.8s 847 
+2006.8s 848 ==============================================================================
+2006.8s 849 POOLED AUROC, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=prompt -- PROMPT (all left-padded prompt tokens; LM baseline from prefill)
+2006.8s 850 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 851 T-070: FOUR baseline rows. `*_state` = LM head read off the
+2006.8s 852 SAME hidden state the registry reads at that position;
+2006.8s 853 `*_token` = LM head's belief about THAT EXACT token (shifted
+2006.8s 854 by -1). The verdict must beat max(state, token).
+2006.8s 855 ==============================================================================
+2006.8s 856 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 857 -------------------------------------------------------------------------------------
+2006.8s 858 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 859 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 860 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 861 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 862 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 863 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 864 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 865 lm_entropy_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 866 neg_max_logprob_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 867 lm_entropy_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 868 neg_max_logprob_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 869 -------------------------------------------------------------------------------------
+2006.8s 870 (B) = LM-head baseline (not from the registry)
+2006.8s 871 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 872 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 873 
+2006.8s 874 >> test2, span=prompt, medicine: pos=90, neg=0, total=90  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 875 *** DEGENERATE: test2/prompt/medicine has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.8s 876 
+2006.8s 877 ==============================================================================
+2006.8s 878 PER-DOMAIN AUROC, medicine, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=prompt
+2006.8s 879 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 880 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 881 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 882 the verdict must beat max(state, token).
+2006.8s 883 ==============================================================================
+2006.8s 884 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 885 -------------------------------------------------------------------------------------
+2006.8s 886 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 887 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 888 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 889 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 890 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 891 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 892 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 893 lm_entropy_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 894 neg_max_logprob_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 895 lm_entropy_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 896 neg_max_logprob_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 897 -------------------------------------------------------------------------------------
+2006.8s 898 (B) = LM-head baseline (not from the registry)
+2006.8s 899 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 900 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 901 
+2006.8s 902 >> test2, span=prompt, law: pos=90, neg=0, total=90  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 903 *** DEGENERATE: test2/prompt/law has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.8s 904 
+2006.8s 905 ==============================================================================
+2006.8s 906 PER-DOMAIN AUROC, law, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=prompt
+2006.8s 907 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 908 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 909 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 910 the verdict must beat max(state, token).
+2006.8s 911 ==============================================================================
+2006.8s 912 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 913 -------------------------------------------------------------------------------------
+2006.8s 914 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 915 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 916 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 917 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 918 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 919 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 920 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 921 lm_entropy_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 922 neg_max_logprob_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 923 lm_entropy_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 924 neg_max_logprob_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 925 -------------------------------------------------------------------------------------
+2006.8s 926 (B) = LM-head baseline (not from the registry)
+2006.8s 927 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 928 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 929 
+2006.8s 930 >> test2, span=prompt, code: pos=90, neg=0, total=90  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 931 *** DEGENERATE: test2/prompt/code has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.8s 932 
+2006.8s 933 ==============================================================================
+2006.8s 934 PER-DOMAIN AUROC, code, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=prompt
+2006.8s 935 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 936 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 937 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 938 the verdict must beat max(state, token).
+2006.8s 939 ==============================================================================
+2006.8s 940 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 941 -------------------------------------------------------------------------------------
+2006.8s 942 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 943 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 944 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 945 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 946 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 947 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 948 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 949 lm_entropy_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 950 neg_max_logprob_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 951 lm_entropy_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 952 neg_max_logprob_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 953 -------------------------------------------------------------------------------------
+2006.8s 954 (B) = LM-head baseline (not from the registry)
+2006.8s 955 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 956 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 957 
+2006.8s 958 >> test2, span=prompt, literature: pos=90, neg=0, total=90  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 959 *** DEGENERATE: test2/prompt/literature has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.8s 960 
+2006.8s 961 ==============================================================================
+2006.8s 962 PER-DOMAIN AUROC, literature, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=prompt
+2006.8s 963 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 964 T-070: FOUR baseline rows -- `*_state` (same hidden state as
+2006.8s 965 the registry) and `*_token` (that exact token, shifted -1);
+2006.8s 966 the verdict must beat max(state, token).
+2006.8s 967 ==============================================================================
+2006.8s 968 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 969 -------------------------------------------------------------------------------------
+2006.8s 970 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 971 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 972 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 973 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 974 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 975 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 976 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 977 lm_entropy_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 978 neg_max_logprob_state(B)       nan       nan       nan       nan       nan       nan
+2006.8s 979 lm_entropy_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 980 neg_max_logprob_token(B)       nan       nan       nan       nan       nan       nan
+2006.8s 981 -------------------------------------------------------------------------------------
+2006.8s 982 (B) = LM-head baseline (not from the registry)
+2006.8s 983 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 984 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 985 
+2006.8s 986 >> test2, span=gen: pos=360, neg=0, total=360  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 987 *** DEGENERATE: test2/gen has only one class (negative=0, the other=360) -- AUROC undefined ***
+2006.8s 988 
+2006.8s 989 ==============================================================================
+2006.8s 990 POOLED AUROC, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=gen -- GEN (the 32 generated tokens; LM baseline from sampling step)
+2006.8s 991 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 992 ==============================================================================
+2006.8s 993 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 994 -------------------------------------------------------------------------------------
+2006.8s 995 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 996 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 997 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 998 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 999 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 1000 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 1001 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1002 lm_entropy(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1003 neg_max_logprob(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1004 -------------------------------------------------------------------------------------
+2006.8s 1005 (B) = LM-head baseline (not from the registry)
+2006.8s 1006 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 1007 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1008 
+2006.8s 1009 >> test2, span=gen, medicine: pos=90, neg=0, total=90  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 1010 *** DEGENERATE: test2/gen/medicine has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.8s 1011 
+2006.8s 1012 ==============================================================================
+2006.8s 1013 PER-DOMAIN AUROC, medicine, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=gen
+2006.8s 1014 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1015 ==============================================================================
+2006.8s 1016 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 1017 -------------------------------------------------------------------------------------
+2006.8s 1018 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 1019 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1020 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 1021 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 1022 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 1023 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 1024 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1025 lm_entropy(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1026 neg_max_logprob(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1027 -------------------------------------------------------------------------------------
+2006.8s 1028 (B) = LM-head baseline (not from the registry)
+2006.8s 1029 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 1030 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1031 
+2006.8s 1032 >> test2, span=gen, law: pos=90, neg=0, total=90  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 1033 *** DEGENERATE: test2/gen/law has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.8s 1034 
+2006.8s 1035 ==============================================================================
+2006.8s 1036 PER-DOMAIN AUROC, law, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=gen
+2006.8s 1037 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1038 ==============================================================================
+2006.8s 1039 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 1040 -------------------------------------------------------------------------------------
+2006.8s 1041 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 1042 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1043 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 1044 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 1045 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 1046 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 1047 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1048 lm_entropy(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1049 neg_max_logprob(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1050 -------------------------------------------------------------------------------------
+2006.8s 1051 (B) = LM-head baseline (not from the registry)
+2006.8s 1052 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 1053 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1054 
+2006.8s 1055 >> test2, span=gen, code: pos=90, neg=0, total=90  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 1056 *** DEGENERATE: test2/gen/code has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.8s 1057 
+2006.8s 1058 ==============================================================================
+2006.8s 1059 PER-DOMAIN AUROC, code, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=gen
+2006.8s 1060 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1061 ==============================================================================
+2006.8s 1062 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 1063 -------------------------------------------------------------------------------------
+2006.8s 1064 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 1065 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1066 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 1067 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 1068 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 1069 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 1070 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1071 lm_entropy(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1072 neg_max_logprob(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1073 -------------------------------------------------------------------------------------
+2006.8s 1074 (B) = LM-head baseline (not from the registry)
+2006.8s 1075 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 1076 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1077 
+2006.8s 1078 >> test2, span=gen, literature: pos=90, neg=0, total=90  -- DEGENERATE (one class empty) -- AUROC undefined --
+2006.8s 1079 *** DEGENERATE: test2/gen/literature has only one class (negative=0, the other=90) -- AUROC undefined ***
+2006.8s 1080 
+2006.8s 1081 ==============================================================================
+2006.8s 1082 PER-DOMAIN AUROC, literature, TEST 2 -- INCORRECT vs CORRECT (positive = INCORRECT), span=gen
+2006.8s 1083 Note: raw AUC < 0.5 = inverted-but-informative; verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1084 ==============================================================================
+2006.8s 1085 signal       N=1       N=2       N=4       N=8      N=16      N=32
+2006.8s 1086 -------------------------------------------------------------------------------------
+2006.8s 1087 max_act          nan       nan       nan       nan       nan       nan
+2006.8s 1088 act_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1089 top1_share          nan       nan       nan       nan       nan       nan
+2006.8s 1090 jaccard          nan       nan       nan       nan       nan       nan
+2006.8s 1091 cosine          nan       nan       nan       nan       nan       nan
+2006.8s 1092 prompt_domain_share          nan       nan       nan       nan       nan       nan
+2006.8s 1093 domain_entropy          nan       nan       nan       nan       nan       nan
+2006.8s 1094 lm_entropy(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1095 neg_max_logprob(B)       nan       nan       nan       nan       nan       nan
+2006.8s 1096 -------------------------------------------------------------------------------------
+2006.8s 1097 (B) = LM-head baseline (not from the registry)
+2006.8s 1098 Note: raw AUC < 0.5 = inverted-but-informative signal;
+2006.8s 1099 the verdict uses max(AUC, 1 - AUC) (polarity-corrected).
+2006.8s 1100 
+2006.9s 1101 removed read-only hook from pythia.gpt_neox.layers[11]
+2010.7s 1102 Traceback (most recent call last):
+2010.7s 1103 File "<string>", line 1, in <module>
+2010.7s 1104 File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+2010.7s 1105 raise_for_execution_errors(nb, output_path)
+2010.7s 1106 File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+2010.7s 1107 raise error
+2010.7s 1108 papermill.exceptions.PapermillExecutionError:
+2010.7s 1109 ---------------------------------------------------------------------------
+2010.7s 1110 Exception encountered at "In [32]":
+2010.7s 1111 ---------------------------------------------------------------------------
+2010.7s 1112 AttributeError                            Traceback (most recent call last)
+2010.7s 1113 /tmp/ipykernel_23/872554939.py in <cell line: 0>()
+2010.7s 1114 4 # are already saved above).
+2010.7s 1115 5 import matplotlib.pyplot as _plt_mod
+2010.7s 1116 ----> 6 print(f"matplotlib version: {_plt_mod.__version__}")
+2010.7s 1117 7
+2010.7s 1118 8 print("\n--- exp5c_results.png (try/except) ---")
+2010.7s 1119 
+2010.7s 1120 AttributeError: module 'matplotlib.pyplot' has no attribute '__version__'
+2010.7s 1121 
+2012.7s 1122 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+2012.7s 1123 cells[i][c] = re.sub('\\\\\|', '|', cell)
+2012.8s 1124 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+2012.8s 1125 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+2013.4s 1126 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+2013.8s 1127 [NbConvertApp] Writing 599105 bytes to __notebook__.ipynb
+2016.1s 1128 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+2017.4s 1129 [NbConvertApp] Support files will be in __results___files/
+2017.4s 1130 [NbConvertApp] Making directory __results___files
+2017.4s 1131 [NbConvertApp] Writing 1157670 bytes to __results__.html

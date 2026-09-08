@@ -1,0 +1,372 @@
+6.9s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.9s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.9s 3 0.00s - to python to disable frozen modules.
+6.9s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.5s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.5s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.5s 7 0.00s - to python to disable frozen modules.
+7.5s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+28.0s 9 transformers already present, version: 5.0.0
+30.4s 10 datasets already present, version: 5.0.0
+30.7s 11 device: cuda
+30.7s 12 gpu: Tesla T4
+30.7s 13 {
+30.7s 14 "pythia_name": "EleutherAI/pythia-410m",
+30.7s 15 "extract_layer": 12,
+30.7s 16 "hidden_size": 1024,
+30.7s 17 "n_slots": 4096,
+30.7s 18 "k": 16,
+30.7s 19 "k_aux": 32,
+30.7s 20 "dead_after": 800,
+30.7s 21 "tokens_per_domain": 3000000,
+30.7s 22 "ctx": 256,
+30.7s 23 "batch_size": 24,
+30.7s 24 "steps": 3000,
+30.7s 25 "lr_registry": 0.003,
+30.7s 26 "warmup": 200,
+30.7s 27 "grad_clip": 1.0,
+30.7s 28 "lambda_recon": 1.0,
+30.7s 29 "lambda_auxk": 0.03,
+30.7s 30 "eval_every": 500,
+30.7s 31 "eval_batches": 40,
+30.7s 32 "eval_loss_batches": 4
+30.7s 33 }
+35.8s 34 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+35.8s 35 
+35.8s 36 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+35.8s 37 loading EleutherAI/pythia-410m...
+46.1s 38 loaded in 10s
+46.1s 39 pythia params : 405.3M
+46.1s 40 tokenizer     : vocab=50254, len(tokenizer)=50277, eos_token_id=0
+46.1s 41 pythia params frozen: 405,334,016 total, 0 trainable (must be 0)
+71.1s 42 medicine: 3,000,000 tokens in 25s
+81.5s 43 law: 3,000,000 tokens in 10s
+81.5s 44 Repo card metadata block was not found. Setting CardData to empty.
+81.5s 45 
+81.5s 46 Repo card metadata block was not found. Setting CardData to empty.
+89.7s 47 code: 3,000,000 tokens in 8s
+105.5s 48 literature: 3,000,000 tokens in 16s
+105.5s 49 medicine: train=2,940,000  eval=60,000
+105.5s 50 law: train=2,940,000  eval=60,000
+105.5s 51 code: train=2,940,000  eval=60,000
+105.5s 52 literature: train=2,940,000  eval=60,000
+105.7s 53 registry params: 8.39M  (n_slots=4096, k=16, k_aux=32, d_in=1024)
+105.7s 54 sanity:  n_slots=4096, k=16, k_aux=32, dead_after=800 -- matches exp0d exactly
+107.3s 55 step     1 | recon 6.6013 | aux 0.0000 | dead  0.0% | 1s
+136.0s 56 step   100 | recon 0.3625 | aux 0.0000 | dead  0.0% | 30s
+167.0s 57 step   200 | recon 0.1407 | aux 0.0000 | dead  0.0% | 61s
+200.4s 58 step   300 | recon 0.1265 | aux 0.0000 | dead  0.0% | 94s
+232.6s 59 step   400 | recon 0.1140 | aux 0.0000 | dead  0.0% | 127s
+265.0s 60 step   500 | recon 0.1131 | aux 0.0000 | dead  0.0% | 159s
+270.2s 61 >> pythia CE (sanity): medicine=2.409  law=2.029  code=2.156  literature=2.890
+302.8s 62 step   600 | recon 0.1133 | aux 0.0000 | dead  0.0% | 197s
+335.3s 63 step   700 | recon 0.1061 | aux 0.0000 | dead  0.0% | 229s
+367.9s 64 step   800 | recon 0.1045 | aux 0.0000 | dead  0.0% | 262s
+400.7s 65 step   900 | recon 0.1105 | aux 0.0000 | dead  0.0% | 295s
+433.6s 66 step  1000 | recon 0.1044 | aux 0.1044 | dead  0.1% | 328s
+438.8s 67 >> pythia CE (sanity): medicine=2.284  law=2.076  code=2.179  literature=2.844
+472.6s 68 step  1100 | recon 0.1059 | aux 0.1059 | dead  0.4% | 367s
+506.5s 69 step  1200 | recon 0.1010 | aux 0.1010 | dead  0.6% | 400s
+540.4s 70 step  1300 | recon 0.1014 | aux 0.1014 | dead  0.3% | 434s
+574.5s 71 step  1400 | recon 0.1009 | aux 0.1009 | dead  0.8% | 468s
+608.6s 72 step  1500 | recon 0.1035 | aux 0.1035 | dead  0.3% | 503s
+613.8s 73 >> pythia CE (sanity): medicine=2.349  law=2.031  code=2.053  literature=2.889
+647.9s 74 step  1600 | recon 0.0997 | aux 0.0997 | dead  0.9% | 542s
+682.0s 75 step  1700 | recon 0.0980 | aux 0.0980 | dead  0.2% | 576s
+716.0s 76 step  1800 | recon 0.0970 | aux 0.0970 | dead  0.9% | 610s
+749.9s 77 step  1900 | recon 0.0975 | aux 0.0974 | dead  0.5% | 644s
+783.7s 78 step  2000 | recon 0.0961 | aux 0.0961 | dead  1.1% | 678s
+788.9s 79 >> pythia CE (sanity): medicine=2.323  law=2.038  code=2.217  literature=2.848
+822.8s 80 step  2100 | recon 0.0954 | aux 0.0954 | dead  0.3% | 717s
+856.8s 81 step  2200 | recon 0.0958 | aux 0.0958 | dead  1.0% | 751s
+890.8s 82 step  2300 | recon 0.0981 | aux 0.0980 | dead  0.5% | 785s
+924.8s 83 step  2400 | recon 0.0981 | aux 0.0980 | dead  1.1% | 819s
+959.0s 84 step  2500 | recon 0.0956 | aux 0.0956 | dead  0.2% | 853s
+964.2s 85 >> pythia CE (sanity): medicine=2.354  law=2.065  code=2.114  literature=2.820
+998.3s 86 step  2600 | recon 0.0925 | aux 0.0924 | dead  1.1% | 892s
+1032.5s 87 step  2700 | recon 0.0986 | aux 0.0985 | dead  0.3% | 927s
+1066.7s 88 step  2800 | recon 0.0914 | aux 0.0913 | dead  0.8% | 961s
+1100.6s 89 step  2900 | recon 0.0926 | aux 0.0925 | dead  0.3% | 995s
+1134.5s 90 step  3000 | recon 0.0926 | aux 0.0925 | dead  0.5% | 1029s
+1139.5s 91 >> pythia CE (sanity): medicine=2.356  law=2.029  code=2.081  literature=2.872
+1139.5s 92 
+1139.5s 93 training done in 17.2 minutes
+1139.5s 94 saved registry state_dict to /kaggle/working/exp4b_model.pt (8,393,728 params)
+1139.7s 95 token id range check: max_token_id=50276  tokenizer.vocab_size=50254  len(tokenizer)=50277
+1192.8s 96 ================================================================
+1192.8s 97 registry slots           raw dims
+1192.8s 98 ----------------------------------------------------------------
+1192.8s 99 live units                   3527/4096          1024/1024
+1192.8s 100 mean purity                         0.703              0.386
+1192.8s 101 median purity                       0.726              0.365
+1192.8s 102 purity > 0.80                      41.7%              0.1%
+1192.8s 103 purity > 0.95                      16.8%              0.0%
+1192.8s 104 ================================================================
+1244.9s 105 
+1244.9s 106 pythia own next-token CE on held-out data (final sanity check):
+1244.9s 107 medicine     = 2.333
+1244.9s 108 law          = 2.051
+1244.9s 109 code         = 2.043
+1244.9s 110 literature   = 2.822
+1244.9s 111 mean         = 2.312
+1244.9s 112 
+1244.9s 113 mean-purity gap (registry slots vs raw dims): +0.317
+1244.9s 114 
+1244.9s 115 ✅ pass -- exp0's specialization finding replicates on real Pythia activations; the registry is clearly purer than the raw Pythia hidden dimensions at matched sparsity.
+1244.9s 116 next step: next: try a slightly larger pretrained model (pythia-1.4b) to see if the gap widens with richer activations, or move to a downstream intervention experiment (e.g. slot-conditioned generation steering).
+1245.9s 117 saved /kaggle/working/exp4b_results.png
+1246.0s 118 
+1246.0s 119 ============================================================
+1246.0s 120 ### medicine slots (top 6)
+1246.0s 121 ============================================================
+1246.0s 122 slot 1242 | purity 0.72 | fires  75,139 | . .  of .  the . , . - . ) .  and .  in .  ( . \n
+1246.0s 123 slot 2192 | purity 0.96 | fires  38,099 | . .  and . , .  of .  the .  with .  were .  ( .  was . -
+1246.0s 124 slot 3906 | purity 0.99 | fires  26,161 |  was . , .  a .  the .  of .  were .  to .  in .  significantly .  with
+1246.0s 125 slot 2069 | purity 0.96 | fires  22,084 | - .  of . 1 .  ( . ) . 2 .  LV .  in .  protein .  expression
+1246.0s 126 slot 3882 | purity 0.99 | fires  21,585 |  of .  the .  in . , .  and . - .  to .  ( .  a .  by
+1246.0s 127 slot 2159 | purity 0.97 | fires  21,180 |  and .  were . . . , .  was .  the .  of .  in .  The . )
+1246.0s 128 
+1246.0s 129 ============================================================
+1246.0s 130 ### law slots (top 6)
+1246.0s 131 ============================================================
+1246.0s 132 slot 3996 | purity 0.96 | fires  42,947 |  the .  of .  shall .  to . , .  this . The .  a . \n .  be
+1246.0s 133 slot 1146 | purity 0.98 | fires  41,534 |  of .  the .  in .  to .  a .  for . , .  such .          .  by
+1246.0s 134 slot 3156 | purity 0.98 | fires  34,685 |  the .  to .  of . , .  and .  a . ) . . .  shall .  be
+1246.0s 135 slot  479 | purity 0.98 | fires  29,818 | ) . ( . . .              .  the . \n . .-- . ; . `` .  and
+1246.0s 136 slot 2917 | purity 0.83 | fires  28,189 | ) . \n . . . .-- . , .      .  the . ; .  and .
+1246.0s 137 slot 1469 | purity 0.88 | fires  24,511 |  the .  of .  to .  in .  and .          . , .  for .                  .  that
+1246.0s 138 
+1246.0s 139 ============================================================
+1246.0s 140 ### code slots (top 6)
+1246.0s 141 ============================================================
+1246.0s 142 slot 3599 | purity 0.99 | fires  42,739 | . . , . _ . ( . self .  = .          . \n .  self . )
+1246.0s 143 slot  985 | purity 0.98 | fires  42,164 | \n .  = .      .          . ( . . . , . # . ) . :
+1246.0s 144 slot 3240 | purity 0.86 | fires  32,049 |  = . . . \n . , . = . ( . ', . ) .          . :
+1246.0s 145 slot 3701 | purity 0.89 | fires  29,965 | \n .          . ) . . .      .              . \n\n . , . self . if
+1246.0s 146 slot 2769 | purity 0.98 | fires  25,151 | \n .          .      . \n\n .              . ) . . .  = . : . self
+1246.0s 147 slot  765 | purity 0.75 | fires  24,304 | ( .  = . , . if . . . \n . = .  the .  in . [
+1246.0s 148 
+1246.0s 149 ============================================================
+1246.0s 150 ### literature slots (top 6)
+1246.0s 151 ============================================================
+1246.0s 152 slot 1046 | purity 0.96 | fires  47,953 | , .  the . \n .  to .  of .  and . -- .  that .  a . !
+1246.0s 153 slot  714 | purity 1.00 | fires  38,706 | , . \n .  and .  a .  he .  her .  the .  his .  she .  with
+1246.0s 154 slot 1408 | purity 0.96 | fires  35,103 | , . . . \n .  and .  he .  you . " .  I . !" . !
+1246.0s 155 slot  834 | purity 0.99 | fires  33,618 | \n .  the .  he . , .  to . . .  him . 's .  and .  that
+1246.0s 156 slot 3221 | purity 0.96 | fires  29,157 | \n . . . , .  she .  her . " .  to .  I .  and .  said
+1246.0s 157 slot 4049 | purity 0.99 | fires  27,848 | , . \n . . .  to .  the .  he .  of .  was .  that .  and
+1246.0s 158 {
+1246.0s 159 "verdict": "✅ pass -- exp0's specialization finding replicates on real Pythia activations; the registry is clearly purer than the raw Pythia hidden dimensions at matched sparsity.",
+1246.0s 160 "slots": {
+1246.0s 161 "mean": 0.7033221125602722,
+1246.0s 162 "median": 0.7262085676193237,
+1246.0s 163 "live": 3527,
+1246.0s 164 "above_80": 0.4173518419265747,
+1246.0s 165 "above_95": 0.1675644963979721
+1246.0s 166 },
+1246.0s 167 "raw_dims": {
+1246.0s 168 "mean": 0.38584351539611816,
+1246.0s 169 "median": 0.3649517595767975,
+1246.0s 170 "live": 1024,
+1246.0s 171 "above_80": 0.0009765625,
+1246.0s 172 "above_95": 0.0
+1246.0s 173 },
+1246.0s 174 "gap": 0.31747859716415405,
+1246.0s 175 "final_dead_frac": 0.005126953125,
+1246.0s 176 "final_recon_loss": 0.09262892603874207,
+1246.0s 177 "final_aux_loss": 0.09254074096679688,
+1246.0s 178 "pythia_next_token_ce": {
+1246.0s 179 "mean": 2.312296549479167,
+1246.0s 180 "medicine": 2.3328317602475486,
+1246.0s 181 "law": 2.051039369901021,
+1246.0s 182 "code": 2.0434248050053916,
+1246.0s 183 "literature": 2.8218902627627056
+1246.0s 184 },
+1246.0s 185 "config": {
+1246.0s 186 "pythia_name": "EleutherAI/pythia-410m",
+1246.0s 187 "extract_layer": 12,
+1246.0s 188 "hidden_size": 1024,
+1246.0s 189 "n_slots": 4096,
+1246.0s 190 "k": 16,
+1246.0s 191 "k_aux": 32,
+1246.0s 192 "dead_after": 800,
+1246.0s 193 "tokens_per_domain": 3000000,
+1246.0s 194 "ctx": 256,
+1246.0s 195 "batch_size": 24,
+1246.0s 196 "steps": 3000,
+1246.0s 197 "lr_registry": 0.003,
+1246.0s 198 "warmup": 200,
+1246.0s 199 "grad_clip": 1.0,
+1246.0s 200 "lambda_recon": 1.0,
+1246.0s 201 "lambda_auxk": 0.03,
+1246.0s 202 "eval_every": 500,
+1246.0s 203 "eval_batches": 40,
+1246.0s 204 "eval_loss_batches": 4
+1246.0s 205 }
+1246.0s 206 }
+1246.0s 207 
+1246.0s 208 saved /kaggle/working/exp4b_summary.json
+1254.4s 209 ==============================================================================
+1254.4s 210 pre stats: mean=0.0262  std=0.7845  topk_threshold(k=16)=1.0934  (over 61,440 tokens from 10 mixed batches)
+1254.4s 211 -> BOOST / SUPPRESS strengths will be scaled by theta = 1.0934
+1254.4s 212 ==============================================================================
+1254.4s 213 ==============================================================================
+1254.4s 214 TARGET SLOTS  (top 8 by purity, gates: dom_all == d_idx, total_all > 200 fires)
+1254.4s 215 ==============================================================================
+1254.4s 216 medicine  target_slots = [1505, 3112, 1000, 527, 462, 2130, 1009, 458]  purities = [1.000, 0.993, 0.993, 0.992, 0.992, 0.991, 0.990, 0.989]  fires = [227, 3,757, 9,448, 2,036, 1,555, 1,019, 1,966, 6,121]
+1254.4s 217 law  target_slots = [2855, 3766, 2904, 1988, 468, 2600, 3249, 1808]  purities = [0.997, 0.993, 0.989, 0.988, 0.985, 0.985, 0.984, 0.984]  fires = [3,016, 5,761, 5,099, 723, 3,837, 6,582, 1,824, 688]
+1254.4s 218 code  target_slots = [494, 601, 2508, 2561, 1194, 55, 1042, 2554]  purities = [1.000, 1.000, 1.000, 1.000, 1.000, 0.999, 0.999, 0.999]  fires = [394, 331, 357, 252, 3,080, 6,898, 727, 1,435]
+1254.4s 219 literature  target_slots = [347, 2439, 158, 714, 894, 2321, 2999, 357]  purities = [0.997, 0.997, 0.997, 0.996, 0.995, 0.994, 0.993, 0.993]  fires = [341, 5,681, 4,129, 38,706, 6,001, 4,790, 732, 5,141]
+1254.4s 220 ==============================================================================
+1254.5s 221 Per-domain distinctive-vocab (hit% target):
+1254.5s 222 medicine  (150 tokens)  sample: ['\u2009', ' +/-', ' serum', ' ±', ' apoptosis', ' glucose', ' assay', '±']
+1254.5s 223 law  (150 tokens)  sample: [' subsection', ' taxable', ' amended', ' enactment', ' taxpayer', ' Senate', ' pursuant', ' Federal']
+1254.5s 224 code  (150 tokens)  sample: ['()', "('", '\t', '"""', "['", ' ==', "='", 'info']
+1254.5s 225 literature  (150 tokens)  sample: ['uten', ',--', '--"', '!”', '“', '?”', '.”', ',”']
+1254.5s 226 
+1254.5s 227 Per-domain slot-native vocab (native% target, top tokens fired by target_slots[d]):
+1254.5s 228 medicine  (30 tokens)  sample: ['.', ' <', ' =', '%', '=', '001', 'P', '01']
+1254.5s 229 law  (30 tokens)  sample: ['(', ')', '``', '.', ' title', '1', '2', 'a']
+1254.5s 230 code  (30 tokens)  sample: [':', '):', "('", '.', "':", " '", '\n', 'else']
+1254.5s 231 literature  (30 tokens)  sample: ['\n', '.', ',', ' he', ' she', ' and', ' a', ' her']
+1254.6s 232 registered steering hook on pythia.gpt_neox.layers[11] (output is hidden_states[12]); handle=<torch.utils.hooks.RemovableHandle object at 0x7aafbeac00b0>
+1254.6s 233 
+1254.6s 234 Steering config:
+1254.6s 235 GEN_LEN             = 200
+1254.6s 236 PROMPT_LEN_SUPPRESS = 50
+1254.6s 237 GEN_TEMPERATURE     = 0.8
+1254.6s 238 GEN_TOP_P           = 0.9
+1254.6s 239 COLLAPSE_REP        = 0.5
+1254.6s 240 COLLAPSE_ENT        = 1.0
+1254.6s 241 EOT (neutral prompt token) = 0
+1254.6s 242 BOOST_STRENGTHS     = [0.0, 1.0934, 2.1868, 4.3737]
+1254.6s 243 SUPPRESS_STRENGTHS  = [0.0, 1.0934, 2.1868, 4.3737]
+1254.6s 244 GAINS               = [1.0, 4.0, 8.0]
+1254.6s 245 theta (topk_threshold) = 1.0934
+1254.6s 246 total runs          = 4 domains * 2 directions * 4 strengths * 3 gains = 96
+1254.7s 247 ==============================================================================
+1254.7s 248 BOOST sweep  (neutral prompt = [EOT], n_gen=200, strengths=[0.0, 1.0934, 2.1868, 4.3737], gains=[1.0, 4.0, 8.0], theta=1.0934)
+1254.7s 249 ==============================================================================
+1254.7s 250 domain   gain    strength    hit%  native%    rep%   ent(nats)   delta_r%   n_tok  note
+1254.7s 251 ------------------------------------------------------------------------------
+1259.7s 252 medicine    1.0      0.0000    0.0%    5.0%   11.6%       4.723     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1264.4s 253 medicine    1.0      1.0934    0.0%    6.0%   13.1%       4.599     0.179%     200
+1269.0s 254 medicine    1.0      2.1868    0.5%    9.5%    7.5%       5.254     0.699%     200
+1273.6s 255 medicine    1.0      4.3737    0.5%   22.0%   32.2%       4.130     1.459%     200
+1278.2s 256 medicine    4.0      0.0000    0.0%   22.5%   23.1%       3.559     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1282.8s 257 medicine    4.0      1.0934    0.0%   15.0%   12.6%       5.505     0.611%     200
+1287.4s 258 medicine    4.0      2.1868    1.0%   31.5%   50.3%       3.321     3.033%     200  ** fluency broken here **
+1292.0s 259 medicine    4.0      4.3737   15.5%   43.5%   50.3%       3.299     5.635%     200  ** fluency broken here **
+1296.6s 260 medicine    8.0      0.0000    0.5%   10.5%   11.6%       5.238     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1301.3s 261 medicine    8.0      1.0934    1.5%   21.5%   37.7%       4.496     1.083%     200
+1306.0s 262 medicine    8.0      2.1868   23.5%   29.5%   43.2%       3.518     6.177%     200
+1310.6s 263 medicine    8.0      4.3737   44.5%   26.0%   64.3%       3.356    11.420%     200  ** fluency broken here **
+1315.2s 264 law    1.0      0.0000    0.0%    6.5%   16.6%       4.749     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1319.8s 265 law    1.0      1.0934    0.0%    4.5%   12.6%       4.491     0.194%     200
+1324.5s 266 law    1.0      2.1868    0.0%   15.0%   18.6%       4.241     0.776%     200
+1329.1s 267 law    1.0      4.3737    0.0%   64.5%   71.4%       2.249     1.452%     200  ** fluency broken here **
+1333.8s 268 law    4.0      0.0000    0.5%    6.0%    5.5%       4.434     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1338.5s 269 law    4.0      1.0934    0.5%   36.0%   33.2%       3.995     0.785%     200
+1343.1s 270 law    4.0      2.1868    0.0%   75.0%   49.7%       3.081     3.309%     200
+1347.7s 271 law    4.0      4.3737    0.0%   86.5%   68.3%       3.030     6.140%     200  ** fluency broken here **
+1352.4s 272 law    8.0      0.0000    0.0%    3.0%   10.1%       4.154     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1357.0s 273 law    8.0      1.0934    0.0%   14.0%   43.2%       3.349     0.715%     200
+1361.6s 274 law    8.0      2.1868    0.5%   61.0%   38.2%       3.636     6.591%     200
+1366.3s 275 law    8.0      4.3737    0.0%   51.0%   35.2%       5.129    12.292%     200
+1370.9s 276 code    1.0      0.0000    0.0%    8.5%   14.1%       4.009     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1375.6s 277 code    1.0      1.0934    0.0%   11.5%   35.2%       4.278     0.149%     200
+1380.2s 278 code    1.0      2.1868    0.0%   36.0%   59.3%       3.438     0.700%     200  ** fluency broken here **
+1384.8s 279 code    1.0      4.3737   10.0%   62.0%   83.9%       2.071     1.240%     200  ** fluency broken here **
+1389.3s 280 code    4.0      0.0000    0.0%   14.5%   10.1%       4.604     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1393.9s 281 code    4.0      1.0934    8.0%   34.0%   34.2%       4.035     0.611%     200
+1398.5s 282 code    4.0      2.1868    1.5%   94.5%   94.0%       0.631     2.768%     200  ** fluency broken here **
+1403.2s 283 code    4.0      4.3737    0.0%   98.5%   98.0%       0.491     4.858%     200  ** fluency broken here **
+1407.8s 284 code    8.0      0.0000    0.0%   11.5%   15.1%       4.791     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1412.4s 285 code    8.0      1.0934    0.0%   84.0%   77.9%       2.104     0.911%     200  ** fluency broken here **
+1417.1s 286 code    8.0      2.1868    0.0%   85.5%   92.5%       1.037     5.635%     200  ** fluency broken here **
+1421.7s 287 code    8.0      4.3737    0.0%   94.5%   95.5%       0.748     9.977%     200  ** fluency broken here **
+1426.3s 288 literature    1.0      0.0000    0.5%   22.0%   14.6%       4.283     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1431.0s 289 literature    1.0      1.0934    2.0%   32.5%   13.6%       4.978     0.221%     200
+1435.6s 290 literature    1.0      2.1868    7.0%   47.0%    9.0%       5.116     0.717%     200
+1440.2s 291 literature    1.0      4.3737    2.0%   50.0%   31.2%       4.241     1.367%     200
+1444.7s 292 literature    4.0      0.0000    0.0%   35.0%   19.1%       4.698     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1449.4s 293 literature    4.0      1.0934    2.0%   40.0%   11.6%       4.945     0.853%     200
+1454.1s 294 literature    4.0      2.1868    3.5%   19.0%   27.6%       4.460     2.916%     200
+1458.7s 295 literature    4.0      4.3737    1.5%    6.0%   62.3%       3.754     5.562%     200  ** fluency broken here **
+1463.4s 296 literature    8.0      0.0000    3.5%   29.5%    8.5%       4.633     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1468.0s 297 literature    8.0      1.0934    0.0%   27.0%   67.8%       2.958     0.546%     200  ** fluency broken here **
+1472.6s 298 literature    8.0      2.1868    3.0%   16.5%   21.1%       4.492     5.574%     200
+1476.9s 299 literature    8.0      4.3737    3.5%    9.5%   33.2%       5.115    11.052%     200
+1476.9s 300 ------------------------------------------------------------------------------
+1476.9s 301 (any row tagged ** fluency broken here ** has rep% > 0.5 OR entropy < 1.0 nats; the literal baseline row is always exempt.)
+1477.1s 302 ==============================================================================
+1477.1s 303 SUPPRESS sweep  (50-token prefix from own eval corpus, n_gen=200, strengths=[0.0, 1.0934, 2.1868, 4.3737], gains=[1.0, 4.0, 8.0], theta=1.0934)
+1477.1s 304 ==============================================================================
+1477.1s 305 domain   gain    strength    hit%  native%    rep%   ent(nats)   delta_r%   n_tok  note
+1477.1s 306 ------------------------------------------------------------------------------
+1481.8s 307 medicine    1.0      0.0000    5.0%   10.5%    5.5%       3.369     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1486.5s 308 medicine    1.0      1.0934    1.5%   15.5%   11.1%       3.861     0.007%     200
+1491.2s 309 medicine    1.0      2.1868    3.5%   15.5%   20.1%       3.481     0.037%     200
+1496.0s 310 medicine    1.0      4.3737    1.0%   16.5%   14.6%       4.074     0.039%     200
+1500.6s 311 medicine    4.0      0.0000    0.0%    9.5%   13.6%       4.235     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1505.4s 312 medicine    4.0      1.0934    3.0%   12.5%   11.1%       4.195     0.049%     200
+1510.0s 313 medicine    4.0      2.1868    4.0%   13.5%   24.6%       3.554     0.021%     200
+1514.8s 314 medicine    4.0      4.3737    6.0%   10.5%   14.6%       3.841     0.217%     200
+1519.5s 315 medicine    8.0      0.0000    6.0%   12.0%   12.6%       3.603     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1524.2s 316 medicine    8.0      1.0934    2.0%   14.0%   20.6%       3.213     0.074%     200
+1528.9s 317 medicine    8.0      2.1868    0.0%   14.5%   16.1%       4.448     0.315%     200
+1533.5s 318 medicine    8.0      4.3737    0.5%   17.0%   26.1%       4.316     0.322%     200
+1538.2s 319 law    1.0      0.0000    3.5%    5.0%   22.6%       3.022     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1542.9s 320 law    1.0      1.0934    5.0%   17.0%   39.2%       3.045     0.034%     200
+1547.6s 321 law    1.0      2.1868    0.5%    6.0%   16.1%       4.013     0.010%     200
+1552.3s 322 law    1.0      4.3737    3.0%    9.0%   34.2%       2.749     0.024%     200
+1557.0s 323 law    4.0      0.0000    0.0%    4.0%   35.7%       2.821     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1561.7s 324 law    4.0      1.0934    0.0%    7.0%   30.7%       3.589     0.031%     200
+1566.4s 325 law    4.0      2.1868    6.5%    3.5%   23.1%       3.483     0.049%     200
+1571.1s 326 law    4.0      4.3737    5.5%    4.0%   25.1%       3.434     0.103%     200
+1575.9s 327 law    8.0      0.0000    0.0%   17.5%   25.1%       3.848     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1580.5s 328 law    8.0      1.0934    0.5%    8.5%   10.6%       4.065     0.230%     200
+1585.3s 329 law    8.0      2.1868    0.5%   16.5%   62.3%       2.893     0.207%     200  ** fluency broken here **
+1590.0s 330 law    8.0      4.3737    0.0%   37.5%   56.8%       2.632     0.362%     200  ** fluency broken here **
+1594.6s 331 code    1.0      0.0000    1.0%   85.5%   75.9%       1.957     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1599.3s 332 code    1.0      1.0934    0.0%   30.0%   21.1%       3.613     0.003%     200
+1603.9s 333 code    1.0      2.1868    0.0%   44.0%   76.4%       1.813     0.004%     200  ** fluency broken here **
+1608.5s 334 code    1.0      4.3737    0.0%   23.0%   64.8%       1.872     0.012%     200  ** fluency broken here **
+1613.1s 335 code    4.0      0.0000    0.5%   27.0%   45.2%       2.211     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1617.7s 336 code    4.0      1.0934    8.5%   23.0%   37.7%       2.996     0.053%     200
+1622.4s 337 code    4.0      2.1868    0.5%   29.0%   26.6%       3.520     0.024%     200
+1627.0s 338 code    4.0      4.3737    0.5%   30.5%   82.9%       1.229     0.040%     200  ** fluency broken here **
+1631.6s 339 code    8.0      0.0000    0.5%   19.0%   34.7%       3.288     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1636.1s 340 code    8.0      1.0934    0.5%   27.5%   38.2%       3.289     0.025%     200
+1640.7s 341 code    8.0      2.1868    0.5%   18.0%   18.1%       3.479     0.066%     200
+1645.3s 342 code    8.0      4.3737    0.0%   14.0%   31.7%       3.675     0.076%     200
+1649.9s 343 literature    1.0      0.0000    1.5%   35.0%   27.6%       3.444     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1654.5s 344 literature    1.0      1.0934    2.5%   46.0%   19.1%       4.187     0.030%     200
+1659.1s 345 literature    1.0      2.1868    0.5%   44.0%   18.6%       4.333     0.005%     200
+1663.7s 346 literature    1.0      4.3737    2.5%   44.5%   19.1%       4.436     0.010%     200
+1668.3s 347 literature    4.0      0.0000    0.0%   30.0%   11.6%       4.513     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1673.0s 348 literature    4.0      1.0934    2.5%   43.0%   14.6%       4.537     0.061%     200
+1677.7s 349 literature    4.0      2.1868    0.5%   43.0%   17.1%       3.859     0.016%     200
+1682.3s 350 literature    4.0      4.3737    0.5%   38.0%   15.1%       4.518     0.025%     200
+1686.9s 351 literature    8.0      0.0000    0.0%   42.5%   21.6%       4.222     0.000%     200  (baseline: steer_bias=0 -> bit-exact no-op)
+1691.5s 352 literature    8.0      1.0934    0.0%   38.5%   39.2%       3.831     0.032%     200
+1696.1s 353 literature    8.0      2.1868    1.0%   42.0%   17.1%       4.141     0.042%     200
+1700.5s 354 literature    8.0      4.3737    0.5%   37.0%   28.1%       4.115     0.129%     200
+1700.5s 355 ------------------------------------------------------------------------------
+1700.5s 356 (collapse threshold: rep% > 0.5 OR entropy < 1.0 nats; the literal baseline row is always exempt.)
+1705.7s 357 saved /kaggle/working/exp4b_results.png
+1707.3s 358 saved /kaggle/working/exp4b_delta_ratio.png
+1707.4s 359 saved /kaggle/working/exp4b_steering.json (96 runs, 4 domains, 4 boost + 4 suppress strengths, 3 gains)
+1707.5s 360 removed steering hook from pythia.gpt_neox.layers[11]
+1712.8s 361 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+1712.8s 362 cells[i][c] = re.sub('\\\\\|', '|', cell)
+1713.0s 363 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+1713.0s 364 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+1713.6s 365 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+1714.0s 366 [NbConvertApp] Writing 825031 bytes to __notebook__.ipynb
+1716.2s 367 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+1717.3s 368 [NbConvertApp] Support files will be in __results___files/
+1717.3s 369 [NbConvertApp] Making directory __results___files
+1717.3s 370 [NbConvertApp] Making directory __results___files
+1717.3s 371 [NbConvertApp] Making directory __results___files
+1717.3s 372 [NbConvertApp] Writing 724970 bytes to __results__.html

@@ -1,0 +1,33 @@
+# --- excluded from publication (decided in pre-publication review) ---
+
+# Internal AI-executor transcripts and task prompts.
+# Excluded: they name specific commercial models and contain raw tool
+# invocations. The methodology they document is in التقرير.md instead.
+.review/
+
+# Local tool configuration.
+.claude/
+
+# Regenerable caches. Each notebook rebuilds these on first run.
+*.npy
+__pycache__/
+*.pyc
+
+# Working drafts not intended for publication.
+PAPER-SKELETON.md
+segment_based_llm_control_proposal_v2.md
+segment_based_llm_control_proposal.pdf
+
+# Author's personal Arabic walkthrough — not part of the record.
+شرح_المشروع.html
+شرح_المشروع.pdf
+
+# Build intermediate for the paper PDF.
+paper/PAPER.html
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Raw results payload (15MB) — available on request / as a release asset
+exp5c_halluc.json

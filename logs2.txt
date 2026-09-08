@@ -1,0 +1,224 @@
+6.6s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.6s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.6s 3 0.00s - to python to disable frozen modules.
+6.6s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.2s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.2s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.2s 7 0.00s - to python to disable frozen modules.
+7.2s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12.6s 9 device: cuda
+12.6s 10 gpu: Tesla T4
+12.6s 11 {
+12.6s 12 "vocab_size": 8192,
+12.6s 13 "ctx": 256,
+12.6s 14 "d_model": 256,
+12.6s 15 "n_layers": 6,
+12.6s 16 "n_heads": 4,
+12.6s 17 "dropout": 0.0,
+12.6s 18 "registry_layer": 3,
+12.6s 19 "n_slots": 4096,
+12.6s 20 "k": 16,
+12.6s 21 "tokens_per_domain": 15000000,
+12.6s 22 "tokenizer_docs": 20000,
+12.6s 23 "batch_size": 48,
+12.6s 24 "steps": 6000,
+12.6s 25 "lr": 0.0006,
+12.6s 26 "lr_registry": 0.003,
+12.6s 27 "warmup": 200,
+12.6s 28 "grad_clip": 1.0,
+12.6s 29 "alpha_start_step": 1500,
+12.6s 30 "alpha_full_step": 4000,
+12.6s 31 "lambda_recon": 1.0,
+12.6s 32 "lambda_auxk": 0.03,
+12.6s 33 "k_aux": 32,
+12.6s 34 "dead_after": 800,
+12.6s 35 "eval_every": 500,
+12.6s 36 "eval_batches": 40,
+12.6s 37 "eval_loss_batches": 10
+12.6s 38 }
+16.1s 39 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+16.1s 40 
+16.1s 41 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+16.1s 42 training tokenizer on a mix of both domains...
+16.2s 43 Repo card metadata block was not found. Setting CardData to empty.
+16.2s 44 
+16.2s 45 Repo card metadata block was not found. Setting CardData to empty.
+38.6s 46 
+38.9s 47 
+39.4s 48 
+39.6s 49 
+42.5s 50 
+42.7s 51 
+42.7s 52 done in 27s — vocab=8192
+42.8s 53 Repo card metadata block was not found. Setting CardData to empty.
+42.8s 54 
+42.8s 55 Repo card metadata block was not found. Setting CardData to empty.
+78.6s 56 code: 15,000,000 tokens in 36s
+122.7s 57 wiki: 15,000,000 tokens in 44s
+122.7s 58 code: train=14,700,000  eval=300,000
+122.7s 59 wiki: train=14,700,000  eval=300,000
+123.2s 60 model params     : 6.90M
+123.2s 61 registry params  : 2.10M
+129.9s 62 step     1 | alpha 0.00 | lm 9.088 | recon 0.0903 | dead  0.0% | 1s
+138.9s 63 step   100 | alpha 0.00 | lm 6.981 | recon 0.1124 | dead  0.0% | 10s
+148.0s 64 step   200 | alpha 0.00 | lm 6.098 | recon 0.1259 | dead  0.0% | 19s
+157.2s 65 step   300 | alpha 0.00 | lm 5.711 | recon 0.1302 | dead  0.0% | 28s
+166.6s 66 step   400 | alpha 0.00 | lm 5.302 | recon 0.1137 | dead  0.0% | 38s
+175.9s 67 step   500 | alpha 0.00 | lm 5.194 | recon 0.1057 | dead  0.0% | 47s
+176.6s 68 >> eval: code=4.935  wiki=5.353
+186.1s 69 step   600 | alpha 0.00 | lm 4.861 | recon 0.0997 | dead  0.0% | 57s
+195.6s 70 step   700 | alpha 0.00 | lm 4.711 | recon 0.1018 | dead  0.0% | 67s
+205.2s 71 step   800 | alpha 0.00 | lm 4.627 | recon 0.0939 | dead  0.0% | 76s
+214.8s 72 step   900 | alpha 0.00 | lm 4.450 | recon 0.0936 | dead  0.0% | 86s
+224.4s 73 step  1000 | alpha 0.00 | lm 4.300 | recon 0.0954 | dead  0.0% | 96s
+225.2s 74 >> eval: code=4.147  wiki=4.716
+235.3s 75 step  1100 | alpha 0.00 | lm 4.294 | recon 0.0890 | dead  0.0% | 107s
+246.4s 76 step  1200 | alpha 0.00 | lm 4.352 | recon 0.0849 | dead  0.0% | 118s
+257.7s 77 step  1300 | alpha 0.00 | lm 4.219 | recon 0.0819 | dead  0.1% | 129s
+269.2s 78 step  1400 | alpha 0.00 | lm 4.022 | recon 0.0745 | dead  0.2% | 140s
+280.7s 79 step  1500 | alpha 0.00 | lm 4.052 | recon 0.0728 | dead  0.2% | 152s
+281.5s 80 >> eval: code=3.658  wiki=4.346
+293.1s 81 step  1600 | alpha 0.04 | lm 3.740 | recon 0.0723 | dead  0.5% | 164s
+304.8s 82 step  1700 | alpha 0.08 | lm 3.580 | recon 0.0760 | dead  0.5% | 176s
+316.5s 83 step  1800 | alpha 0.12 | lm 3.578 | recon 0.0741 | dead  1.4% | 188s
+328.3s 84 step  1900 | alpha 0.16 | lm 3.579 | recon 0.0786 | dead  0.9% | 200s
+340.2s 85 step  2000 | alpha 0.20 | lm 3.471 | recon 0.0834 | dead  2.3% | 211s
+341.0s 86 >> eval: code=3.156  wiki=4.083
+352.9s 87 step  2100 | alpha 0.24 | lm 3.653 | recon 0.0871 | dead  1.2% | 224s
+364.9s 88 step  2200 | alpha 0.28 | lm 3.458 | recon 0.0902 | dead  4.2% | 236s
+377.0s 89 step  2300 | alpha 0.32 | lm 3.322 | recon 0.0958 | dead  1.9% | 248s
+389.2s 90 step  2400 | alpha 0.36 | lm 3.417 | recon 0.1053 | dead  4.9% | 260s
+401.3s 91 step  2500 | alpha 0.40 | lm 3.448 | recon 0.1105 | dead  2.2% | 273s
+402.2s 92 >> eval: code=2.978  wiki=3.950
+414.3s 93 step  2600 | alpha 0.44 | lm 3.428 | recon 0.1192 | dead  3.6% | 286s
+426.5s 94 step  2700 | alpha 0.48 | lm 3.331 | recon 0.1291 | dead  2.0% | 298s
+438.7s 95 step  2800 | alpha 0.52 | lm 3.382 | recon 0.1397 | dead  3.4% | 310s
+450.8s 96 step  2900 | alpha 0.56 | lm 3.240 | recon 0.1500 | dead  2.4% | 322s
+463.0s 97 step  3000 | alpha 0.60 | lm 3.299 | recon 0.1695 | dead  2.7% | 334s
+463.8s 98 >> eval: code=2.863  wiki=3.867
+476.0s 99 step  3100 | alpha 0.64 | lm 3.197 | recon 0.1805 | dead  2.8% | 347s
+488.1s 100 step  3200 | alpha 0.68 | lm 3.273 | recon 0.1969 | dead  3.3% | 359s
+500.3s 101 step  3300 | alpha 0.72 | lm 3.270 | recon 0.2182 | dead  2.8% | 371s
+512.4s 102 step  3400 | alpha 0.76 | lm 3.285 | recon 0.2421 | dead  3.5% | 384s
+524.6s 103 step  3500 | alpha 0.80 | lm 3.240 | recon 0.2662 | dead  2.8% | 396s
+525.4s 104 >> eval: code=2.865  wiki=3.809
+537.6s 105 step  3600 | alpha 0.84 | lm 3.269 | recon 0.2934 | dead  3.2% | 409s
+549.8s 106 step  3700 | alpha 0.88 | lm 3.020 | recon 0.3124 | dead  3.1% | 421s
+561.9s 107 step  3800 | alpha 0.92 | lm 3.177 | recon 0.3269 | dead  3.2% | 433s
+574.1s 108 step  3900 | alpha 0.96 | lm 3.274 | recon 0.3325 | dead  3.4% | 445s
+586.3s 109 step  4000 | alpha 1.00 | lm 3.302 | recon 0.3096 | dead  3.9% | 458s
+587.1s 110 >> eval: code=2.949  wiki=3.815
+599.5s 111 step  4100 | alpha 1.00 | lm 3.413 | recon 0.2882 | dead  3.8% | 471s
+611.8s 112 step  4200 | alpha 1.00 | lm 3.321 | recon 0.2778 | dead  4.1% | 483s
+624.2s 113 step  4300 | alpha 1.00 | lm 3.169 | recon 0.2816 | dead  4.3% | 495s
+636.6s 114 step  4400 | alpha 1.00 | lm 3.293 | recon 0.2731 | dead  4.0% | 508s
+649.0s 115 step  4500 | alpha 1.00 | lm 3.312 | recon 0.2743 | dead  3.8% | 520s
+649.8s 116 >> eval: code=2.832  wiki=3.784
+662.3s 117 step  4600 | alpha 1.00 | lm 3.099 | recon 0.2724 | dead  3.9% | 533s
+674.7s 118 step  4700 | alpha 1.00 | lm 3.216 | recon 0.2703 | dead  4.0% | 546s
+687.2s 119 step  4800 | alpha 1.00 | lm 3.313 | recon 0.2715 | dead  3.6% | 558s
+699.6s 120 step  4900 | alpha 1.00 | lm 3.144 | recon 0.2714 | dead  3.6% | 571s
+712.1s 121 step  5000 | alpha 1.00 | lm 3.154 | recon 0.2737 | dead  3.8% | 583s
+712.9s 122 >> eval: code=2.823  wiki=3.730
+725.3s 123 step  5100 | alpha 1.00 | lm 3.152 | recon 0.2759 | dead  3.8% | 597s
+737.9s 124 step  5200 | alpha 1.00 | lm 3.228 | recon 0.2704 | dead  3.6% | 609s
+750.4s 125 step  5300 | alpha 1.00 | lm 3.133 | recon 0.2806 | dead  3.6% | 622s
+762.9s 126 step  5400 | alpha 1.00 | lm 3.132 | recon 0.2794 | dead  3.5% | 634s
+775.5s 127 step  5500 | alpha 1.00 | lm 3.195 | recon 0.2828 | dead  3.7% | 647s
+776.3s 128 >> eval: code=2.751  wiki=3.712
+788.9s 129 step  5600 | alpha 1.00 | lm 3.205 | recon 0.2855 | dead  3.7% | 660s
+801.5s 130 step  5700 | alpha 1.00 | lm 3.143 | recon 0.2817 | dead  3.5% | 673s
+814.1s 131 step  5800 | alpha 1.00 | lm 3.144 | recon 0.2925 | dead  3.3% | 685s
+826.8s 132 step  5900 | alpha 1.00 | lm 3.141 | recon 0.2881 | dead  3.2% | 698s
+839.4s 133 step  6000 | alpha 1.00 | lm 3.181 | recon 0.2899 | dead  3.1% | 711s
+840.1s 134 >> eval: code=2.746  wiki=3.711
+840.1s 135 
+840.1s 136 training done in 11.9 minutes
+846.5s 137 ==============================================================
+846.5s 138 registry slots         raw dims
+846.5s 139 --------------------------------------------------------------
+846.5s 140 live units                   2622/4096         256/256
+846.5s 141 mean purity                       0.805            0.582
+846.5s 142 median purity                     0.831            0.573
+846.5s 143 purity > 0.80                    56.0%            0.8%
+846.5s 144 purity > 0.95                    20.6%            0.0%
+846.5s 145 ==============================================================
+846.5s 146 
+846.5s 147 mean-purity gap: +0.222
+846.5s 148 
+846.5s 149 ✅ pass — slots specialized on their own, and the registry is clearly purer than the raw embedding.
+846.5s 150 next step: move on to experiment 1: 4 domains + full dictionary + named reserved ranges.
+847.6s 151 
+847.6s 152 ==========================================================
+847.6s 153 ### code slots
+847.6s 154 ==========================================================
+847.6s 155 slot 3818 | purity 0.95 | fires 113,611 | . · ( ·  = · _ ·  ' ·  self · , · \t · = ·  if
+847.6s 156 slot 1262 | purity 0.92 | fires 102,833 | _ · . · , · ( ·  = · \n · \n        · \n    ·  ' ·  the
+847.6s 157 slot 1698 | purity 0.95 | fires 98,393 | _ · . · , · ( · = · ', ·  ' · name · 1 · s
+847.6s 158 slot  784 | purity 0.93 | fires 60,632 | \n        ·  = · ( · \n            ·  self · \n    ·  return · . ·  ' · _
+847.6s 159 slot 2542 | purity 0.88 | fires 56,895 | self · _ · . · , · math · 1 · kind · name · 0 · u
+847.6s 160 slot  141 | purity 0.94 | fires 56,301 | . · _ · : · ( ·  == · ) ·  self ·  is ·  not ·  '
+847.6s 161 
+847.6s 162 ==========================================================
+847.6s 163 ### prose slots
+847.6s 164 ==========================================================
+847.6s 165 slot 2275 | purity 0.96 | fires 171,419 |  , ·  the ·  of · s ·  \n ·  The ·  . ·  to ·  in ·
+847.6s 166 slot 2340 | purity 0.95 | fires 129,593 |  the ·  , ·  a ·  and ·  of ·  in ·  . ·  re ·  his · s
+847.6s 167 slot 1150 | purity 0.96 | fires 105,553 |  the ·  , ·  a ·  . ·  of ·  in ·  and ·  to ·  The ·  is
+847.6s 168 slot 3949 | purity 0.90 | fires 97,771 |  the ·  , ·  and ·  . ·  a ·  of ·  to ·  in ·  was ·  The
+847.6s 169 slot 1051 | purity 0.97 | fires 89,067 |  the ·  , ·  in ·  to ·  a ·  by ·  of ·  on ·  as ·  his
+847.6s 170 slot 3000 | purity 0.99 | fires 88,233 |  the ·  , ·  a ·  and ·  . ·  of ·  to ·  B ·  in · s
+847.6s 171 {
+847.6s 172 "verdict": "✅ pass — slots specialized on their own, and the registry is clearly purer than the raw embedding.",
+847.6s 173 "slots": {
+847.6s 174 "mean": 0.8047688007354736,
+847.6s 175 "median": 0.8306878209114075,
+847.6s 176 "live": 2622,
+847.6s 177 "above_80": 0.5598779916763306
+847.6s 178 },
+847.6s 179 "raw_dims": {
+847.6s 180 "mean": 0.5823861956596375,
+847.6s 181 "median": 0.5732259154319763
+847.6s 182 },
+847.6s 183 "gap": 0.22238260507583618,
+847.6s 184 "final_dead_frac": 0.031005859375,
+847.6s 185 "final_lm_loss": 3.1809542179107666,
+847.6s 186 "config": {
+847.6s 187 "vocab_size": 8192,
+847.6s 188 "ctx": 256,
+847.6s 189 "d_model": 256,
+847.6s 190 "n_layers": 6,
+847.6s 191 "n_heads": 4,
+847.6s 192 "dropout": 0.0,
+847.6s 193 "registry_layer": 3,
+847.6s 194 "n_slots": 4096,
+847.6s 195 "k": 16,
+847.6s 196 "tokens_per_domain": 15000000,
+847.6s 197 "tokenizer_docs": 20000,
+847.6s 198 "batch_size": 48,
+847.6s 199 "steps": 6000,
+847.6s 200 "lr": 0.0006,
+847.6s 201 "lr_registry": 0.003,
+847.6s 202 "warmup": 200,
+847.6s 203 "grad_clip": 1.0,
+847.6s 204 "alpha_start_step": 1500,
+847.6s 205 "alpha_full_step": 4000,
+847.6s 206 "lambda_recon": 1.0,
+847.6s 207 "lambda_auxk": 0.03,
+847.6s 208 "k_aux": 32,
+847.6s 209 "dead_after": 800,
+847.6s 210 "eval_every": 500,
+847.6s 211 "eval_batches": 40,
+847.6s 212 "eval_loss_batches": 10
+847.6s 213 }
+847.6s 214 }
+853.2s 215 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+853.2s 216 cells[i][c] = re.sub('\\\\\|', '|', cell)
+853.4s 217 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+853.4s 218 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+854.0s 219 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+854.3s 220 [NbConvertApp] Writing 164658 bytes to __notebook__.ipynb
+856.7s 221 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+857.6s 222 [NbConvertApp] Support files will be in __results___files/
+857.6s 223 [NbConvertApp] Making directory __results___files
+857.6s 224 [NbConvertApp] Writing 450674 bytes to __results__.html

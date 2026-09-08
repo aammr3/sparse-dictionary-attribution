@@ -1,0 +1,218 @@
+6.9s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.9s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.9s 3 0.00s - to python to disable frozen modules.
+6.9s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.5s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.5s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.5s 7 0.00s - to python to disable frozen modules.
+7.5s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+28.1s 9 transformers already present, version: 5.0.0
+30.4s 10 datasets already present, version: 5.0.0
+30.8s 11 device: cuda
+30.8s 12 gpu: Tesla T4
+30.8s 13 {
+30.8s 14 "pythia_name": "EleutherAI/pythia-160m",
+30.8s 15 "extract_layer": 6,
+30.8s 16 "hidden_size": 768,
+30.8s 17 "n_slots": 4096,
+30.8s 18 "k": 16,
+30.8s 19 "k_aux": 32,
+30.8s 20 "dead_after": 800,
+30.8s 21 "tokens_per_domain": 3000000,
+30.8s 22 "ctx": 256,
+30.8s 23 "batch_size": 24,
+30.8s 24 "steps": 3000,
+30.8s 25 "lr_registry": 0.003,
+30.8s 26 "warmup": 200,
+30.8s 27 "grad_clip": 1.0,
+30.8s 28 "lambda_recon": 1.0,
+30.8s 29 "lambda_auxk": 0.03,
+30.8s 30 "eval_every": 500,
+30.8s 31 "eval_batches": 40,
+30.8s 32 "eval_loss_batches": 4
+30.8s 33 }
+35.9s 34 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+35.9s 35 
+35.9s 36 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+36.0s 37 loading EleutherAI/pythia-160m...
+43.1s 38 loaded in 7s
+43.1s 39 pythia params : 162.3M
+43.1s 40 tokenizer     : vocab=50254, len(tokenizer)=50277, eos_token_id=0
+43.1s 41 pythia params frozen: 162,322,944 total, 0 trainable (must be 0)
+64.5s 42 medicine: 3,000,000 tokens in 21s
+75.3s 43 law: 3,000,000 tokens in 11s
+75.5s 44 Repo card metadata block was not found. Setting CardData to empty.
+75.5s 45 
+75.5s 46 Repo card metadata block was not found. Setting CardData to empty.
+84.3s 47 code: 3,000,000 tokens in 9s
+100.5s 48 literature: 3,000,000 tokens in 16s
+100.5s 49 medicine: train=2,940,000  eval=60,000
+100.5s 50 law: train=2,940,000  eval=60,000
+100.5s 51 code: train=2,940,000  eval=60,000
+100.5s 52 literature: train=2,940,000  eval=60,000
+100.6s 53 registry params: 6.30M  (n_slots=4096, k=16, k_aux=32, d_in=768)
+100.6s 54 sanity:  n_slots=4096, k=16, k_aux=32, dead_after=800 -- matches exp0d exactly
+102.0s 55 step     1 | recon 1.2243 | aux 0.0000 | dead  0.0% | 1s
+114.4s 56 step   100 | recon 0.1736 | aux 0.0000 | dead  0.0% | 14s
+127.6s 57 step   200 | recon 0.0918 | aux 0.0000 | dead  0.0% | 27s
+141.4s 58 step   300 | recon 0.0824 | aux 0.0000 | dead  0.0% | 41s
+156.1s 59 step   400 | recon 0.0752 | aux 0.0000 | dead  0.0% | 55s
+171.5s 60 step   500 | recon 0.0746 | aux 0.0000 | dead  0.0% | 71s
+174.0s 61 >> pythia CE (sanity): medicine=2.732  law=2.511  code=2.460  literature=3.304
+188.5s 62 step   600 | recon 0.0728 | aux 0.0000 | dead  0.0% | 88s
+202.5s 63 step   700 | recon 0.0695 | aux 0.0000 | dead  0.0% | 102s
+216.5s 64 step   800 | recon 0.0691 | aux 0.0000 | dead  0.0% | 116s
+230.7s 65 step   900 | recon 0.0727 | aux 0.0000 | dead  0.0% | 130s
+245.9s 66 step  1000 | recon 0.0695 | aux 0.0695 | dead  2.3% | 145s
+248.3s 67 >> pythia CE (sanity): medicine=2.619  law=2.530  code=2.482  literature=3.276
+263.9s 68 step  1100 | recon 0.0696 | aux 0.0695 | dead  6.9% | 163s
+279.4s 69 step  1200 | recon 0.0663 | aux 0.0663 | dead  7.3% | 179s
+294.9s 70 step  1300 | recon 0.0652 | aux 0.0652 | dead  6.4% | 194s
+310.5s 71 step  1400 | recon 0.0661 | aux 0.0661 | dead  6.1% | 210s
+326.0s 72 step  1500 | recon 0.0674 | aux 0.0674 | dead  5.4% | 225s
+328.4s 73 >> pythia CE (sanity): medicine=2.686  law=2.500  code=2.350  literature=3.304
+343.9s 74 step  1600 | recon 0.0652 | aux 0.0652 | dead  5.7% | 243s
+359.5s 75 step  1700 | recon 0.0656 | aux 0.0656 | dead  5.1% | 259s
+375.1s 76 step  1800 | recon 0.0639 | aux 0.0639 | dead  5.6% | 274s
+390.6s 77 step  1900 | recon 0.0644 | aux 0.0644 | dead  5.8% | 290s
+406.2s 78 step  2000 | recon 0.0633 | aux 0.0633 | dead  6.6% | 305s
+408.6s 79 >> pythia CE (sanity): medicine=2.666  law=2.509  code=2.529  literature=3.269
+424.2s 80 step  2100 | recon 0.0627 | aux 0.0627 | dead  5.8% | 323s
+439.8s 81 step  2200 | recon 0.0627 | aux 0.0627 | dead  5.8% | 339s
+455.4s 82 step  2300 | recon 0.0653 | aux 0.0653 | dead  4.6% | 355s
+471.0s 83 step  2400 | recon 0.0635 | aux 0.0635 | dead  5.3% | 370s
+486.6s 84 step  2500 | recon 0.0634 | aux 0.0633 | dead  4.6% | 386s
+489.0s 85 >> pythia CE (sanity): medicine=2.707  law=2.547  code=2.385  literature=3.247
+504.6s 86 step  2600 | recon 0.0606 | aux 0.0605 | dead  4.7% | 404s
+520.2s 87 step  2700 | recon 0.0647 | aux 0.0646 | dead  4.4% | 419s
+535.8s 88 step  2800 | recon 0.0600 | aux 0.0598 | dead  6.1% | 435s
+551.4s 89 step  2900 | recon 0.0601 | aux 0.0600 | dead  4.8% | 451s
+567.0s 90 step  3000 | recon 0.0608 | aux 0.0606 | dead  5.1% | 466s
+569.2s 91 >> pythia CE (sanity): medicine=2.696  law=2.505  code=2.384  literature=3.277
+569.2s 92 
+569.2s 93 training done in 7.8 minutes
+569.2s 94 saved registry state_dict to /kaggle/working/exp3_model.pt (6,296,320 params)
+569.3s 95 token id range check: max_token_id=50276  tokenizer.vocab_size=50254  len(tokenizer)=50277
+593.7s 96 ================================================================
+593.7s 97 registry slots           raw dims
+593.7s 98 ----------------------------------------------------------------
+593.7s 99 live units                   2377/4096           768/768
+593.7s 100 mean purity                         0.692              0.404
+593.7s 101 median purity                       0.710              0.387
+593.7s 102 purity > 0.80                      40.5%              0.0%
+593.7s 103 purity > 0.95                      14.4%              0.0%
+593.7s 104 ================================================================
+617.4s 105 
+617.4s 106 pythia own next-token CE on held-out data (final sanity check):
+617.4s 107 medicine     = 2.675
+617.4s 108 law          = 2.533
+617.4s 109 code         = 2.341
+617.4s 110 literature   = 3.253
+617.4s 111 mean         = 2.701
+617.4s 112 
+617.4s 113 mean-purity gap (registry slots vs raw dims): +0.288
+617.4s 114 
+617.4s 115 ✅ pass -- exp0's specialization finding replicates on real Pythia activations; the registry is clearly purer than the raw Pythia hidden dimensions at matched sparsity.
+617.4s 116 next step: next: try a slightly larger pretrained model (pythia-410m) to see if the gap widens with richer activations, or move to a downstream intervention experiment (e.g. slot-conditioned generation steering).
+618.4s 117 saved /kaggle/working/exp3_results.png
+618.5s 118 
+618.5s 119 ============================================================
+618.5s 120 ### medicine slots (top 6)
+618.5s 121 ============================================================
+618.5s 122 slot 1719 | purity 0.81 | fires 122,544 | . .  of .  the . , . \n .  and . - .  ( .  in . )
+618.5s 123 slot 3674 | purity 0.98 | fires  35,767 |  of . . .  in .  the .  with . - . , .  at .  and .  was
+618.5s 124 slot 3019 | purity 0.99 | fires  34,955 | , .  was .  in .  and .  the . . .  with .  a .  were .  significantly
+618.5s 125 slot 3070 | purity 0.83 | fires  30,389 |  ( . , .  in . ) .  and .  was .  to . - .  the .  a
+618.5s 126 slot  612 | purity 0.99 | fires  28,380 | - . 1 .  of . , . 2 .  ( .  and . ) . 3 . A
+618.5s 127 slot  414 | purity 0.91 | fires  27,930 |  and .  of . - . ) .  ( .  levels . , . / . 2 . 1
+618.5s 128 
+618.5s 129 ============================================================
+618.5s 130 ### law slots (top 6)
+618.5s 131 ============================================================
+618.5s 132 slot  127 | purity 0.97 | fires  92,241 |  the .  of .  to .  a .  in .  for . , .  or .  such .  that
+618.5s 133 slot 1529 | purity 0.97 | fires  41,829 |  the .  to .  shall .  of . ) .  and . , .  a . . .  for
+618.5s 134 slot  428 | purity 0.92 | fires  33,908 |  the .  of .  to . , .  and .  in . ) . . .  for .  that
+618.5s 135 slot 2143 | purity 0.97 | fires  31,480 |  the . ) .  of .  any . . . , .  a . ( .  to .  shall
+618.5s 136 slot 3348 | purity 0.78 | fires  30,388 |  of .  the .  for .  to . , .  in .  amount .  pay .  and .  a
+618.5s 137 slot 3554 | purity 0.87 | fires  26,372 |  the .  of .  in .  to .  by . , .  a .  and .  for . )
+618.5s 138 
+618.5s 139 ============================================================
+618.5s 140 ### code slots (top 6)
+618.5s 141 ============================================================
+618.5s 142 slot 2769 | purity 0.99 | fires  38,462 | . . , . _ . ( . y .          .  = . self . x .  '
+618.5s 143 slot 2481 | purity 0.88 | fires  35,574 | . . ( . , .  = .          . ) .      . \n . self . if
+618.5s 144 slot 1820 | purity 0.93 | fires  28,664 | \n . ) . . . , .          .      . return . ( . \n\n . ()
+618.5s 145 slot  507 | purity 0.93 | fires  27,232 | area .  service . my . project .  series . x .  math . data . num . logging
+618.5s 146 slot 1179 | purity 0.99 | fires  26,980 | . . \n .          . ( . self .  = .      .              . if . ,
+618.5s 147 slot 2485 | purity 0.95 | fires  25,536 | . .  np . ( .  = . _ . np . 0 .  math . , . ]
+618.5s 148 
+618.5s 149 ============================================================
+618.5s 150 ### literature slots (top 6)
+618.5s 151 ============================================================
+618.5s 152 slot 3406 | purity 0.98 | fires  86,101 | , . \n .  I .  to .  the . . . -- .  you .  a .  that
+618.5s 153 slot 3117 | purity 1.00 | fires  57,172 | \n . , . . .  he .  and .  she .  the .  said .  her .  a
+618.5s 154 slot 2879 | purity 0.97 | fires  50,335 |  the . , .  of .  to .  and . \n .  a . . .  was .  in
+618.5s 155 slot 3652 | purity 0.95 | fires  45,097 |  he . . .  to . , .  his . \n .  and .  was .  had .  said
+618.5s 156 slot 3877 | purity 0.93 | fires  43,295 | , . . .  and . \n .  he .  the .  to .  him . -- .  a
+618.5s 157 slot 3127 | purity 0.94 | fires  30,546 | , .  the .  I .  and . . .  to .  of .  a .  is .  be
+618.5s 158 {
+618.5s 159 "verdict": "✅ pass -- exp0's specialization finding replicates on real Pythia activations; the registry is clearly purer than the raw Pythia hidden dimensions at matched sparsity.",
+618.5s 160 "slots": {
+618.5s 161 "mean": 0.6917835474014282,
+618.5s 162 "median": 0.7099447250366211,
+618.5s 163 "live": 2377,
+618.5s 164 "above_80": 0.40471184253692627,
+618.5s 165 "above_95": 0.14387884736061096
+618.5s 166 },
+618.5s 167 "raw_dims": {
+618.5s 168 "mean": 0.4041672646999359,
+618.5s 169 "median": 0.38665446639060974,
+618.5s 170 "live": 768,
+618.5s 171 "above_80": 0.0,
+618.5s 172 "above_95": 0.0
+618.5s 173 },
+618.5s 174 "gap": 0.2876162827014923,
+618.5s 175 "final_dead_frac": 0.05126953125,
+618.5s 176 "final_recon_loss": 0.06078188493847847,
+618.5s 177 "final_aux_loss": 0.0605924017727375,
+618.5s 178 "pythia_next_token_ce": {
+618.5s 179 "mean": 2.7005313843488694,
+618.5s 180 "medicine": 2.675353133678436,
+618.5s 181 "law": 2.533050759633382,
+618.5s 182 "code": 2.3406665643056233,
+618.5s 183 "literature": 3.2530550797780355
+618.5s 184 },
+618.5s 185 "config": {
+618.5s 186 "pythia_name": "EleutherAI/pythia-160m",
+618.5s 187 "extract_layer": 6,
+618.5s 188 "hidden_size": 768,
+618.5s 189 "n_slots": 4096,
+618.5s 190 "k": 16,
+618.5s 191 "k_aux": 32,
+618.5s 192 "dead_after": 800,
+618.5s 193 "tokens_per_domain": 3000000,
+618.5s 194 "ctx": 256,
+618.5s 195 "batch_size": 24,
+618.5s 196 "steps": 3000,
+618.5s 197 "lr_registry": 0.003,
+618.5s 198 "warmup": 200,
+618.5s 199 "grad_clip": 1.0,
+618.5s 200 "lambda_recon": 1.0,
+618.5s 201 "lambda_auxk": 0.03,
+618.5s 202 "eval_every": 500,
+618.5s 203 "eval_batches": 40,
+618.5s 204 "eval_loss_batches": 4
+618.5s 205 }
+618.5s 206 }
+618.5s 207 
+618.5s 208 saved /kaggle/working/exp3_summary.json
+624.4s 209 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+624.4s 210 cells[i][c] = re.sub('\\\\\|', '|', cell)
+624.6s 211 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+624.6s 212 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+625.2s 213 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+625.6s 214 [NbConvertApp] Writing 265101 bytes to __notebook__.ipynb
+627.9s 215 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+628.8s 216 [NbConvertApp] Support files will be in __results___files/
+628.8s 217 [NbConvertApp] Making directory __results___files
+628.8s 218 [NbConvertApp] Writing 535479 bytes to __results__.html

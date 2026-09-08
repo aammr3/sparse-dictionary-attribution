@@ -1,0 +1,365 @@
+10.0s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+10.0s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+10.0s 3 0.00s - to python to disable frozen modules.
+10.0s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+10.9s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+10.9s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+10.9s 7 0.00s - to python to disable frozen modules.
+10.9s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+18.3s 9 device: cuda
+18.3s 10 gpu: Tesla T4
+18.3s 11 {
+18.3s 12 "vocab_size": 8192,
+18.3s 13 "ctx": 256,
+18.3s 14 "d_model": 256,
+18.3s 15 "n_layers": 6,
+18.3s 16 "n_heads": 4,
+18.3s 17 "dropout": 0.0,
+18.3s 18 "registry_layer": 3,
+18.3s 19 "n_slots": 4096,
+18.3s 20 "k": 16,
+18.3s 21 "reserved_per_domain": 256,
+18.3s 22 "lambda_supervision": 0.2,
+18.3s 23 "supervision_anneal_end": 1000,
+18.3s 24 "tokens_per_domain": 15000000,
+18.3s 25 "tokenizer_docs": 20000,
+18.3s 26 "batch_size": 48,
+18.3s 27 "steps": 6000,
+18.3s 28 "lr": 0.0006,
+18.3s 29 "lr_registry": 0.003,
+18.3s 30 "warmup": 200,
+18.3s 31 "grad_clip": 1.0,
+18.3s 32 "alpha_start_step": 1500,
+18.3s 33 "alpha_full_step": 4000,
+18.3s 34 "lambda_recon": 1.0,
+18.3s 35 "lambda_auxk": 0.03,
+18.3s 36 "k_aux": 32,
+18.3s 37 "dead_after": 800,
+18.3s 38 "eval_every": 500,
+18.3s 39 "eval_batches": 40,
+18.3s 40 "eval_loss_batches": 10
+18.3s 41 }
+23.1s 42 training tokenizer on a mix of all 4 domains...
+23.1s 43 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+23.1s 44 
+23.1s 45 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+46.1s 46 Repo card metadata block was not found. Setting CardData to empty.
+46.1s 47 
+46.1s 48 Repo card metadata block was not found. Setting CardData to empty.
+541.9s 49 
+542.1s 50 
+544.9s 51 
+545.2s 52 
+559.5s 53 
+559.7s 54 
+560.1s 55 done in 537s — vocab=8192
+630.9s 56 medicine: 15,000,000 tokens in 71s
+711.3s 57 law: 15,000,000 tokens in 80s
+711.6s 58 Repo card metadata block was not found. Setting CardData to empty.
+711.6s 59 
+711.6s 60 Repo card metadata block was not found. Setting CardData to empty.
+769.2s 61 code: 15,000,000 tokens in 58s
+828.7s 62 literature: 15,000,000 tokens in 60s
+828.7s 63 medicine: train=14,700,000  eval=300,000
+828.7s 64 law: train=14,700,000  eval=300,000
+828.7s 65 code: train=14,700,000  eval=300,000
+828.7s 66 literature: train=14,700,000  eval=300,000
+829.5s 67 model params     : 6.90M
+829.5s 68 registry params  : 2.10M
+839.3s 69 step     1 | alpha 0.00 | lm 9.051 | recon 0.0963 | sup 77.763 | sup_w 0.200 | dead  0.0% | res_live 100.0% | free_live 100.0% | 1s
+849.6s 70 step   100 | alpha 0.00 | lm 7.167 | recon 0.1335 | sup 95.497 | sup_w 0.180 | dead  0.0% | res_live 100.0% | free_live 100.0% | 12s
+859.8s 71 step   200 | alpha 0.00 | lm 6.979 | recon 0.2830 | sup 0.000 | sup_w 0.160 | dead  0.0% | res_live 100.0% | free_live 100.0% | 22s
+870.3s 72 step   300 | alpha 0.00 | lm 6.452 | recon 0.1526 | sup 17.581 | sup_w 0.140 | dead  0.0% | res_live 100.0% | free_live 100.0% | 32s
+880.8s 73 step   400 | alpha 0.00 | lm 6.027 | recon 0.1539 | sup 23.603 | sup_w 0.120 | dead  0.0% | res_live 100.0% | free_live 100.0% | 43s
+891.5s 74 step   500 | alpha 0.00 | lm 5.791 | recon 0.0956 | sup 6.348 | sup_w 0.100 | dead  0.0% | res_live 100.0% | free_live 100.0% | 54s
+893.2s 75 >> eval: medicine=5.810  law=5.361  code=5.634  literature=6.327
+904.1s 76 step   600 | alpha 0.00 | lm 5.636 | recon 0.0973 | sup 0.000 | sup_w 0.080 | dead  0.0% | res_live 100.0% | free_live 100.0% | 66s
+915.1s 77 step   700 | alpha 0.00 | lm 5.386 | recon 0.1342 | sup 0.000 | sup_w 0.060 | dead  0.0% | res_live 100.0% | free_live 100.0% | 77s
+926.3s 78 step   800 | alpha 0.00 | lm 5.256 | recon 0.0743 | sup 0.000 | sup_w 0.040 | dead  0.0% | res_live 100.0% | free_live 100.0% | 88s
+937.7s 79 step   900 | alpha 0.00 | lm 5.015 | recon 0.0765 | sup 0.000 | sup_w 0.020 | dead  0.0% | res_live 100.0% | free_live 100.0% | 100s
+949.4s 80 step  1000 | alpha 0.00 | lm 4.896 | recon 0.0579 | sup 0.000 | sup_w 0.000 | dead  0.0% | res_live 100.0% | free_live 100.0% | 111s
+951.2s 81 >> eval: medicine=4.902  law=4.321  code=4.764  literature=5.664
+964.2s 82 step  1100 | alpha 0.00 | lm 4.548 | recon 0.0574 | sup 0.000 | sup_w 0.000 | dead  0.1% | res_live 99.9% | free_live 99.8% | 126s
+978.9s 83 step  1200 | alpha 0.00 | lm 4.575 | recon 0.0508 | sup 0.000 | sup_w 0.000 | dead  0.4% | res_live 99.7% | free_live 99.6% | 141s
+993.2s 84 step  1300 | alpha 0.00 | lm 4.449 | recon 0.0518 | sup 0.740 | sup_w 0.000 | dead  0.5% | res_live 99.6% | free_live 99.5% | 155s
+1007.4s 85 step  1400 | alpha 0.00 | lm 4.316 | recon 0.0496 | sup 0.149 | sup_w 0.000 | dead  0.6% | res_live 99.4% | free_live 99.4% | 169s
+1021.6s 86 step  1500 | alpha 0.00 | lm 4.322 | recon 0.0502 | sup 4.940 | sup_w 0.000 | dead  0.7% | res_live 99.3% | free_live 99.3% | 184s
+1023.5s 87 >> eval: medicine=4.311  law=3.607  code=4.188  literature=5.287
+1037.9s 88 step  1600 | alpha 0.04 | lm 4.074 | recon 0.0504 | sup 12.688 | sup_w 0.000 | dead  0.7% | res_live 98.9% | free_live 99.4% | 200s
+1052.3s 89 step  1700 | alpha 0.08 | lm 4.219 | recon 0.0537 | sup 6.118 | sup_w 0.000 | dead  1.0% | res_live 98.5% | free_live 99.2% | 214s
+1066.6s 90 step  1800 | alpha 0.12 | lm 4.014 | recon 0.0543 | sup 5.247 | sup_w 0.000 | dead  0.9% | res_live 98.9% | free_live 99.2% | 229s
+1081.0s 91 step  1900 | alpha 0.16 | lm 4.010 | recon 0.0599 | sup 4.893 | sup_w 0.000 | dead  0.8% | res_live 99.1% | free_live 99.2% | 243s
+1095.3s 92 step  2000 | alpha 0.20 | lm 3.940 | recon 0.0619 | sup 4.057 | sup_w 0.000 | dead  0.9% | res_live 99.1% | free_live 99.1% | 257s
+1097.1s 93 >> eval: medicine=4.018  law=3.402  code=3.908  literature=5.036
+1111.3s 94 step  2100 | alpha 0.24 | lm 3.888 | recon 0.0653 | sup 10.029 | sup_w 0.000 | dead  1.2% | res_live 98.9% | free_live 98.7% | 273s
+1125.7s 95 step  2200 | alpha 0.28 | lm 3.970 | recon 0.0689 | sup 15.337 | sup_w 0.000 | dead  1.3% | res_live 98.8% | free_live 98.7% | 288s
+1140.0s 96 step  2300 | alpha 0.32 | lm 3.986 | recon 0.0723 | sup 2.961 | sup_w 0.000 | dead  1.0% | res_live 99.2% | free_live 98.9% | 302s
+1154.3s 97 step  2400 | alpha 0.36 | lm 3.654 | recon 0.0779 | sup 10.304 | sup_w 0.000 | dead  1.0% | res_live 99.1% | free_live 99.0% | 316s
+1168.7s 98 step  2500 | alpha 0.40 | lm 3.604 | recon 0.0836 | sup 2.028 | sup_w 0.000 | dead  1.0% | res_live 99.1% | free_live 99.0% | 331s
+1170.5s 99 >> eval: medicine=3.744  law=3.160  code=3.672  literature=4.921
+1184.9s 100 step  2600 | alpha 0.44 | lm 3.677 | recon 0.0922 | sup 12.216 | sup_w 0.000 | dead  1.7% | res_live 98.5% | free_live 98.2% | 347s
+1199.3s 101 step  2700 | alpha 0.48 | lm 3.714 | recon 0.0989 | sup 6.366 | sup_w 0.000 | dead  1.4% | res_live 99.1% | free_live 98.4% | 361s
+1213.7s 102 step  2800 | alpha 0.52 | lm 3.568 | recon 0.1074 | sup 12.729 | sup_w 0.000 | dead  2.1% | res_live 98.4% | free_live 97.8% | 376s
+1228.1s 103 step  2900 | alpha 0.56 | lm 3.630 | recon 0.1130 | sup 6.564 | sup_w 0.000 | dead  2.7% | res_live 97.5% | free_live 97.2% | 390s
+1242.5s 104 step  3000 | alpha 0.60 | lm 3.445 | recon 0.1282 | sup 19.426 | sup_w 0.000 | dead  3.5% | res_live 97.0% | free_live 96.3% | 405s
+1244.3s 105 >> eval: medicine=3.558  law=3.095  code=3.418  literature=4.745
+1258.7s 106 step  3100 | alpha 0.64 | lm 3.526 | recon 0.1410 | sup 10.338 | sup_w 0.000 | dead  4.3% | res_live 95.5% | free_live 95.7% | 421s
+1273.1s 107 step  3200 | alpha 0.68 | lm 3.609 | recon 0.1565 | sup 22.912 | sup_w 0.000 | dead  5.4% | res_live 93.9% | free_live 94.8% | 435s
+1287.5s 108 step  3300 | alpha 0.72 | lm 3.398 | recon 0.1774 | sup 22.093 | sup_w 0.000 | dead  6.3% | res_live 93.3% | free_live 93.9% | 450s
+1301.8s 109 step  3400 | alpha 0.76 | lm 3.550 | recon 0.2018 | sup 9.559 | sup_w 0.000 | dead  7.5% | res_live 93.0% | free_live 92.4% | 464s
+1316.2s 110 step  3500 | alpha 0.80 | lm 3.484 | recon 0.2200 | sup 8.681 | sup_w 0.000 | dead  8.3% | res_live 91.6% | free_live 91.7% | 478s
+1318.0s 111 >> eval: medicine=3.502  law=3.016  code=3.218  literature=4.689
+1332.4s 112 step  3600 | alpha 0.84 | lm 3.472 | recon 0.2440 | sup 16.365 | sup_w 0.000 | dead  8.6% | res_live 92.7% | free_live 90.9% | 495s
+1346.8s 113 step  3700 | alpha 0.88 | lm 3.382 | recon 0.2616 | sup 51.614 | sup_w 0.000 | dead  9.6% | res_live 90.8% | free_live 90.3% | 509s
+1361.2s 114 step  3800 | alpha 0.92 | lm 3.523 | recon 0.2874 | sup 16.174 | sup_w 0.000 | dead 10.9% | res_live 90.1% | free_live 88.8% | 523s
+1375.6s 115 step  3900 | alpha 0.96 | lm 3.439 | recon 0.2877 | sup 11.105 | sup_w 0.000 | dead 11.6% | res_live 89.0% | free_live 88.2% | 538s
+1390.0s 116 step  4000 | alpha 1.00 | lm 3.224 | recon 0.2716 | sup 29.781 | sup_w 0.000 | dead 12.2% | res_live 88.5% | free_live 87.6% | 552s
+1391.9s 117 >> eval: medicine=3.397  law=3.015  code=3.146  literature=4.657
+1406.3s 118 step  4100 | alpha 1.00 | lm 3.619 | recon 0.2683 | sup 64.644 | sup_w 0.000 | dead 14.1% | res_live 86.2% | free_live 85.8% | 568s
+1420.7s 119 step  4200 | alpha 1.00 | lm 3.340 | recon 0.2549 | sup 32.903 | sup_w 0.000 | dead 15.8% | res_live 84.3% | free_live 84.2% | 583s
+1435.1s 120 step  4300 | alpha 1.00 | lm 3.330 | recon 0.2505 | sup 8.817 | sup_w 0.000 | dead 16.9% | res_live 83.8% | free_live 82.9% | 597s
+1449.4s 121 step  4400 | alpha 1.00 | lm 3.366 | recon 0.2486 | sup 15.261 | sup_w 0.000 | dead 18.7% | res_live 81.4% | free_live 81.3% | 612s
+1463.9s 122 step  4500 | alpha 1.00 | lm 3.406 | recon 0.2427 | sup 23.813 | sup_w 0.000 | dead 19.6% | res_live 81.2% | free_live 80.1% | 626s
+1465.7s 123 >> eval: medicine=3.383  law=2.960  code=3.122  literature=4.684
+1480.1s 124 step  4600 | alpha 1.00 | lm 3.388 | recon 0.2410 | sup 29.820 | sup_w 0.000 | dead 19.9% | res_live 79.7% | free_live 80.2% | 642s
+1494.5s 125 step  4700 | alpha 1.00 | lm 3.260 | recon 0.2459 | sup 18.522 | sup_w 0.000 | dead 20.2% | res_live 80.4% | free_live 79.6% | 657s
+1508.8s 126 step  4800 | alpha 1.00 | lm 3.449 | recon 0.2437 | sup 31.393 | sup_w 0.000 | dead 20.6% | res_live 80.1% | free_live 79.2% | 671s
+1523.2s 127 step  4900 | alpha 1.00 | lm 3.301 | recon 0.2409 | sup 43.139 | sup_w 0.000 | dead 19.6% | res_live 81.2% | free_live 80.1% | 685s
+1537.6s 128 step  5000 | alpha 1.00 | lm 3.345 | recon 0.2395 | sup 50.151 | sup_w 0.000 | dead 20.2% | res_live 80.6% | free_live 79.6% | 700s
+1539.4s 129 >> eval: medicine=3.323  law=2.855  code=3.015  literature=4.583
+1553.8s 130 step  5100 | alpha 1.00 | lm 3.210 | recon 0.2398 | sup 36.686 | sup_w 0.000 | dead 20.3% | res_live 80.2% | free_live 79.6% | 716s
+1568.2s 131 step  5200 | alpha 1.00 | lm 3.213 | recon 0.2391 | sup 18.756 | sup_w 0.000 | dead 19.7% | res_live 80.9% | free_live 80.1% | 730s
+1582.6s 132 step  5300 | alpha 1.00 | lm 3.328 | recon 0.2378 | sup 12.669 | sup_w 0.000 | dead 20.3% | res_live 80.6% | free_live 79.5% | 745s
+1597.0s 133 step  5400 | alpha 1.00 | lm 3.205 | recon 0.2349 | sup 18.866 | sup_w 0.000 | dead 20.2% | res_live 79.8% | free_live 79.8% | 759s
+1611.3s 134 step  5500 | alpha 1.00 | lm 3.131 | recon 0.2443 | sup 41.143 | sup_w 0.000 | dead 20.2% | res_live 80.3% | free_live 79.6% | 773s
+1613.2s 135 >> eval: medicine=3.263  law=2.842  code=2.951  literature=4.471
+1627.5s 136 step  5600 | alpha 1.00 | lm 3.276 | recon 0.2438 | sup 21.854 | sup_w 0.000 | dead 20.2% | res_live 80.7% | free_live 79.5% | 790s
+1642.0s 137 step  5700 | alpha 1.00 | lm 3.257 | recon 0.2425 | sup 26.951 | sup_w 0.000 | dead 19.8% | res_live 80.8% | free_live 80.0% | 804s
+1656.3s 138 step  5800 | alpha 1.00 | lm 3.211 | recon 0.2387 | sup 20.759 | sup_w 0.000 | dead 19.9% | res_live 80.5% | free_live 80.0% | 818s
+1670.7s 139 step  5900 | alpha 1.00 | lm 3.285 | recon 0.2480 | sup 51.520 | sup_w 0.000 | dead 19.6% | res_live 80.7% | free_live 80.3% | 833s
+1685.1s 140 step  6000 | alpha 1.00 | lm 3.074 | recon 0.2419 | sup 28.990 | sup_w 0.000 | dead 19.6% | res_live 81.0% | free_live 80.2% | 847s
+1686.8s 141 >> eval: medicine=3.234  law=2.849  code=2.986  literature=4.438
+1686.8s 142 
+1686.8s 143 training done in 14.2 minutes
+1699.9s 144 ========================================================================
+1699.9s 145 reserved         free        whole     raw dims
+1699.9s 146 ------------------------------------------------------------------------
+1699.9s 147 slot range                   [0:1024]  [1024:4096]     [0:4096]  d_model=256
+1699.9s 148 live units                        168          543          711          256
+1699.9s 149 mean purity                     0.609        0.582        0.588        0.377
+1699.9s 150 median purity                   0.578        0.556        0.560        0.355
+1699.9s 151 purity > 0.80                  25.0%       19.2%       20.5%        0.4%
+1699.9s 152 purity > 0.95                   4.2%        4.8%        4.6%        0.0%
+1699.9s 153 ========================================================================
+1699.9s 154 gap vs raw dims        : reserved +0.232  free +0.205  whole +0.211
+1706.5s 155 
+1706.5s 156 reserved-block classification accuracy (eval): 73.9%
+1706.5s 157 pred_dist: medicine=1575  law=2037  code=1708  literature=2360   (total=7680, balanced=1920)
+1706.6s 158 
+1706.6s 159 ========== RESERVED BLOCK [0:1024] — top slots per domain ==========
+1706.6s 160 
+1706.6s 161 --- medicine (reserved 0-255) ---
+1706.6s 162 slot  221 | purity 0.82 | fires 161,517 | al ·  the ·  in · - ·  of · ic · ial · ro · ant · ary
+1706.6s 163 slot  152 | purity 0.87 | fires  3,171 |  aim ·  were ·  was ·  study ·  purpose ·  well ·  has ·  sort ·  had ·  addition
+1706.6s 164 slot   72 | purity 0.90 | fires    629 | hib · act · ferent ·  secret · active · � ·  compet ·  exhib · like · fect
+1706.6s 165 
+1706.6s 166 --- law (reserved 256-511) ---
+1706.6s 167 slot  332 | purity 0.81 | fires 144,671 |  \n        ·  this · \n            ·  \n                ·  such ·  Act ·  subsection ·  section · \n                    ·  shall
+1706.6s 168 
+1706.6s 169 --- code (reserved 512-767) ---
+1706.6s 170 slot  565 | purity 0.95 | fires 206,144 | . · _ · ( · , ·  = · \n        · \n · \n            · = · :
+1706.6s 171 slot  605 | purity 0.73 | fires 125,160 |  the ·  to ·  of · , · - ·  ( ·  def ·  is · . ·  self
+1706.6s 172 slot  549 | purity 0.87 | fires 36,747 | \n        · \n            · \n                · \n    · \n\n        · \n                    · \n ·  return · \n                        ·  self
+1706.6s 173 slot  711 | purity 0.83 | fires 34,452 | ( · = · (' · [ · (" ·  ( ·  [ · )( · [' ·  {
+1706.6s 174 slot  755 | purity 0.76 | fires 15,969 |  self · self · args · els ·  None ·  os · None · ils ·  0 ·  sit
+1706.6s 175 
+1706.6s 176 --- literature (reserved 768-1023) ---
+1706.6s 177 slot  822 | purity 0.86 | fires 91,104 |  and · , ·  it ·  he ·  have ·  I ·  has ·  had ·  they ·  who
+1706.6s 178 slot  802 | purity 0.82 | fires  3,048 | , · \n · ., ·  without ·   ·  and ·  is · . ·  \n        ·  was
+1706.6s 179 slot  987 | purity 0.72 | fires    657 |  provided ·  forth ·  included ·  described ·  with ·  associated · IC ·  refund ·  paid ·  comply
+1706.6s 180 
+1706.6s 181 ========== FREE REGION [1024:4096] — top slots per domain ==========
+1706.6s 182 
+1706.6s 183 --- medicine (free region) ---
+1706.6s 184 slot 3205 | purity 0.81 | fires 285,117 | . · , ·  and ·  the ·  of ·  in ·  ( · - ·  with ·  to
+1706.6s 185 slot 1892 | purity 0.89 | fires 82,761 | , ·  and ·  ( · ) ·  were · . ·  was ·  of · ), ·  or
+1706.6s 186 slot 2769 | purity 0.81 | fires 78,999 | - ·  p · P · p ·  m · i ·  D ·  P · in · N
+1706.6s 187 slot 2172 | purity 0.76 | fires 68,017 |  patients ·  with · s ·  who ·  were ·  and ·  group ·  men ·  cell · ,
+1706.6s 188 slot 1927 | purity 0.81 | fires 10,191 | iv · asc · ard · ari · ict · ate · ival · le ·  line · ular
+1706.6s 189 
+1706.6s 190 --- law (free region) ---
+1706.6s 191 slot 1936 | purity 0.93 | fires 475,951 |  the ·  of · , · ) ·  and ·  to ·  ( ·  in · . ·  a
+1706.6s 192 slot 1215 | purity 0.92 | fires 189,197 |  of ·  the ·   · \n · ) · , · . ·  ( · .-- ·  to
+1706.6s 193 slot 2567 | purity 0.85 | fires 106,241 |  the ·  \n                · ) ·  of · , ·  \n                        ·  and ·  ( · \n                    ·  to
+1706.6s 194 slot 1139 | purity 0.73 | fires 74,841 |  to ·  shall ·  may ·  of · , · ant ·  will ·  under ·  \n        ·  Secretary
+1706.7s 195 slot 2284 | purity 0.89 | fires 64,405 | . · .-- · ) ·  by ·  section · '' ·  shall · \n            ·  amended ·  the
+1706.7s 196 
+1706.7s 197 --- code (free region) ---
+1706.7s 198 slot 2328 | purity 0.91 | fires 230,344 | m · c · s · d · f · p · t · b · x · l
+1706.7s 199 slot 2661 | purity 0.78 | fires 155,201 | . · , · _ · ( · al · \n        · x ·  of · [ ·  =
+1706.7s 200 slot 3431 | purity 0.85 | fires 128,201 | id · ate · get · date · ode · put · et · ken · s · age
+1706.7s 201 slot 4045 | purity 0.73 | fires 75,764 |  ' · ', · _ · ' · . ·  " · ", · , · ( · \n
+1706.7s 202 slot 3239 | purity 0.83 | fires 70,333 | name · () · file · ame · ode · id · ist · object · ] · path
+1706.7s 203 
+1706.7s 204 --- literature (free region) ---
+1706.7s 205 slot 1136 | purity 0.76 | fires 213,671 | , ·  the · . ·  of ·  to ·  and ·  a · ! ·  is · \n
+1706.7s 206 slot 2420 | purity 0.88 | fires 210,099 |  of ·  the ·  to · , ·  and ·  in · . ·  a ·  with ·  that
+1706.7s 207 slot 3679 | purity 0.92 | fires 152,630 |  the · \n ·  to · . ·  a · , ·  of ·  I ·  you ·  and
+1706.7s 208 slot 2805 | purity 0.89 | fires 136,144 | - · s · in · o ·  G · f · m ·  H ·  p · p
+1706.7s 209 slot 3477 | purity 0.88 | fires 101,622 | , ·  that · ing ·  time · ed · ers · ly · ness · s · ies
+1707.0s 210 Per-domain distinctive-vocab sizes:
+1707.0s 211 medicine  (150 tokens)  sample: ['�', ' patients', '·', '\xa0', ' tum', ' acid', ' compared', ' �', ' examined', ' cell', ' ox', ' expression']
+1707.0s 212 law  (150 tokens)  sample: [' subparagraph', ' subsection', ' ``(', ' amended', ' \n                       ', ' \n                               ', ' \n       ', ' inserting', ' Secretary', ' \n               ', "''.", ' Commission']
+1707.0s 213 code  (150 tokens)  sample: ['()', "('", '\t', ' """', "['", '\r', "='", 'args', '\n\t\t', ' ==', '\n\t', 'assertE']
+1707.0s 214 literature  (150 tokens)  sample: [' Gutenberg', ' thou', '.”', ' Mrs', ',”', 'Gutenberg', '?”', '!”', ' Pvt', ' cried', ' exclaimed', ' Madame']
+1707.2s 215 ==============================================================================
+1707.2s 216 BOOST sweep  (neutral prompt = [EOT], n_gen=200, strengths=[0,5,10,20,40])
+1707.2s 217 ==============================================================================
+1707.2s 218 domain  strength    hit%    rep%   ent(nats)   n_tok  note
+1707.2s 219 ------------------------------------------------------------------------------
+1708.7s 220 medicine         0    0.0%   89.9%       2.297     200
+1710.0s 221 medicine         5    0.0%   99.5%       5.682     200  ** fluency broken here **
+1711.4s 222 medicine        10    0.0%   99.5%       6.823     200  ** fluency broken here **
+1712.7s 223 medicine        20    0.0%   99.5%       7.464     200  ** fluency broken here **
+1714.1s 224 medicine        40    0.5%   87.9%       7.518     200  ** fluency broken here **
+1715.4s 225 law         0    0.0%   89.9%       2.297     200
+1716.8s 226 law         5    0.0%   97.0%       4.769     200  ** fluency broken here **
+1718.1s 227 law        10    0.0%   99.0%       5.248     200  ** fluency broken here **
+1719.5s 228 law        20    0.0%   99.0%       6.132     200  ** fluency broken here **
+1720.8s 229 law        40    0.0%   99.0%       6.662     200  ** fluency broken here **
+1722.2s 230 code         0    0.0%   89.9%       2.297     200
+1723.5s 231 code         5    0.0%   87.9%       6.325     200  ** fluency broken here **
+1724.8s 232 code        10    0.0%   97.0%       7.461     200  ** fluency broken here **
+1726.2s 233 code        20    0.0%   97.5%       7.699     200  ** fluency broken here **
+1727.5s 234 code        40    0.0%   91.0%       7.828     200  ** fluency broken here **
+1728.8s 235 literature         0    0.0%   89.9%       2.297     200
+1730.2s 236 literature         5    0.0%   98.5%       5.653     200  ** fluency broken here **
+1731.5s 237 literature        10    0.0%   99.5%       5.879     200  ** fluency broken here **
+1732.9s 238 literature        20    0.0%   98.5%       6.780     200  ** fluency broken here **
+1734.0s 239 literature        40    0.0%   97.5%       7.133     200  ** fluency broken here **
+1734.0s 240 ------------------------------------------------------------------------------
+1734.0s 241 (any row tagged ** fluency broken here ** has repetition_rate > 0.5 or avg_entropy < 1.0; the first such strength per domain is the auto-flagged collapse point.)
+1734.2s 242 ==============================================================================
+1734.2s 243 SUPPRESS sweep  (50-token prefix from own eval corpus, n_gen=200, strengths=[0,5,10,20,10000])
+1734.2s 244 ==============================================================================
+1734.2s 245 domain  strength    hit%    rep%   ent(nats)   n_tok  note
+1734.2s 246 ------------------------------------------------------------------------------
+1735.6s 247 medicine         0    2.0%   91.0%       2.286     200
+1737.0s 248 medicine         5    1.5%   93.0%       1.912     200  ** fluency broken here **
+1738.3s 249 medicine        10    1.5%   93.0%       1.911     200  ** fluency broken here **
+1739.6s 250 medicine        20    1.5%   93.0%       1.911     200  ** fluency broken here **
+1740.9s 251 medicine     10000    1.5%   93.0%       1.911     200  ** fluency broken here **
+1742.2s 252 law         0    9.0%   68.8%       3.485     200
+1743.6s 253 law         5   12.0%   50.3%       3.367     200  ** fluency broken here **
+1744.9s 254 law        10    7.5%   60.8%       3.860     200  ** fluency broken here **
+1746.3s 255 law        20    7.5%   60.8%       3.860     200  ** fluency broken here **
+1747.6s 256 law     10000    7.5%   60.8%       3.860     200  ** fluency broken here **
+1748.9s 257 code         0    0.0%   62.8%       3.853     200
+1750.3s 258 code         5    0.0%   92.0%       1.955     200  ** fluency broken here **
+1751.6s 259 code        10    0.0%   92.0%       1.954     200  ** fluency broken here **
+1753.0s 260 code        20    0.0%   92.0%       1.954     200  ** fluency broken here **
+1754.3s 261 code     10000    0.0%   92.0%       1.954     200  ** fluency broken here **
+1755.7s 262 literature         0    0.0%   81.9%       1.640     200
+1757.0s 263 literature         5    0.0%   91.5%       4.169     200  ** fluency broken here **
+1758.3s 264 literature        10    0.0%   91.5%       4.169     200  ** fluency broken here **
+1759.7s 265 literature        20    0.0%   91.5%       4.169     200  ** fluency broken here **
+1760.8s 266 literature     10000    0.0%   91.5%       4.169     200  ** fluency broken here **
+1760.8s 267 ------------------------------------------------------------------------------
+1760.8s 268 (suppression at strength=10000 is intentionally extreme; for some domains it will collapse fluency before hitting the requested depth, and the collapse-detector flags it on the spot.)
+1763.4s 269 ✅ both mechanisms work: supervision successfully steers reserved blocks, and unsupervised specialization still emerges in the free region.
+1763.4s 270 next step: next: try a second-pass refinement (e.g. increase reserved_per_domain, or train longer).
+1763.4s 271 ==============================================================================
+1763.4s 272 STEERING VERDICT  (per domain, BOOST and SUPPRESS)
+1763.4s 273 ==============================================================================
+1763.4s 274 medicine  BOOST  : did NOT cleanly raise hit-rate      (baseline=0.000, max_healthy=0.000, collapse at strength=5)
+1763.4s 275 medicine  SUPPRESS: did NOT cleanly lower hit-rate vs baseline  (baseline=0.020, min_healthy=0.020, collapse at strength=5)
+1763.4s 276 law  BOOST  : did NOT cleanly raise hit-rate      (baseline=0.000, max_healthy=0.000, collapse at strength=5)
+1763.4s 277 law  SUPPRESS: did NOT cleanly lower hit-rate vs baseline  (baseline=0.090, min_healthy=0.090, collapse at strength=5)
+1763.4s 278 code  BOOST  : did NOT cleanly raise hit-rate      (baseline=0.000, max_healthy=0.000, collapse at strength=5)
+1763.4s 279 code  SUPPRESS: did NOT cleanly lower hit-rate vs baseline  (baseline=0.000, min_healthy=0.000, collapse at strength=5)
+1763.4s 280 literature  BOOST  : did NOT cleanly raise hit-rate      (baseline=0.000, max_healthy=0.000, collapse at strength=5)
+1763.4s 281 literature  SUPPRESS: did NOT cleanly lower hit-rate vs baseline  (baseline=0.000, min_healthy=0.000, collapse at strength=5)
+1763.4s 282 ==============================================================================
+1763.4s 283 
+1763.4s 284 🟡 steering did not cleanly move hit-rate in either direction; reserved blocks may not have separated the domains strongly enough to support generative steering.
+1763.5s 285 {
+1763.5s 286 "verdict": "✅ both mechanisms work: supervision successfully steers reserved blocks, and unsupervised specialization still emerges in the free region.",
+1763.5s 287 "steering_verdict": "🟡 steering did not cleanly move hit-rate in either direction; reserved blocks may not have separated the domains strongly enough to support generative steering.",
+1763.5s 288 "reserved_block": {
+1763.5s 289 "classification_accuracy": 0.7388020833333333,
+1763.5s 290 "mean": 0.6088560223579407,
+1763.5s 291 "median": 0.5777202248573303,
+1763.5s 292 "live": 168,
+1763.5s 293 "above_80": 0.25,
+1763.5s 294 "gap_vs_raw": 0.23169589042663574
+1763.5s 295 },
+1763.5s 296 "free_region": {
+1763.5s 297 "mean": 0.5821740627288818,
+1763.5s 298 "median": 0.5555555820465088,
+1763.5s 299 "live": 543,
+1763.5s 300 "above_80": 0.1915285438299179,
+1763.5s 301 "gap_vs_raw": 0.2050139307975769
+1763.5s 302 },
+1763.5s 303 "whole_registry": {
+1763.5s 304 "mean": 0.5884786248207092,
+1763.5s 305 "median": 0.5597769021987915,
+1763.5s 306 "live": 711,
+1763.5s 307 "above_80": 0.20534458756446838,
+1763.5s 308 "gap_vs_raw": 0.2113184928894043
+1763.5s 309 },
+1763.5s 310 "raw_dims": {
+1763.5s 311 "mean": 0.37716013193130493,
+1763.5s 312 "median": 0.35466039180755615
+1763.5s 313 },
+1763.5s 314 "final_dead_frac": 0.19580078125,
+1763.5s 315 "final_lm_loss": 3.073505401611328,
+1763.5s 316 "final_supervision_loss": 28.99028205871582,
+1763.5s 317 "config": {
+1763.5s 318 "vocab_size": 8192,
+1763.5s 319 "ctx": 256,
+1763.5s 320 "d_model": 256,
+1763.5s 321 "n_layers": 6,
+1763.5s 322 "n_heads": 4,
+1763.5s 323 "dropout": 0.0,
+1763.5s 324 "registry_layer": 3,
+1763.5s 325 "n_slots": 4096,
+1763.5s 326 "k": 16,
+1763.5s 327 "reserved_per_domain": 256,
+1763.5s 328 "lambda_supervision": 0.2,
+1763.5s 329 "supervision_anneal_end": 1000,
+1763.5s 330 "tokens_per_domain": 15000000,
+1763.5s 331 "tokenizer_docs": 20000,
+1763.5s 332 "batch_size": 48,
+1763.5s 333 "steps": 6000,
+1763.5s 334 "lr": 0.0006,
+1763.5s 335 "lr_registry": 0.003,
+1763.5s 336 "warmup": 200,
+1763.5s 337 "grad_clip": 1.0,
+1763.5s 338 "alpha_start_step": 1500,
+1763.5s 339 "alpha_full_step": 4000,
+1763.5s 340 "lambda_recon": 1.0,
+1763.5s 341 "lambda_auxk": 0.03,
+1763.5s 342 "k_aux": 32,
+1763.5s 343 "dead_after": 800,
+1763.5s 344 "eval_every": 500,
+1763.5s 345 "eval_batches": 40,
+1763.5s 346 "eval_loss_batches": 10
+1763.5s 347 }
+1763.5s 348 }
+1763.6s 349 
+1763.6s 350 wrote /kaggle/working/exp2_steering_results.json  (boost runs: 20, suppress runs: 20)
+1763.6s 351 
+1763.6s 352 ALL EXP2 OUTPUT FILES:
+1763.6s 353 /kaggle/working/exp2_model.pt
+1763.6s 354 /kaggle/working/exp2_steering_results.json
+1763.6s 355 /kaggle/working/exp2_results.png
+1770.4s 356 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+1770.4s 357 cells[i][c] = re.sub('\\\\\|', '|', cell)
+1770.7s 358 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+1770.7s 359 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+1771.5s 360 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+1772.0s 361 [NbConvertApp] Writing 363639 bytes to __notebook__.ipynb
+1775.2s 362 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+1776.6s 363 [NbConvertApp] Support files will be in __results___files/
+1776.6s 364 [NbConvertApp] Making directory __results___files
+1776.6s 365 [NbConvertApp] Writing 662156 bytes to __results__.html
