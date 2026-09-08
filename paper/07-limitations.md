@@ -107,8 +107,11 @@ licenses the attribution claim we make.
 
 ## 7.6 A note on the research log
 
-The repository includes the project's working research log, in Arabic. It is an
-unedited development diary, written informally and in real time, not a polished
+The repository includes the project's working research log, in Arabic
+(`research-log.ar.md`), with an English translation alongside it
+(`research-log.en.md`); the Arabic file is the original and governs where the
+two differ, and the translation is provided for accessibility only. The log is
+an unedited development diary, written informally and in real time, not a polished
 document; it is included as evidence of the process described in §5, including
 the four withdrawn claims. Executor and reviewer roles in it are referred to by
 neutral labels rather than by product name, because the incidents recorded there

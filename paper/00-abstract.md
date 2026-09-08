@@ -13,8 +13,8 @@ September 2026
 **Code and data availability.** All experiment sources, generated notebooks, and
 the complete run logs for every experiment reported here (29 runs) are available
 at: <https://github.com/aammr3/sparse-dictionary-attribution>. The research log
-documenting all 81 recorded events, including the four withdrawn claims of §5, is
-included in that repository.
+documenting all 79 recorded events, including the four withdrawn claims of §5, is
+included in that repository, in the original Arabic and in English translation.
 
 ---
 
