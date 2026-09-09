@@ -1,7 +1,9 @@
 # References
 
-All entries below were verified against the arXiv abstract page for the given
-identifier: author list, exact title, and submission date.
+All arXiv entries below were verified against the arXiv abstract page for the
+given identifier: author list, exact title, and submission date. Entry [15] has
+no preprint we could locate and was verified against the ICML 2026 programme
+page instead; its reported figures are taken from the published abstract.
 
 ---
 
@@ -60,6 +62,9 @@ via Probe Prompting.* arXiv:2511.07002, 10 November 2025.
 Hallahan, E., Khan, M. A., Purohit, S., Prashanth, U. S., Raff, E., Skowron, A.,
 Sutawika, L., and van der Wal, O. *Pythia: A Suite for Analyzing Large Language
 Models Across Training and Scaling.* arXiv:2304.01373, 3 April 2023. ICML 2023.
+
+**[15]** Vicentino, C. S. *Hallucination-Induction, Not Calibration: When
+Multi-Feature SAE Steering Looks Like It Works.* ICML 2026.
 
 ---
 

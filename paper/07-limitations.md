@@ -127,4 +127,7 @@ tooling rather than to any model's behaviour.
   specificity result is smaller than reported, since the floored metric cannot
   express a control performing *worse* than chance.
 - A test of task accuracy under steering could show that the intervention we
-  characterize as control is cosmetic.
+  characterize as control is cosmetic. In the closest published setting the
+  outcome was worse than cosmetic: [15] reports accuracy degrading under
+  dictionary steering that had cleared a random-direction control of the kind
+  we use (§8.4). We have not run such a test.

@@ -111,6 +111,29 @@ We flag this specifically because it marks the boundary of our own claims: we di
 not measure accuracy under intervention (§7.2), and the existence of that prior
 result means the question is neither open nor answered by us.
 
+A more recent result runs the other way, and bears directly on our controls.
+Replicating the entity-recognition feature pattern of [4] on a 27B
+reasoning-tuned model, [15] reports a single sparse-dictionary latent reaching
+0.814 AUROC on known-versus-unknown classification, and then steers on those
+features: top-K ablation at K = 200, 0.3% of the dictionary, produces a 4–8σ
+effect against a random-K null *while making the model worse* — the
+incorrect-answer rate on known entities rises from 62% to 77% and the
+correct-answer rate falls from 8% to zero. The paper characterises what the
+intervention found as "a hallucination-induction circuit, not a calibration
+knob," and states that significance against a random-K null is "necessary but
+not sufficient evidence for a calibration mechanism."
+
+We take that as a constraint on our own strongest result rather than as a
+finding about it. The setting differs — [15] ablates 200 features on a
+reasoning-tuned 27B model, we promote 8 on a 410M base model — so its numbers
+do not transfer. What transfers is the inference: §6.6 rests on three controls
+returning zero, one of them a norm-matched random direction, and [15] is a
+worked case in which clearing exactly that control accompanied a *loss* of
+accuracy. Our controls license an attribution to specific decoder columns
+(§6.6). They do not license the further claim that steering those columns is
+useful, and on the evidence of [15] that further claim would need its own
+accuracy measurement before anyone made it.
+
 ---
 
 ## 8.5 Positioning
