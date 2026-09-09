@@ -98,6 +98,20 @@ seed-to-seed variance is *unmeasured* — see §7.3 of the paper.
 
 ---
 
+## The raw results payload
+
+The hallucination-detection experiment's full output — all 1080 runs, the
+per-span AUROC tables, the confound report and the verdicts — is attached to
+the [v1.0 release](https://github.com/aammr3/sparse-dictionary-attribution/releases/tag/v1.0)
+as `exp5c_halluc.json` (15 MB). It is not committed, because it would sit in
+the history of every clone.
+
+It is the payload behind §3.5: the entity-level reanalysis was run on it
+locally, on CPU. Read `label_counts` before the numbers — TEST 2 is degenerate
+(360 positive, zero negative) and medicine is flagged as confounded.
+
+---
+
 ## The logs
 
 `logs*.txt` (29 files, repository root) are raw and unedited, including the failed runs. They are the

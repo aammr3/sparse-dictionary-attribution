@@ -29,5 +29,7 @@ paper/PAPER.html
 .DS_Store
 Thumbs.db
 
-# Raw results payload (15MB) — available on request / as a release asset
+# Raw results payload (15MB). Not committed — it would sit in every clone's
+# history. Attached to the v1.0 release instead:
+# https://github.com/aammr3/sparse-dictionary-attribution/releases/tag/v1.0
 exp5c_halluc.json
