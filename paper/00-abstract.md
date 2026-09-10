@@ -5,6 +5,7 @@
 **Amr Elsaeed**
 Independent Researcher
 `amrelsaeed225@gmail.com`
+ORCID: [0009-0002-7538-0274](https://orcid.org/0009-0002-7538-0274)
 
 September 2026
 
