@@ -166,11 +166,14 @@ looked like in practice.
 
 ```bibtex
 @misc{elsaeed2026attributing,
-  title  = {Attributing Steering Effects to Specific Dictionary Slots},
-  author = {Elsaeed, Amr},
-  year   = {2026},
-  note   = {Preprint},
-  url    = {https://github.com/aammr3/sparse-dictionary-attribution}
+  title     = {Attributing Steering Effects to Specific Dictionary Slots},
+  author    = {Elsaeed, Amr},
+  year      = {2026},
+  publisher = {figshare},
+  doi       = {10.6084/m9.figshare.33516322},
+  url       = {https://doi.org/10.6084/m9.figshare.33516322},
+  note      = {Preprint. Code and logs:
+               https://github.com/aammr3/sparse-dictionary-attribution}
 }
 ```
 
