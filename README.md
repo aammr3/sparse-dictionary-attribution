@@ -176,6 +176,19 @@ looked like in practice.
 
 ---
 
+## License
+
+Code — the `exp*/` sources, the generated notebooks and the notebook generators:
+**MIT**, see [LICENSE](LICENSE).
+
+Everything else — the paper in `paper/`, the raw run logs `logs*.txt`, and the
+research log in both languages: **CC BY 4.0**. Reuse it with attribution.
+
+The point of publishing the logs and the log was that they could be checked;
+having no licence at all would have made checking them legally awkward.
+
+---
+
 ## Contact
 
 Amr Elsaeed — `amrelsaeed225@gmail.com`
