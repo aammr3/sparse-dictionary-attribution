@@ -24,7 +24,7 @@ assignment — each returning exactly zero.
 
 Getting to a defensible version of that result meant discarding several
 indefensible ones. So this repository also contains **29 complete run logs**,
-including the runs behind results we later withdrew, and a research log of all 81
+including the runs behind results we later withdrew, and a research log of all 79
 events — decisions, errors, and four claims an adversarial audit overturned.
 
 ---
